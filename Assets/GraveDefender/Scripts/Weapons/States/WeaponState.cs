@@ -62,8 +62,6 @@ public class ReadyWeaponState : WeaponState
     
     private void UpdateNextTimeToUse()
     {
-        Debug.Log("Delta Time: " + Time.deltaTime);
-        Debug.Log("Rate of Fire: " + (60f / _weapon.RateOfFire.ModifiedValue));
         _timeToFireNext = Time.time + (60f / _weapon.RateOfFire.ModifiedValue);
     }
     

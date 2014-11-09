@@ -16,4 +16,12 @@ public class Projectile : MonoBehaviour
     {
         transform.localPosition += Vector3.up * _speed * Time.deltaTime;
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+    }
 }
