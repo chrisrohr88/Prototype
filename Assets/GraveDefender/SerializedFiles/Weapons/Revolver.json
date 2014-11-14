@@ -1,0 +1,9 @@
+{
+	"Name": "Revolver",
+	"BaseDamage": 100,
+	"RateOfFire": 100,
+	"AttackPower": 500,
+	"ReloadTime": 2.5,
+	"AmmoType": "Fire",
+	"MaxAmmo": 6
+}

@@ -1,0 +1,9 @@
+{
+	"Name": "SubmachineGun",
+	"BaseDamage": 10,
+	"RateOfFire": 3500,
+	"AttackPower": 500,
+	"ReloadTime": 1.5,
+	"AmmoType": "Fire",
+	"MaxAmmo": 50
+}

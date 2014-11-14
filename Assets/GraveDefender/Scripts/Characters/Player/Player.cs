@@ -32,7 +32,7 @@ public class Player
 
     public void PickupWeapon()
     {
-        Weapon = Weapon.CreateDeault<BasicWeapon>();
+        Weapon = Weapon.CreateFromProfile(ProfileManager.GetWeaponProfileByName("Revolver") as WeaponProfile);
     }
 
     ~Player()

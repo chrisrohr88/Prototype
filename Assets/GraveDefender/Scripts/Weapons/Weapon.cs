@@ -1,6 +1,6 @@
 ﻿public enum AmmoType
 {
-    None
+    Fire
 }
 
 public enum WeaponType
@@ -8,7 +8,7 @@ public enum WeaponType
     Pistol
 }
 
-public abstract class Weapon
+public class Weapon
 {
     private const float MAX_DAMAGE = 50000;
     public ModifiableAttribute BaseDamage { get; protected set; }
@@ -16,7 +16,6 @@ public abstract class Weapon
     public ModifiableAttribute AttackPower { get; protected set; }
     public ModifiableAttribute ReloadTime { get; protected set; }
     public ModifiableAttribute MaxAmmo { get; protected set; }
-    public ModifiableAttribute ProjectileSpeed { get; protected set; }
     public AmmoType AmmoType { get; protected set; }
     private WeaponState _currentState;
 
@@ -26,39 +25,52 @@ public abstract class Weapon
         {
             return CalculateDamage();
         }
-    }
-
-    // TODO: Weapon factory
-    public static Weapon CreateDeault<T>() where T : Weapon, new()
-    {
-        var newWeapon = new T();
-        newWeapon._currentState = new ReadyWeaponState(newWeapon);
-        newWeapon.BaseDamage = ModifiableAttribute.Create(45);
-        newWeapon.RateOfFire = ModifiableAttribute.Create(250); // 3500 is about the max ROF (rounds per minute) for 30fps
-        newWeapon.AttackPower = ModifiableAttribute.Create(100);
-        newWeapon.ReloadTime = ModifiableAttribute.Create(2);
-        newWeapon.MaxAmmo = ModifiableAttribute.Create(10);
-        newWeapon.AmmoType = AmmoType.None;
-        newWeapon._currentState.CurrentAmmo = (int)newWeapon.MaxAmmo.ModifiedValue;
-        newWeapon.SetupTriggers();
-        return newWeapon;
-    }
-
-    public static Weapon CreateFromWeapon<T>(Weapon weapon) where T : Weapon, new()
-    {
-        var newWeapon = new T();
-        newWeapon.BaseDamage = weapon.BaseDamage;
-        newWeapon.RateOfFire = weapon.RateOfFire;
-        newWeapon.AttackPower = weapon.AttackPower;
-        newWeapon.ReloadTime = weapon.ReloadTime;
-        newWeapon.MaxAmmo = weapon.MaxAmmo;
-        newWeapon.ProjectileSpeed = weapon.ProjectileSpeed;
-//        newWeapon._projectilePrefab = weapon._projectilePrefab;
-        newWeapon.AmmoType = weapon.AmmoType;
-//        newWeapon._projectileSpawnPoint = weapon._projectileSpawnPoint;
-        newWeapon.SetupTriggers();
-        return newWeapon;
-    }
+	}
+	
+	// TODO: Weapon factory
+	public static Weapon CreateDeault()
+	{
+		var newWeapon = new Weapon();
+		newWeapon._currentState = new ReadyWeaponState(newWeapon);
+		newWeapon.BaseDamage = ModifiableAttribute.Create(45);
+		newWeapon.RateOfFire = ModifiableAttribute.Create(250); // 3500 is about the max ROF (rounds per minute) for 30fps
+		newWeapon.AttackPower = ModifiableAttribute.Create(100);
+		newWeapon.ReloadTime = ModifiableAttribute.Create(2);
+		newWeapon.MaxAmmo = ModifiableAttribute.Create(10);
+		newWeapon.AmmoType = AmmoType.Fire;
+		newWeapon._currentState.CurrentAmmo = (int)newWeapon.MaxAmmo.ModifiedValue;
+		newWeapon.SetupTriggers();
+		return newWeapon;
+	}
+	public static Weapon CreateFromProfile(WeaponProfile profile)
+	{
+		var newWeapon = new Weapon();
+		newWeapon._currentState = new ReadyWeaponState(newWeapon);
+		newWeapon.BaseDamage = ModifiableAttribute.Create(profile.BaseDamage);
+		newWeapon.RateOfFire = ModifiableAttribute.Create(profile.RateOfFire); // 3500 is about the max ROF (rounds per minute) for 30fps
+		newWeapon.AttackPower = ModifiableAttribute.Create(profile.AttackPower);
+		newWeapon.ReloadTime = ModifiableAttribute.Create(profile.ReloadTime);
+		newWeapon.MaxAmmo = ModifiableAttribute.Create(profile.MaxAmmo);
+		newWeapon.AmmoType = profile.AmmoType;
+		newWeapon._currentState.CurrentAmmo = (int)newWeapon.MaxAmmo.ModifiedValue;
+		newWeapon.SetupTriggers();
+		return newWeapon;
+	}
+	
+	public static Weapon CreateFromWeapon(Weapon weapon)
+	{
+		var newWeapon = new Weapon();
+		newWeapon.BaseDamage = weapon.BaseDamage;
+		newWeapon.RateOfFire = weapon.RateOfFire;
+		newWeapon.AttackPower = weapon.AttackPower;
+		newWeapon.ReloadTime = weapon.ReloadTime;
+		newWeapon.MaxAmmo = weapon.MaxAmmo;
+		//        newWeapon._projectilePrefab = weapon._projectilePrefab;
+		newWeapon.AmmoType = weapon.AmmoType;
+		//        newWeapon._projectileSpawnPoint = weapon._projectileSpawnPoint;
+		newWeapon.SetupTriggers();
+		return newWeapon;
+	}
 
     private void SetupTriggers()
     {
@@ -68,22 +80,22 @@ public abstract class Weapon
         FieldInteractable.OnHeld += TriggerHeld;
     }
     
-    public virtual void TriggerPulled()
-    {
-        // Don't do anything
+    public void TriggerPulled()
+	{
+		Use();
     }
 
-    public virtual void TriggerHeld()
-    {
-        // Don't do anything
+    public void TriggerHeld()
+	{
+		Use();
     }
 
-    public virtual void TriggerReleased()
-    {
-        // Don't do anything
+    public void TriggerReleased()
+	{
+		Use();
     }
 
-    protected virtual float CalculateDamage()
+    protected float CalculateDamage()
     {
         return BaseDamage.ModifiedValue;
     }
