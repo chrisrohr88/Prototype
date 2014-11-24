@@ -3,20 +3,26 @@ using System.Collections;
 
 public class GameMode : MonoBehaviour
 {
-    private static FieldInteractable Field;
+    private static FieldInteractable _field;
 
     public static Transform FireTransform
     {
         get
         {
-            return Field.FireTransform;
+            return _field.FireTransform;
         }
     }
 
 	private void Start()
     {
-        Field = (Instantiate(Resources.Load("Game/Field/Field")) as GameObject).GetComponent<FieldInteractable>();
-        Player.Create(100);
-        EnemyManager.EnableSpawning();
+        LoadGameModeDependancies();
 	}
+
+    private void LoadGameModeDependancies()
+    {
+        _field = (Instantiate(Resources.Load("Game/Field/Field")) as GameObject).GetComponent<FieldInteractable>();
+        var playerWall = (Instantiate(Resources.Load("Game/Field/PlayerWall")) as GameObject).GetComponent<PlayerWall>();
+        playerWall.AssignPlayer(Player.Create(1000));
+        EnemyManager.EnableSpawning();
+    }
 }

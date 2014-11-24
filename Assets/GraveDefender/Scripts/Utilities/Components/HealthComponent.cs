@@ -8,6 +8,14 @@ public class HealthComponent
     private float _currentHealth;
     private bool _isDead;
 
+    public float TestHealth
+    {
+        get
+        {
+            return _currentHealth;
+        }
+    }
+
     public float MaxHealth
     {
         get

@@ -4,6 +4,7 @@ using System.Collections;
 public abstract class BaseEnemy : MonoBehaviour
 {
     [SerializeField] protected float _damage = 100f;
+    [SerializeField] protected GameObject _deathEffectPrefab;
 
     protected HealthComponent _health = null;
 
@@ -42,7 +43,9 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected void OnDeath()
     {
-        Destroy(gameObject);
+        var go = Instantiate(_deathEffectPrefab) as GameObject;
+        go.transform.position = transform.position - new Vector3(0,0, 1);
+        Destroy(gameObject, .1f);
     }
 
     protected void OnDestroy()
