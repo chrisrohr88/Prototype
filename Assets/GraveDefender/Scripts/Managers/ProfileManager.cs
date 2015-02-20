@@ -37,6 +37,22 @@ public static class ProfileManager
         }
     }
 
+	public static WeaponProfile GetRandomWeapon()
+	{
+		var rand = Random.Range (0, _weaponProfiles.Count);
+		WeaponProfile profile = _weaponProfiles ["Pistol"];
+		int i = 0;
+		foreach(var weaponProfile in _weaponProfiles.Values)
+		{
+			if(rand == i++)
+			{
+				profile = weaponProfile;
+			}
+		}
+
+		return profile;
+	}
+
     public static WeaponProfile GetWeaponProfileByName(string name)
     {
         return _weaponProfiles[name];

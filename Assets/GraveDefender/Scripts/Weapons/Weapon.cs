@@ -11,6 +11,7 @@ public enum WeaponType
 public class Weapon
 {
     private const float MAX_DAMAGE = 50000;
+	public string Name { get; protected set; }
     public ModifiableAttribute BaseDamage { get; protected set; }
     public ModifiableAttribute RateOfFire { get; protected set; }
     public ModifiableAttribute AttackPower { get; protected set; }
@@ -32,6 +33,7 @@ public class Weapon
 	{
 		var newWeapon = new Weapon();
 		newWeapon._currentState = new ReadyWeaponState(newWeapon);
+		newWeapon.Name = "Default";
 		newWeapon.BaseDamage = ModifiableAttribute.Create(45);
 		newWeapon.RateOfFire = ModifiableAttribute.Create(250); // 3500 is about the max ROF (rounds per minute) for 30fps
 		newWeapon.AttackPower = ModifiableAttribute.Create(100);
@@ -45,6 +47,7 @@ public class Weapon
 	public static Weapon CreateFromProfile(WeaponProfile profile)
 	{
 		var newWeapon = new Weapon();
+		newWeapon.Name = profile.Name;
 		newWeapon._currentState = new ReadyWeaponState(newWeapon);
 		newWeapon.BaseDamage = ModifiableAttribute.Create(profile.BaseDamage);
 		newWeapon.RateOfFire = ModifiableAttribute.Create(profile.RateOfFire); // 3500 is about the max ROF (rounds per minute) for 30fps
@@ -60,6 +63,7 @@ public class Weapon
 	public static Weapon CreateFromWeapon(Weapon weapon)
 	{
 		var newWeapon = new Weapon();
+		newWeapon.Name = weapon.Name;
 		newWeapon.BaseDamage = weapon.BaseDamage;
 		newWeapon.RateOfFire = weapon.RateOfFire;
 		newWeapon.AttackPower = weapon.AttackPower;
@@ -72,6 +76,7 @@ public class Weapon
 		return newWeapon;
 	}
 
+	//TODO: Redo Input solution
     private void SetupTriggers()
     {
         FieldInteractable.OnPressed += TriggerPulled;
@@ -79,6 +84,14 @@ public class Weapon
         FieldInteractable.OnMoved += TriggerHeld;
         FieldInteractable.OnHeld += TriggerHeld;
     }
+
+	public void UnsubscribeEvents()
+	{
+		FieldInteractable.OnPressed -= TriggerPulled;
+		FieldInteractable.OnReleaseed -= TriggerReleased;
+		FieldInteractable.OnMoved -= TriggerHeld;
+		FieldInteractable.OnHeld -= TriggerHeld;
+	}
     
     public void TriggerPulled()
 	{

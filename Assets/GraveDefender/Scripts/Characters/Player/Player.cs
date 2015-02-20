@@ -22,7 +22,6 @@ public class Player
     {
         var player = new Player();
         player.Health = HealthComponent.Create(baseHealth);
-        Debug.Log(player.Health.TestHealth);
         player.PickupWeapon();
         return player;
     }
@@ -31,10 +30,24 @@ public class Player
     {
     }
 
+	public void PickupWeapon(string profileName)
+	{
+		PickupWeapon(ProfileManager.GetWeaponProfileByName(profileName));
+	}
+
     public void PickupWeapon()
     {
-        Weapon = Weapon.CreateFromProfile(ProfileManager.GetWeaponProfileByName("Minigun") as WeaponProfile);
-    }
+        PickupWeapon(ProfileManager.GetRandomWeapon());
+	}
+	
+	public void PickupWeapon(WeaponProfile profile)
+	{
+		if(Weapon != null)
+		{
+			Weapon.UnsubscribeEvents();
+		}
+		Weapon = Weapon.CreateFromProfile(profile);
+	}
 
     ~Player()
     {
