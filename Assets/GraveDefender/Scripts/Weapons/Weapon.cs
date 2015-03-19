@@ -1,4 +1,6 @@
-﻿public enum AmmoType
+﻿using UnityEngine;
+
+public enum AmmoType
 {
     Fire
 }
@@ -13,11 +15,14 @@ public class Weapon
     private const float MAX_DAMAGE = 50000;
 	public string Name { get; protected set; }
     public ModifiableAttribute BaseDamage { get; protected set; }
-    public ModifiableAttribute RateOfFire { get; protected set; }
-    public ModifiableAttribute AttackPower { get; protected set; }
+	public ModifiableAttribute RateOfFire { get; protected set; }
+	public ModifiableAttribute AttackPower { get; protected set; }
+	public ModifiableAttribute Accuracy { get; protected set; }
     public ModifiableAttribute ReloadTime { get; protected set; }
     public ModifiableAttribute MaxAmmo { get; protected set; }
     public AmmoType AmmoType { get; protected set; }
+
+	private WeaponBehavior _fireBehavior;
     private WeaponState _currentState;
 
     public float Damage
@@ -37,6 +42,7 @@ public class Weapon
 		newWeapon.BaseDamage = ModifiableAttribute.Create(45);
 		newWeapon.RateOfFire = ModifiableAttribute.Create(250); // 3500 is about the max ROF (rounds per minute) for 30fps
 		newWeapon.AttackPower = ModifiableAttribute.Create(100);
+		newWeapon.Accuracy = ModifiableAttribute.Create(.90f);
 		newWeapon.ReloadTime = ModifiableAttribute.Create(2);
 		newWeapon.MaxAmmo = ModifiableAttribute.Create(10);
 		newWeapon.AmmoType = AmmoType.Fire;
@@ -52,6 +58,7 @@ public class Weapon
 		newWeapon.BaseDamage = ModifiableAttribute.Create(profile.BaseDamage);
 		newWeapon.RateOfFire = ModifiableAttribute.Create(profile.RateOfFire); // 3500 is about the max ROF (rounds per minute) for 30fps
 		newWeapon.AttackPower = ModifiableAttribute.Create(profile.AttackPower);
+		newWeapon.Accuracy = ModifiableAttribute.Create(profile.Accuracy);
 		newWeapon.ReloadTime = ModifiableAttribute.Create(profile.ReloadTime);
 		newWeapon.MaxAmmo = ModifiableAttribute.Create(profile.MaxAmmo);
 		newWeapon.AmmoType = profile.AmmoType;
@@ -67,6 +74,7 @@ public class Weapon
 		newWeapon.BaseDamage = weapon.BaseDamage;
 		newWeapon.RateOfFire = weapon.RateOfFire;
 		newWeapon.AttackPower = weapon.AttackPower;
+		newWeapon.Accuracy = weapon.Accuracy;
 		newWeapon.ReloadTime = weapon.ReloadTime;
 		newWeapon.MaxAmmo = weapon.MaxAmmo;
 		//        newWeapon._projectilePrefab = weapon._projectilePrefab;
@@ -110,7 +118,9 @@ public class Weapon
 
     protected float CalculateDamage()
     {
-        return BaseDamage.ModifiedValue;
+		// (1 + (AttackPower * SQRT(Level)) / AttackPowerReference) * BaseDamage * Accuracy * SQRT(Level)
+		// TODO: Add Level & AttackPowerReference
+		return (1 + (AttackPower.ModifiedValue * Mathf.Sqrt (1)) / Constants.Weapon.ATTACK_POWER_REFERENCE) * BaseDamage.ModifiedValue * Accuracy.ModifiedValue * Mathf.Sqrt (1);
     }
     
     public void Ready()

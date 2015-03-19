@@ -1,9 +1,10 @@
 {
 	"Name": "Minigun",
 	"BaseDamage": 10,
-	"RateOfFire": 1500,
-	"AttackPower": 300,
+	"RateOfFire": 3500,
+	"AttackPower": 500,
 	"ReloadTime": 4,
 	"AmmoType": "Fire",
+	"Accuracy": 0.75,
 	"MaxAmmo": 50
 }

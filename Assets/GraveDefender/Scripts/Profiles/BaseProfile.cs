@@ -10,6 +10,7 @@ public class WeaponProfile : BaseProfile
 	public float ReloadTime { get; set; }
 	public AmmoType AmmoType { get; set; }
 	public int MaxAmmo { get; set; }
+	public int Accuracy { get; set; }
 }
 
 public abstract class BaseProfile

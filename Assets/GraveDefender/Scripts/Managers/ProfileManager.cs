@@ -6,7 +6,7 @@ using System.IO;
 
 public static class ProfileManager
 {
-    private static string PARENT_PROFILE_PATH = Application.dataPath + "/GraveDefender/SerializedFiles/";
+	private static string PARENT_PROFILE_PATH = "SerializedFiles/";
 
     private static Dictionary<string, WeaponProfile> _weaponProfiles = new Dictionary<string, WeaponProfile>();
 
@@ -21,16 +21,16 @@ public static class ProfileManager
 	}
 
     private static void LoadWeaponProfiles()
-    {
-        var files = Directory.GetFiles(PARENT_PROFILE_PATH + "Weapons/", "*.json");
+	{
+		var files = Resources.LoadAll<TextAsset>(PARENT_PROFILE_PATH + "Weapons/");
         LoadProfilesFromSourceToDestination<WeaponProfile>(files, _weaponProfiles);
     }
 
-    private static void LoadProfilesFromSourceToDestination<T>(string[] files, Dictionary<string, T> destination) where T : BaseProfile
+	private static void LoadProfilesFromSourceToDestination<T>(TextAsset[] files, Dictionary<string, T> destination) where T : BaseProfile
     {
         foreach(var file in files)
         {
-            var profileString = File.ReadAllText(file);
+            var profileString = file.text;
             T profile = new JsonReader().Read<T>(profileString) as T;
             Debug.Log("Profile: " + new JsonWriter().Write(profile));
             destination.Add(profile.Name, profile);
