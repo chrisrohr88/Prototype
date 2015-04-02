@@ -5,7 +5,9 @@
     void Use();
     void Reload();
     void Disable();
-    void Ready();
+	void Ready();
+	void ResetNextTimeToUse();
+	bool CanUse();
     WeaponState SwitchToReadyState();
     WeaponState SwitchToReloadState();
     WeaponState SwitchToDisableState();

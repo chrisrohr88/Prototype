@@ -35,7 +35,7 @@ public class MouseInputStrategy : InputStrategy
     }
     
     protected void HandleMouseDown()
-    {
+	{
         CreateTouchWithTouchPhase(TouchPhase.Began, _lastMousePosition);
         _mouseIsDown = true;
     }

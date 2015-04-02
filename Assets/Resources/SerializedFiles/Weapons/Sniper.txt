@@ -6,5 +6,6 @@
 	"ReloadTime": 2.5,
 	"AmmoType": "Fire",
 	"Accuracy": 1,
-	"MaxAmmo": 4
+	"MaxAmmo": 4,
+	"FireBehaviorType": "UseOnRelease"
 }

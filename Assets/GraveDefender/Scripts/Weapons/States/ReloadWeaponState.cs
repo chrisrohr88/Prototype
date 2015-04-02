@@ -3,12 +3,12 @@ using System.Collections;
 
 public class ReloadWeaponState : WeaponState
 {
-    private Weapon _weapon;
-    private float _timeToFireNext;
+    private IWeapon _weapon;
+	private bool _reloading = false;
     
     public int CurrentAmmo { get; set; }
     
-    public ReloadWeaponState(Weapon weapon)
+    public ReloadWeaponState(IWeapon weapon)
     {
         _weapon = weapon;
     }
@@ -19,26 +19,45 @@ public class ReloadWeaponState : WeaponState
     
     public void Use()
     {
-    }
+	}
+	
+	public bool CanUse()
+	{
+		return false;
+	}
     
     public void Reload()
     {
-        GameManager.Instance.StartCoroutine(ReloadRoutine());
+		if(!_reloading)
+		{
+        	GameManager.Instance.StartCoroutine(ReloadRoutine());
+		}
     }
     
     private IEnumerator ReloadRoutine()
     {
-        yield return new WaitForSeconds(Mathf.Max(0f, _weapon.ReloadTime.ModifiedValue));
-        _weapon.Ready();
+		_reloading = true;
+		yield return new WaitForSeconds (Mathf.Max (0f, _weapon.GetWeapon().ReloadTime.ModifiedValue));
+		_reloading = false;
+        _weapon.GetWeapon().Ready();
     }
     
     public void Disable()
     {
-    }
+	}
+	
+	public void ResetNextTimeToUse()
+	{
+	}
     
     public WeaponState SwitchToReadyState()
     {
-        return new ReadyWeaponState(_weapon);
+		if(!_reloading)
+		{
+        	return new ReadyWeaponState(_weapon);
+		}
+
+		return this;
     }
     
     public WeaponState SwitchToReloadState()
@@ -47,7 +66,12 @@ public class ReloadWeaponState : WeaponState
     }
     
     public WeaponState SwitchToDisableState()
-    {
-        return new DisableWeaponState(_weapon);
+	{
+		if(!_reloading)
+		{
+        	return new DisableWeaponState(_weapon);
+		}
+
+		return this;
     }
 }

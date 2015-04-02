@@ -2,23 +2,27 @@
 
 public class DisableWeaponState : WeaponState
 {
-    private Weapon _weapon;
-    private float _timeToFireNext;
+    private IWeapon _weapon;
     
     public int CurrentAmmo { get; set; }
     
-    public DisableWeaponState(Weapon weapon)
+    public DisableWeaponState(IWeapon weapon)
     {
         _weapon = weapon;
     }
     
     public void Ready()
     {
-    }
-    
-    public void Use()
-    {
-    }
+	}
+	
+	public void Use()
+	{
+	}
+	
+	public bool CanUse()
+	{
+		return false;
+	}
     
     public void Reload()
     {
@@ -26,7 +30,11 @@ public class DisableWeaponState : WeaponState
     
     public void Disable()
     {
-    }
+	}
+	
+	public void ResetNextTimeToUse()
+	{
+	}
     
     public WeaponState SwitchToReadyState()
     {

@@ -33,7 +33,8 @@ public abstract class InputStrategy : MonoBehaviour
 
     protected MyTouch CreateTouchWithTouchPhase(TouchPhase touchPhase, Vector2 lastTouchPosition)
     {
-        var touch = new MyTouch();
+		var touch = new MyTouch();
+		touch.TouchPhase = touchPhase;
         touch.Position = Input.mousePosition;
         touch.DeltaPosition = touch.Position - lastTouchPosition;
         touch.DeltaTime = Time.deltaTime;

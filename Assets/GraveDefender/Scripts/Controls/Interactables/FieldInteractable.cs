@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class FieldInteractable : MonoBehaviour, Interactable
@@ -40,7 +40,7 @@ public class FieldInteractable : MonoBehaviour, Interactable
     }
     
     private static event System.Action _onReleased;
-    public static event System.Action OnReleaseed
+    public static event System.Action OnReleased
     {
         add
         {
@@ -75,7 +75,7 @@ public class FieldInteractable : MonoBehaviour, Interactable
     }
 
     public void OnRelease(MyTouch touch)
-    {
+	{
         SetFirePositionFromTouchPosition(touch.WorldHitPosition);
         if(_onReleased != null)
         {

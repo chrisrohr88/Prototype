@@ -6,5 +6,6 @@
 	"ReloadTime": 2,
 	"AmmoType": "Fire",
 	"Accuracy": 0.90,
-	"MaxAmmo": 10
+	"MaxAmmo": 10,
+	"FireBehaviorType": "SemiAuto"
 }

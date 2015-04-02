@@ -12,7 +12,6 @@ public class ModifiableAttribute
         public float TimeToExpire { get; private set; }
         public bool IsPermanent { get; private set; }
 
-
         public Modifier(float value, float duration)
         {
             ModifyPercentage = value;
