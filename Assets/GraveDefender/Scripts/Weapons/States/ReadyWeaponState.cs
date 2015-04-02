@@ -50,7 +50,7 @@ public class ReadyWeaponState : WeaponState
 		var spawnPosition = GameMode.FireTransform.position;
 
 		// TODO make this better. Deviation range not positive range
-		if((_timeToUseNext - _previousUseTime) < _weapon.GetWeapon().DeviationTime.ModifiedValue)
+		if((Time.time - _previousUseTime) < _weapon.GetWeapon().DeviationTime.ModifiedValue)
 		{
 			spawnPosition += RandomVector3Range(_weapon.GetWeapon().MinDeviation, _weapon.GetWeapon().MaxDeviation);
 		}

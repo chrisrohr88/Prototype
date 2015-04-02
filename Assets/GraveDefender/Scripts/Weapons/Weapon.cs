@@ -12,11 +12,6 @@ public enum WeaponType
 	Pistol
 }
 
-public enum WeaponCommandType
-{
-	Pistol
-}
-
 // Subclass Weapon for future weapon categories
 public class Weapon
 {
@@ -87,6 +82,8 @@ public class Weapon
 		newWeapon.BurstTime = ModifiableAttribute.Create(profile.BurstTime);
 		newWeapon.BurstCount = ModifiableAttribute.Create(profile.BurstCount);
 		newWeapon.DeviationTime = ModifiableAttribute.Create(profile.DeviationTime);
+		newWeapon.MinDeviation = (profile.MinimumDeviation != null) ? new Vector3(profile.MinimumDeviation.x, profile.MinimumDeviation.y, profile.MinimumDeviation.z) : Vector3.zero;
+		newWeapon.MaxDeviation = (profile.MaximumDeviation != null) ? new Vector3(profile.MaximumDeviation.x, profile.MaximumDeviation.y, profile.MaximumDeviation.z) : Vector3.zero;
 
 		newWeapon.Init ();
 
