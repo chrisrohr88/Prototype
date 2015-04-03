@@ -36,7 +36,6 @@ public class Burst : WeaponBehavior
 		{
 			GameManager.Instance.StartCoroutine(BurstRoutine());
 		}
-		Enabled = false;
 	}
 
 	private IEnumerator BurstRoutine()
@@ -52,5 +51,6 @@ public class Burst : WeaponBehavior
 			Weapon.ResetNextTimeToUse();
 			Use();
 		}
+		Enabled = false;
 	}
 }

@@ -47,6 +47,7 @@ public class Player
 			Weapon.UnsubscribeEvents();
 		}
 		Weapon = WeaponFactory.CreateFromProfile(profile);
+		Debug.Log("Weapon is " + Weapon.Name);
 	}
 
     ~Player()
