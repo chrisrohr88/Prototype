@@ -131,7 +131,7 @@ public class Weapon
 		// (1 + (AttackPower * SQRT(Level)) / AttackPowerReference) * BaseDamage * Accuracy * SQRT(Level)
 		// TODO: Add Level
 		float damage = chargePercent * (1 + (AttackPower.ModifiedValue * Mathf.Sqrt (1/*level*/)) / Constants.Weapon.ATTACK_POWER_REFERENCE) * BaseDamage.ModifiedValue * Accuracy.ModifiedValue * Mathf.Sqrt (1);
-//		Debug.LogError (damage);
+//		Debug.LogError("Damage: " + damage + " ChargedPercent: " + chargePercent);
 		return damage;
     }
 

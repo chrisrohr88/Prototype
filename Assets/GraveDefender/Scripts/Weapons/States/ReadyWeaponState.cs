@@ -32,7 +32,7 @@ public class ReadyWeaponState : WeaponState
     
     public bool CanUse()
     {
-        return ((_timeToUseNext < Time.time) && (CurrentAmmo > 0));
+        return ((_timeToUseNext <= Time.time) && (CurrentAmmo > 0));
     }
 
 	private Vector3 RandomVector3()
@@ -74,7 +74,7 @@ public class ReadyWeaponState : WeaponState
 	
 	public void ResetNextTimeToUse()
 	{
-		_timeToUseNext = 0;
+		_timeToUseNext = Time.time;
 	}
 	
 	public bool WaitForUse()

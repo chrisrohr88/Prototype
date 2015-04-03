@@ -7,5 +7,5 @@
 	"AmmoType": "Fire",
 	"Accuracy": 1,
 	"MaxAmmo": 4,
-	"FireBehaviorType": "UseOnRelease"
+	"FireBehaviorType": "OnRelease"
 }

@@ -7,7 +7,7 @@ public enum WeaponBehaviorType
 	Automatic,
 	SemiAuto,
 	SemiAutoUnCapped,
-	UseOnRelease,
+	OnRelease,
 	Charged,
 	WarmFirst,
 	Burst,
@@ -63,7 +63,7 @@ public abstract class WeaponBehavior
 	{
 		WeaponBehavior trigger = CreateBehavior(weapon, weapon.GetWeapon().TriggerBehaviorType, WeaponBehaviorUsageType.Trigger);
 		WeaponBehavior actor = CreateBehavior(weapon, weapon.GetWeapon().ActorBehaviorType, WeaponBehaviorUsageType.Actor);
-		CompundWeaponBehavior compoundWeaponBehavior = new CompundWeaponBehavior(trigger, actor, actor.SetEnableOverride);
+		CompoundWeaponBehavior compoundWeaponBehavior = new CompoundWeaponBehavior(trigger, actor, actor.SetEnableOverride);
 		return compoundWeaponBehavior;
 	}
 
@@ -81,7 +81,7 @@ public abstract class WeaponBehavior
 			case WeaponBehaviorType.SemiAutoUnCapped:
 				weaponBehavior = new RapidFire();
 				break;
-			case WeaponBehaviorType.UseOnRelease:
+			case WeaponBehaviorType.OnRelease:
 				weaponBehavior = new UseOnRelease();
 				break;
 			case WeaponBehaviorType.Charged:
@@ -108,16 +108,16 @@ public abstract class WeaponBehavior
 	
 	protected void Use()
 	{
-		if(_usageType != WeaponBehaviorUsageType.Trigger)
+		if(_usageType != WeaponBehaviorUsageType.Trigger && Enabled)
 		{
 			Weapon.Use();
 		}
 	}
 
-	protected void SetEnableOverride(bool enabled)
+	private void SetEnableOverride(bool enabled)
 	{
 		_enabled = enabled;
-		_enabledOverridden = enabled;
+		_enabledOverridden = true;
 	}
 
 	public abstract void OnTriggerPressed();

@@ -24,6 +24,10 @@ public class Burst : WeaponBehavior
 	
 	public override void OnTriggerHeld()
 	{
+		if(_usageType == WeaponBehaviorUsageType.Actor)
+		{
+			BurstUse();
+		}
 	}
 	
 	private void BurstUse()

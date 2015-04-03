@@ -46,7 +46,7 @@ public class Player
 		{
 			Weapon.UnsubscribeEvents();
 		}
-		Weapon = Weapon.CreateFromProfile(profile);
+		Weapon = WeaponFactory.CreateFromProfile(profile);
 	}
 
     ~Player()

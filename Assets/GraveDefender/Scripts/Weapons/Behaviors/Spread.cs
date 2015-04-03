@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class Spread : WeaponBehavior
 {
 	public override void PerformAction()
@@ -8,19 +10,35 @@ public class Spread : WeaponBehavior
 	public override void OnTriggerPressed()
 	{
 		Enabled = true;
-		DoSpread();
+		SpreadUse();
 	}
 	
 	public override void OnTriggerRelease()
 	{
-		Enabled = false;
+		if(_usageType == WeaponBehaviorUsageType.Actor)
+		{
+			SpreadUse();
+		}
 	}
 	
 	public override void OnTriggerHeld()
 	{
+		if(_usageType == WeaponBehaviorUsageType.Actor)
+		{
+			SpreadUse();
+		}
 	}
-
-	private void DoSpread()
+	
+	private void SpreadUse()
 	{
+		if(Weapon.CanUse() && Enabled)
+		{
+			for(int i = 0; i < Weapon.GetWeapon().BurstCount.ModifiedValue; i++)
+			{
+				Weapon.ResetNextTimeToUse();
+				Use();
+			}
+			Enabled = false;
+		}
 	}
 }

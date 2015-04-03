@@ -21,7 +21,7 @@ public class ChargedUse : WeaponBehavior
 	
 	public override void OnTriggerHeld()
 	{
-		float chargeAmountThisFrame = (Time.deltaTime * Weapon.GetWeapon().ChargeTime.ModifiedValue) / Application.targetFrameRate;
+		float chargeAmountThisFrame = Time.deltaTime * Weapon.GetWeapon().ChargeTime.ModifiedValue;
 		float previousChargeAmount = Weapon.GetChargePercent();
 		Weapon.SetChargePercent(Mathf.Clamp01(chargeAmountThisFrame + previousChargeAmount));
 	}

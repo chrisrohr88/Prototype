@@ -26,8 +26,8 @@ public class WarmBeforeUse : WeaponBehavior
 		}
 		else
 		{
-			Weapon.SetChargePercent(Mathf.Clamp01(Weapon.GetChargePercent() + Time.deltaTime));
-			Enabled = (Weapon.GetChargePercent() == Weapon.GetWeapon().ChargeTime.ModifiedValue);
+			Weapon.SetChargePercent(Weapon.GetChargePercent() + Time.deltaTime);
+			Enabled = (Weapon.GetChargePercent() >= Weapon.GetWeapon().ChargeTime.ModifiedValue);
 		}
 	}
 }
