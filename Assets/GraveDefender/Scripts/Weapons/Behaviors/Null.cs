@@ -1,22 +1,25 @@
-public class NullBehavior :  WeaponBehavior
+namespace Weapons.Behaviors
 {
-	public override void PerformAction()
+	public class NullBehavior :  WeaponBehavior
 	{
-		// Do nothing, may use for animation
-	}
-	
-	public override void OnTriggerPressed()
-	{
-		// Do nothing, NULL
-	}
-	
-	public override void OnTriggerRelease()
-	{
-		// Do nothing, NULL
-	}
-	
-	public override void OnTriggerHeld()
-	{
-		// Do nothing, NULL
+		public override void PerformAction()
+		{
+			// Do nothing, may use for animation
+		}
+		
+		public override void OnTriggerPressed()
+		{
+			// Do nothing, NULL
+		}
+		
+		public override void OnTriggerRelease()
+		{
+			// Do nothing, NULL
+		}
+		
+		public override void OnTriggerHeld()
+		{
+			// Do nothing, NULL
+		}
 	}
 }

@@ -1,23 +1,26 @@
-public class Automatic : WeaponBehavior
+namespace Weapons.Behaviors
 {
-	public override void PerformAction()
+	public class Automatic : WeaponBehavior
 	{
-		// Do nothing, may use for animation
-	}
-	
-	public override void OnTriggerPressed()
-	{
-		Enabled = true;
-		Use();
-	}
-	
-	public override void OnTriggerRelease()
-	{
-		Enabled = false;
-	}
-	
-	public override void OnTriggerHeld()
-	{
-		Use();
+		public override void PerformAction()
+		{
+			// Do nothing, may use for animation
+		}
+		
+		public override void OnTriggerPressed()
+		{
+			Enabled = true;
+			Use();
+		}
+		
+		public override void OnTriggerRelease()
+		{
+			Enabled = false;
+		}
+		
+		public override void OnTriggerHeld()
+		{
+			Use();
+		}
 	}
 }

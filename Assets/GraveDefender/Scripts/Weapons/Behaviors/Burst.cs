@@ -1,56 +1,61 @@
 using UnityEngine;
 using System.Collections;
+using Weapons.Internal;
+using Weapons.Behaviors.Enums;
 
-public class Burst : WeaponBehavior
+namespace Weapons.Behaviors
 {
-	public override void PerformAction()
+	public class Burst : WeaponBehavior
 	{
-		// Do nothing, may use for animation
-	}
-	
-	public override void OnTriggerPressed()
-	{
-		Enabled = true;
-		BurstUse();
-	}
-	
-	public override void OnTriggerRelease()
-	{
-		if(_usageType == WeaponBehaviorUsageType.Actor)
+		public override void PerformAction()
 		{
-			BurstUse();
+			// Do nothing, may use for animation
 		}
-	}
-	
-	public override void OnTriggerHeld()
-	{
-		if(_usageType == WeaponBehaviorUsageType.Actor)
-		{
-			BurstUse();
-		}
-	}
-	
-	private void BurstUse()
-	{
-		if(Weapon.CanUse())
-		{
-			GameManager.Instance.StartCoroutine(BurstRoutine());
-		}
-	}
-
-	private IEnumerator BurstRoutine()
-	{
-		float burstTime = Weapon.GetWeapon().BurstTime.ModifiedValue;
-		int burstCount = (int)Weapon.GetWeapon().BurstCount.ModifiedValue;
-		float waitTime = burstTime / burstCount;
 		
-		Use();
-		for(int i = 1; i < burstCount; i++)
+		public override void OnTriggerPressed()
 		{
-			yield return new WaitForSeconds(waitTime);
-			Weapon.ResetNextTimeToUse();
-			Use();
+			Enabled = true;
+			BurstUse();
 		}
-		Enabled = false;
+		
+		public override void OnTriggerRelease()
+		{
+			if(_usageType == WeaponBehaviorUsageType.Actor)
+			{
+				BurstUse();
+			}
+		}
+		
+		public override void OnTriggerHeld()
+		{
+			if(_usageType == WeaponBehaviorUsageType.Actor)
+			{
+				BurstUse();
+			}
+		}
+		
+		private void BurstUse()
+		{
+			if(Weapon.CanUse())
+			{
+				GameManager.Instance.StartCoroutine(BurstRoutine());
+			}
+		}
+
+		private IEnumerator BurstRoutine()
+		{
+			float burstTime = Weapon.GetWeapon().BurstTime.ModifiedValue;
+			int burstCount = (int)Weapon.GetWeapon().BurstCount.ModifiedValue;
+			float waitTime = burstTime / burstCount;
+			
+			Use();
+			for(int i = 1; i < burstCount; i++)
+			{
+				yield return new WaitForSeconds(waitTime);
+				Weapon.ResetNextTimeToUse();
+				Use();
+			}
+			Enabled = false;
+		}
 	}
 }

@@ -1,77 +1,81 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
+using Weapons.Internal;
 
-public class ReloadWeaponState : WeaponState
+namespace Weapons.States
 {
-    private IWeapon _weapon;
-	private bool _reloading = false;
-    
-    public int CurrentAmmo { get; set; }
-    
-    public ReloadWeaponState(IWeapon weapon)
-    {
-        _weapon = weapon;
-    }
-    
-    public void Ready()
-    {
-    }
-    
-    public void Use()
-    {
-	}
-	
-	public bool CanUse()
+	public class ReloadWeaponState : WeaponState
 	{
-		return false;
-	}
-    
-    public void Reload()
-    {
-		if(!_reloading)
-		{
-        	GameManager.Instance.StartCoroutine(ReloadRoutine());
+	    private InternalWeapon _weapon;
+		private bool _reloading = false;
+	    
+	    public int CurrentAmmo { get; set; }
+	    
+	    public ReloadWeaponState(InternalWeapon weapon)
+	    {
+	        _weapon = weapon;
+	    }
+	    
+	    public void Ready()
+	    {
+	    }
+	    
+	    public void Use()
+	    {
 		}
-    }
-    
-    private IEnumerator ReloadRoutine()
-    {
-		_reloading = true;
-		yield return new WaitForSeconds (Mathf.Max (0f, _weapon.GetWeapon().ReloadTime.ModifiedValue));
-		_reloading = false;
-        _weapon.GetWeapon().Ready();
-    }
-    
-    public void Disable()
-    {
-	}
-	
-	public void ResetNextTimeToUse()
-	{
-	}
-    
-    public WeaponState SwitchToReadyState()
-    {
-		if(!_reloading)
+		
+		public bool CanUse()
 		{
-        	return new ReadyWeaponState(_weapon);
+			return false;
 		}
+	    
+	    public void Reload()
+	    {
+			if(!_reloading)
+			{
+	        	GameManager.Instance.StartCoroutine(ReloadRoutine());
+			}
+	    }
+	    
+	    private IEnumerator ReloadRoutine()
+	    {
+			_reloading = true;
+			yield return new WaitForSeconds (Mathf.Max (0f, _weapon.GetWeapon().ReloadTime.ModifiedValue));
+			_reloading = false;
+	        _weapon.GetWeapon().Ready();
+	    }
+	    
+	    public void Disable()
+	    {
+		}
+		
+		public void ResetNextTimeToUse()
+		{
+		}
+	    
+	    public WeaponState SwitchToReadyState()
+	    {
+			if(!_reloading)
+			{
+	        	return new ReadyWeaponState(_weapon);
+			}
 
-		return this;
-    }
-    
-    public WeaponState SwitchToReloadState()
-    {
-        return this;
-    }
-    
-    public WeaponState SwitchToDisableState()
-	{
-		if(!_reloading)
+			return this;
+	    }
+	    
+	    public WeaponState SwitchToReloadState()
+	    {
+	        return this;
+	    }
+	    
+	    public WeaponState SwitchToDisableState()
 		{
-        	return new DisableWeaponState(_weapon);
-		}
+			if(!_reloading)
+			{
+	        	return new DisableWeaponState(_weapon);
+			}
 
-		return this;
-    }
+			return this;
+	    }
+	}
 }

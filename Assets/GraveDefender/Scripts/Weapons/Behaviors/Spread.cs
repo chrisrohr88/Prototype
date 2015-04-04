@@ -1,44 +1,49 @@
 using UnityEngine;
+using Weapons.Internal;
+using Weapons.Behaviors.Enums;
 
-public class Spread : WeaponBehavior
+namespace Weapons.Behaviors
 {
-	public override void PerformAction()
+	public class Spread : WeaponBehavior
 	{
-		// Do nothing, may use for animation
-	}
-	
-	public override void OnTriggerPressed()
-	{
-		Enabled = true;
-		SpreadUse();
-	}
-	
-	public override void OnTriggerRelease()
-	{
-		if(_usageType == WeaponBehaviorUsageType.Actor)
+		public override void PerformAction()
 		{
+			// Do nothing, may use for animation
+		}
+		
+		public override void OnTriggerPressed()
+		{
+			Enabled = true;
 			SpreadUse();
 		}
-	}
-	
-	public override void OnTriggerHeld()
-	{
-		if(_usageType == WeaponBehaviorUsageType.Actor)
+		
+		public override void OnTriggerRelease()
 		{
-			SpreadUse();
-		}
-	}
-	
-	private void SpreadUse()
-	{
-		if(Weapon.CanUse() && Enabled)
-		{
-			for(int i = 0; i < Weapon.GetWeapon().BurstCount.ModifiedValue; i++)
+			if(_usageType == WeaponBehaviorUsageType.Actor)
 			{
-				Weapon.ResetNextTimeToUse();
-				Use();
+				SpreadUse();
 			}
-			Enabled = false;
+		}
+		
+		public override void OnTriggerHeld()
+		{
+			if(_usageType == WeaponBehaviorUsageType.Actor)
+			{
+				SpreadUse();
+			}
+		}
+		
+		private void SpreadUse()
+		{
+			if(Weapon.CanUse() && Enabled)
+			{
+				for(int i = 0; i < Weapon.GetWeapon().BurstCount.ModifiedValue; i++)
+				{
+					Weapon.ResetNextTimeToUse();
+					Use();
+				}
+				Enabled = false;
+			}
 		}
 	}
 }

@@ -1,33 +1,37 @@
 using UnityEngine;
+using Weapons.Internal;
 
-public class WarmBeforeUse : WeaponBehavior
+namespace Weapons.Behaviors
 {
-	public override void PerformAction()
+	public class WarmBeforeUse : WeaponBehavior
 	{
-		// Do nothing, may use for animation
-	}
-	
-	public override void OnTriggerPressed()
-	{
-		Enabled = false;
-		Weapon.SetChargePercent(0);
-	}
-	
-	public override void OnTriggerRelease()
-	{
-	}
-	
-	public override void OnTriggerHeld()
-	{
-		if(Enabled)
+		public override void PerformAction()
 		{
-			Weapon.SetChargePercent(-1);
-			Use();
+			// Do nothing, may use for animation
 		}
-		else
+		
+		public override void OnTriggerPressed()
 		{
-			Weapon.SetChargePercent(Weapon.GetChargePercent() + Time.deltaTime);
-			Enabled = (Weapon.GetChargePercent() >= Weapon.GetWeapon().ChargeTime.ModifiedValue);
+			Enabled = false;
+			Weapon.SetChargePercent(0);
+		}
+		
+		public override void OnTriggerRelease()
+		{
+		}
+		
+		public override void OnTriggerHeld()
+		{
+			if(Enabled)
+			{
+				Weapon.SetChargePercent(-1);
+				Use();
+			}
+			else
+			{
+				Weapon.SetChargePercent(Weapon.GetChargePercent() + Time.deltaTime);
+				Enabled = (Weapon.GetChargePercent() >= Weapon.GetWeapon().ChargeTime.ModifiedValue);
+			}
 		}
 	}
 }

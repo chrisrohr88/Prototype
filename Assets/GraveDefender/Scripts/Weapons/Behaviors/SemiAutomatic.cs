@@ -1,23 +1,26 @@
-public class SemiAuto : WeaponBehavior
+namespace Weapons.Behaviors
 {
-	public override void PerformAction()
+	public class SemiAuto : WeaponBehavior
 	{
-		// Do nothing, may use for animation
-	}
-	
-	public override void OnTriggerPressed()
-	{
-		Enabled = true;
-		Use();
-	}
-	
-	public override void OnTriggerRelease()
-	{
-		Enabled = false;
-	}
-	
-	public override void OnTriggerHeld()
-	{
-		// Do nothing, not automatic
+		public override void PerformAction()
+		{
+			// Do nothing, may use for animation
+		}
+		
+		public override void OnTriggerPressed()
+		{
+			Enabled = true;
+			Use();
+		}
+		
+		public override void OnTriggerRelease()
+		{
+			Enabled = false;
+		}
+		
+		public override void OnTriggerHeld()
+		{
+			// Do nothing, not automatic
+		}
 	}
 }
