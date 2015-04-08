@@ -43,8 +43,6 @@ namespace Weapons
 
 		public void Init()
 		{
-			MinDeviation = new Vector3(1, 0, 0);
-			MaxDeviation = new Vector3(10, 0, 0);
 			if(!_initialized)
 			{
 				_internalWeapon = new InternalWeapon(this);
