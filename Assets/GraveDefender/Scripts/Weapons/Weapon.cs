@@ -160,6 +160,14 @@ namespace Weapons
 		{
 			public Weapon _weapon;
 
+			public Weapon Weapon
+			{
+				get
+				{
+					return _weapon;
+				}
+			}
+
 			public InternalWeapon(Weapon weapon)
 			{
 				_weapon = weapon;
@@ -183,11 +191,6 @@ namespace Weapons
 			public float GetChargePercent()
 			{
 				return _weapon._chargePercent;
-			}
-			
-			public Weapon GetWeapon()
-			{
-				return _weapon;
 			}
 			
 			public bool CanUse()

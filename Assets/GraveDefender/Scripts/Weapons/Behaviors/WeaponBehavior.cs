@@ -30,9 +30,9 @@ namespace Weapons.Behaviors
 		public static WeaponBehavior CreateWeaponBehavior(InternalWeapon weapon)
 		{
 			WeaponBehavior weaponBehavior;
-			if(weapon.GetWeapon().TriggerBehaviorType == WeaponBehaviorType.None)
+			if(weapon.Weapon.TriggerBehaviorType == WeaponBehaviorType.None)
 			{
-				weaponBehavior = CreateBehavior(weapon, weapon.GetWeapon().ActorBehaviorType);
+				weaponBehavior = CreateBehavior(weapon, weapon.Weapon.ActorBehaviorType);
 			}
 			else
 			{
@@ -45,8 +45,8 @@ namespace Weapons.Behaviors
 
 		static WeaponBehavior CreateCompundWEaponBehavior(InternalWeapon weapon)
 		{
-			WeaponBehavior trigger = CreateBehavior(weapon, weapon.GetWeapon().TriggerBehaviorType, WeaponBehaviorUsageType.Trigger);
-			WeaponBehavior actor = CreateBehavior(weapon, weapon.GetWeapon().ActorBehaviorType, WeaponBehaviorUsageType.Actor);
+			WeaponBehavior trigger = CreateBehavior(weapon, weapon.Weapon.TriggerBehaviorType, WeaponBehaviorUsageType.Trigger);
+			WeaponBehavior actor = CreateBehavior(weapon, weapon.Weapon.ActorBehaviorType, WeaponBehaviorUsageType.Actor);
 			CompoundWeaponBehavior compoundWeaponBehavior = new CompoundWeaponBehavior(trigger, actor, actor.SetEnableOverride);
 			return compoundWeaponBehavior;
 		}

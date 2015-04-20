@@ -30,7 +30,7 @@ namespace Weapons.Behaviors
 			else
 			{
 				Weapon.SetChargePercent(Weapon.GetChargePercent() + Time.deltaTime);
-				Enabled = (Weapon.GetChargePercent() >= Weapon.GetWeapon().ChargeTime.ModifiedValue);
+				Enabled = (Weapon.GetChargePercent() >= Weapon.Weapon.ChargeTime.ModifiedValue);
 			}
 		}
 	}

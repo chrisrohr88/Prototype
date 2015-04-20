@@ -2,8 +2,8 @@
 {
 	public interface InternalWeapon
 	{
+		Weapon Weapon { get; }
 		void Use();
-		Weapon GetWeapon();
 		void SetChargePercent(float chargeAmount);
 		float GetChargePercent();
 		void ResetNextTimeToUse();

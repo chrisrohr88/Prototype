@@ -37,7 +37,7 @@ namespace Weapons.Behaviors
 		{
 			if(Weapon.CanUse() && Enabled)
 			{
-				for(int i = 0; i < Weapon.GetWeapon().BurstCount.ModifiedValue; i++)
+				for(int i = 0; i < Weapon.Weapon.BurstCount.ModifiedValue; i++)
 				{
 					Weapon.ResetNextTimeToUse();
 					Use();

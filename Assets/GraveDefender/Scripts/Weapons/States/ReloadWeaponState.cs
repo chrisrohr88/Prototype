@@ -40,9 +40,9 @@ namespace Weapons.States
 	    private IEnumerator ReloadRoutine()
 	    {
 			_reloading = true;
-			yield return new WaitForSeconds (Mathf.Max (0f, _weapon.GetWeapon().ReloadTime.ModifiedValue));
+			yield return new WaitForSeconds (Mathf.Max (0f, _weapon.Weapon.ReloadTime.ModifiedValue));
 			_reloading = false;
-	        _weapon.GetWeapon().Ready();
+	        _weapon.Weapon.Ready();
 	    }
 	    
 	    public void Disable()

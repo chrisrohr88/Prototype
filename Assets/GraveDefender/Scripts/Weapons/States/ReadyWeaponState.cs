@@ -20,7 +20,7 @@ namespace Weapons.States
 	    
 	    public void Ready()
 	    {
-	        CurrentAmmo = (int)_weapon.GetWeapon().MaxAmmo.ModifiedValue;
+	        CurrentAmmo = (int)_weapon.Weapon.MaxAmmo.ModifiedValue;
 	    }
 	    
 	    public void Use()
@@ -53,9 +53,9 @@ namespace Weapons.States
 			var spawnPosition = GameMode.FireTransform.position;
 
 			// TODO make this better. Deviation range not positive range
-			if((Time.time - _previousUseTime) < _weapon.GetWeapon().DeviationTime.ModifiedValue)
+			if((Time.time - _previousUseTime) < _weapon.Weapon.DeviationTime.ModifiedValue)
 			{
-				spawnPosition += RandomVector3Range(_weapon.GetWeapon().MinDeviation, _weapon.GetWeapon().MaxDeviation);
+				spawnPosition += RandomVector3Range(_weapon.Weapon.MinDeviation, _weapon.Weapon.MaxDeviation);
 			}
 			var projectile = Projectile.Create(spawnPosition);
 	        AddDamageToProjectile(projectile);
@@ -65,14 +65,14 @@ namespace Weapons.States
 	    {
 	        var damageData = projectile.gameObject.AddComponent<DamageData>();
 	        damageData.AttackerId = 1; // TODO get real id
-	        damageData.Damage = _weapon.GetWeapon().Damage;
+	        damageData.Damage = _weapon.Weapon.Damage;
 	        damageData.DamageType = DamageType.Fire;
 	    }
 	    
 	    private void UpdateUseTimes()
 	    {
 			_previousUseTime = Time.time;
-	        _timeToUseNext = Time.time + (60f / _weapon.GetWeapon().RateOfFire.ModifiedValue);
+	        _timeToUseNext = Time.time + (60f / _weapon.Weapon.RateOfFire.ModifiedValue);
 		}
 		
 		public void ResetNextTimeToUse()
@@ -95,7 +95,7 @@ namespace Weapons.States
 	    {
 	        if (CurrentAmmo <= 0)
 	        {
-	            _weapon.GetWeapon().Reload();
+	            _weapon.Weapon.Reload();
 	        }
 	    }
 	    

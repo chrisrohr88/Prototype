@@ -44,8 +44,8 @@ namespace Weapons.Behaviors
 
 		private IEnumerator BurstRoutine()
 		{
-			float burstTime = Weapon.GetWeapon().BurstTime.ModifiedValue;
-			int burstCount = (int)Weapon.GetWeapon().BurstCount.ModifiedValue;
+			float burstTime = Weapon.Weapon.BurstTime.ModifiedValue;
+			int burstCount = (int)Weapon.Weapon.BurstCount.ModifiedValue;
 			float waitTime = burstTime / burstCount;
 			
 			Use();
