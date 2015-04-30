@@ -75,6 +75,7 @@ namespace Weapons
 			newWeapon.BurstTime = ModifiableAttribute.Create(profile.BurstTime);
 			newWeapon.BurstCount = ModifiableAttribute.Create(profile.BurstCount);
 			newWeapon.DeviationTime = ModifiableAttribute.Create(profile.DeviationTime);
+			Debug.Log (profile.MinimumDeviation);
 			newWeapon.MinDeviation = (profile.MinimumDeviation != null) ? new Vector3(profile.MinimumDeviation.X, profile.MinimumDeviation.Y, profile.MinimumDeviation.Z) : Vector3.zero;
 			newWeapon.MaxDeviation = (profile.MaximumDeviation != null) ? new Vector3(profile.MaximumDeviation.X, profile.MaximumDeviation.Y, profile.MaximumDeviation.Z) : Vector3.zero;
 

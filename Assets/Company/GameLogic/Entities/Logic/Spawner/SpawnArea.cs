@@ -29,9 +29,10 @@ public static class EnemyManager
         SetupSpawnAreas();
         while (_isSpawning)
         {
-            var enemy = _spawnAreas[0].SpawnEnemy(_enemies[Random.Range(0, _enemies.Count)]).GetComponent<BaseEnemy>();
+			int rnd = Random.Range(0, _enemies.Count);
+            var enemy = _spawnAreas[0].SpawnEnemy(_enemies[rnd]).GetComponent<BaseEnemy>();
             _spawnedEnemies.Add(enemy);
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(5);
         }
     }
 
@@ -50,6 +51,7 @@ public static class EnemyManager
         _enemies = new List<GameObject>();
         foreach (var enemyName in enemyNames)
         {
+			Debug.Log(enemyName);
             var enemyPrefab = Resources.Load(ENEMY_PATH + enemyName) as GameObject;
             _enemies.Add(enemyPrefab);
         }
@@ -72,7 +74,7 @@ public class SpawnArea
     {
         var enemy = GameObject.Instantiate(enemyToSpawn) as GameObject;
         enemy.transform.parent = _enemyParentObject.transform;
-        enemy.transform.localPosition = _spawnAreaCenter + new Vector3(Random.Range(-_maxDistance, _maxDistance), 0, 0);
+        enemy.transform.localPosition = _spawnAreaCenter + new Vector3(Random.Range(-_maxDistance, _maxDistance), 0, -50);
         return enemy;
     }
 }

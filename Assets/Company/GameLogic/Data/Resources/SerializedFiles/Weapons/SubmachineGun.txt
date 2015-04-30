@@ -9,8 +9,8 @@
 	"MaxAmmo": 50,
 	"BurstCount": 5,
 	"BurstTime": 0.5,
-	"DeviationTime": 0.3,
-	"MaximumDeviation": {"x": 100, "y": 10, "z": 0},
-	"MinimumDeviation": {"x": 50, "y": 0, "z": 0},
+	"DeviationTime": 0.5,
+	"MaximumDeviation": {"X": 25, "Y": 5, "Z": 0},
+	"MinimumDeviation": {"X": 12, "Y": 0, "Z": 0},
 	"FireBehaviorType": "Burst"
 }

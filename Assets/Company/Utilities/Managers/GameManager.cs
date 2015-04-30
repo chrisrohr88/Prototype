@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
 	private void Awake ()
     {
-        EnemyManager.LoadEnemies(new List<string> {"Enemy"});
+		EnemyManager.LoadEnemies(new List<string> {"skeleton", "Enemy"});
         Application.targetFrameRate = 30;
 	}
 }

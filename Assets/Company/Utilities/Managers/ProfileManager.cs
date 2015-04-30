@@ -31,6 +31,7 @@ public static class ProfileManager
         foreach(var file in files)
         {
             var profileString = file.text;
+			Debug.Log("String: " + profileString);
             T profile = new JsonReader().Read<T>(profileString) as T;
             Debug.Log("Profile: " + new JsonWriter().Write(profile));
             destination.Add(profile.Name, profile);

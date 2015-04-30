@@ -10,9 +10,8 @@ public class PlayerWall : MonoBehaviour
         _player = player;
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("WHY");
         if(other.gameObject.tag == "Enemy")
         {
             var enemy = other.gameObject.GetComponent<BaseEnemy>();

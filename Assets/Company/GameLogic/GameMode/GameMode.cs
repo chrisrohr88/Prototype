@@ -21,7 +21,7 @@ public class GameMode : MonoBehaviour
     private void LoadGameModeDependancies()
     {
         _field = (Instantiate(Resources.Load("Game/Field/Field")) as GameObject).GetComponent<FieldInteractable>();
-        var playerWall = (Instantiate(Resources.Load("Game/Field/PlayerWall")) as GameObject).GetComponent<PlayerWall>();
+        var playerWall = (Instantiate(Resources.Load("Game/Field/Barrier")) as GameObject).GetComponent<PlayerWall>();
         playerWall.AssignPlayer(Player.Create(1000));
         EnemyManager.EnableSpawning();
     }
