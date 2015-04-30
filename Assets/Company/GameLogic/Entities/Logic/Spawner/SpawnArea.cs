@@ -51,7 +51,6 @@ public static class EnemyManager
         _enemies = new List<GameObject>();
         foreach (var enemyName in enemyNames)
         {
-			Debug.Log(enemyName);
             var enemyPrefab = Resources.Load(ENEMY_PATH + enemyName) as GameObject;
             _enemies.Add(enemyPrefab);
         }

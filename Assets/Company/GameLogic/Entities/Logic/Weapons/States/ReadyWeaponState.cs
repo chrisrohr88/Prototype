@@ -55,11 +55,8 @@ namespace Weapons.States
 			// TODO make this better. Deviation range not positive range
 			if((Time.time - _previousUseTime) < _weapon.Weapon.DeviationTime.ModifiedValue)
 			{
-				Debug.Log("here");
 				var dev = RandomVector3Range(_weapon.Weapon.MinDeviation, _weapon.Weapon.MaxDeviation);
-				Debug.Log(spawnPosition + " : "  + dev + " : " + _weapon.Weapon.MinDeviation + " : " + _weapon.Weapon.MaxDeviation);
-				spawnPosition += dev;//RandomVector3Range(_weapon.Weapon.MinDeviation, _weapon.Weapon.MaxDeviation);
-				Debug.Log(spawnPosition);
+				spawnPosition += dev;
 			}
 			var projectile = Projectile.Create(spawnPosition);
 	        AddDamageToProjectile(projectile);
