@@ -22,7 +22,8 @@ public class Player
     public static Player Create(float baseHealth)
     {
         var player = new Player();
-        player.Health = HealthComponent.Create(baseHealth);
+		player.Health = HealthComponent.Create(baseHealth);
+		player.Death += () => { Debug.Log ("Player is dead!"); };
         player.PickupWeapon();
         return player;
     }
