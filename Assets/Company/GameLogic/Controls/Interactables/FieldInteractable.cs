@@ -104,7 +104,7 @@ public class FieldInteractable : MonoBehaviour, Interactable
     public void SetFirePositionFromTouchPosition(Vector3 touchPosition)
     {
         var newFirePosition = _fireTransform.position;
-        newFirePosition.x = touchPosition.x;
+        newFirePosition.y = touchPosition.y;
         _fireTransform.position = newFirePosition;
     }
 }

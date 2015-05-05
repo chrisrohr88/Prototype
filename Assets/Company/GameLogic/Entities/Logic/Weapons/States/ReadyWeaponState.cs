@@ -37,25 +37,16 @@ namespace Weapons.States
 	    {
 	        return ((_timeToUseNext <= Time.time) && (CurrentAmmo > 0));
 	    }
-
-		private Vector3 RandomVector3()
-		{
-			return new Vector3(Random.value, Random.value, Random.value);
-		}
-
-		private Vector3 RandomVector3Range(Vector3 min, Vector3 max)
-		{
-			return new Vector3(Random.Range(min.x, max.x), Random.Range(min.y, max.y), Random.Range(min.z, max.z));
-		}
 	    
 	    private void CreateProjectile()
 	    {
-			var spawnPosition = GameMode.FireTransform.position + new Vector3(0, 0, 0);
+			var spawnPosition = GameMode.FireTransform.position;
 
 			// TODO make this better. Deviation range not positive range
 			if((Time.time - _previousUseTime) < _weapon.Weapon.DeviationTime.ModifiedValue)
 			{
-				var dev = RandomVector3Range(_weapon.Weapon.MinDeviation, _weapon.Weapon.MaxDeviation);
+				var dev = MyVector3.RandomShellVector(_weapon.Weapon.MinDeviation, _weapon.Weapon.MaxDeviation);
+				dev.z = -50;
 				spawnPosition += dev;
 			}
 			var projectile = Projectile.Create(spawnPosition);

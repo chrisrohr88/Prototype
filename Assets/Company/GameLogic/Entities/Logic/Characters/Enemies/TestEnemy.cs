@@ -23,15 +23,15 @@ public class TestEnemy : BaseEnemy
 	{
 		if(Input.GetKeyDown(KeyCode.Q))
 		{
-			_movementBehavior = new StaggerMovementBehavior(_speed, gameObject, 5f, OnMevementBehaviourComplete);
+			_movementBehavior = new StaggerMovementBehavior(_speed, gameObject, 5f, OnMovementBehaviorComplete);
 		}
 		if(Input.GetKeyDown(KeyCode.B))
 		{
-			_movementBehavior = new BlinkMovementBehavior(gameObject, 5f, OnMevementBehaviourComplete);
+			_movementBehavior = new BlinkMovementBehavior(gameObject, 5f, OnMovementBehaviorComplete);
 		}
 	}
 
-	protected void OnMevementBehaviourComplete()
+	protected void OnMovementBehaviorComplete()
 	{
 		_movementBehavior = new BasicMovementBehavior(_speed, gameObject);
 	}

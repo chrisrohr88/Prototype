@@ -43,7 +43,7 @@ public static class EnemyManager
 
     private static void SetupSpawnAreas()
     {
-        _spawnAreas.Add(new SpawnArea(new Vector3(0, 80, 0)));
+        _spawnAreas.Add(new SpawnArea(new Vector3(165, 5, 0)));
     }
 
     public static void LoadEnemies(List<string> enemyNames)
@@ -65,7 +65,7 @@ public class SpawnArea
 
     public SpawnArea(Vector3 spawnAreaCenter)
     {
-        _enemyParentObject = GameObject.Find("Enemies");
+        _enemyParentObject = GameObject.Find("Enemies"); // TODO: fix to have reference
         _spawnAreaCenter = spawnAreaCenter;
     }
 
@@ -73,7 +73,7 @@ public class SpawnArea
     {
         var enemy = GameObject.Instantiate(enemyToSpawn) as GameObject;
         enemy.transform.parent = _enemyParentObject.transform;
-        enemy.transform.localPosition = _spawnAreaCenter + new Vector3(Random.Range(-_maxDistance, _maxDistance), 0, -50);
+		enemy.transform.localPosition = _spawnAreaCenter + new Vector3(0, Random.Range(-_maxDistance, _maxDistance), -50);
         return enemy;
     }
 }

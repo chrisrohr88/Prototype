@@ -15,7 +15,7 @@ public class BasicMovementBehavior : BaseUpdateMovementBehavior
 	public override void UpdateGameObject()
 	{
 		var position = _gameObject.transform.position;
-		position.y -= _moveSpeed * Time.deltaTime;
+		position.x -= _moveSpeed * Time.deltaTime;
 		_gameObject.transform.position = position;
 	}
 	

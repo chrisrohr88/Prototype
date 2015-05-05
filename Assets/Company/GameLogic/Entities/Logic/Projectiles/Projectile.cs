@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        transform.localPosition += Vector3.up * _speed * Time.deltaTime;
+        transform.localPosition += Vector3.right * _speed * Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
