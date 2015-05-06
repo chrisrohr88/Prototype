@@ -48,7 +48,7 @@ public class Player
 		{
 			Weapon.UnsubscribeEvents();
 		}
-		Weapon = WeaponFactory.CreateFromProfile(profile);
+		Weapon = WeaponFactory.CreateFromProfile(profile, GameMode.FireTransform);
 		Debug.Log("Weapon is " + Weapon.Name);
 	}
 

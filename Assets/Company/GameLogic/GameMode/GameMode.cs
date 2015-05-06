@@ -23,6 +23,7 @@ public class GameMode : MonoBehaviour
         _field = (Instantiate(Resources.Load("Game/Field/Field")) as GameObject).GetComponent<FieldInteractable>();
         var playerWall = (Instantiate(Resources.Load("Game/Field/Barrier")) as GameObject).GetComponent<PlayerWall>();
         playerWall.AssignPlayer(Player.Create(1000));
+		playerWall.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, 100)) + new Vector3(-80, 4, 0);
         EnemyManager.EnableSpawning();
     }
 }

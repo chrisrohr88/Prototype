@@ -7,7 +7,6 @@ using Weapons.States;
 
 namespace Weapons
 {
-	// Subclass Weapon for future weapon categories
 	public class Weapon
 	{
 		public string Name { get; private set; }
@@ -26,6 +25,8 @@ namespace Weapons
 		public WeaponBehaviorType TriggerBehaviorType { get; private set; }
 		public Vector3 MinDeviation { get; private set; }
 		public Vector3 MaxDeviation { get; private set; }
+
+		public Transform FireTransform { get; private set; }
 
 		private InternalWeapon _internalWeapon;
 		private WeaponState _currentState;
@@ -58,7 +59,7 @@ namespace Weapons
 		{
 		}
 		
-		public static Weapon CreateFromProfile(WeaponProfile profile)
+		public static Weapon CreateFromProfile(WeaponProfile profile, Transform fireTransform)
 		{
 			var newWeapon = new Weapon();		
 			newWeapon.Name = profile.Name;
@@ -77,7 +78,7 @@ namespace Weapons
 			newWeapon.DeviationTime = ModifiableAttribute.Create(profile.DeviationTime);
 			newWeapon.MinDeviation = (profile.MinimumDeviation != null) ? new Vector3(profile.MinimumDeviation.X, profile.MinimumDeviation.Y, profile.MinimumDeviation.Z) : Vector3.zero;
 			newWeapon.MaxDeviation = (profile.MaximumDeviation != null) ? new Vector3(profile.MaximumDeviation.X, profile.MaximumDeviation.Y, profile.MaximumDeviation.Z) : Vector3.zero;
-
+			newWeapon.FireTransform = fireTransform;
 			newWeapon.Init ();
 
 			return newWeapon;

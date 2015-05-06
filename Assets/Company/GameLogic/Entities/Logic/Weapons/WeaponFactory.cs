@@ -1,11 +1,12 @@
-﻿using Weapons.Behaviors;
+﻿using UnityEngine;
+using Weapons.Behaviors;
 using Weapons.Enums;
 
 namespace Weapons
 {
 	public static class WeaponFactory
 	{
-		public static Weapon CreateDeault()
+		public static Weapon CreateDeault(Transform fireTransform)
 		{
 			var profile = new WeaponProfile();
 
@@ -19,12 +20,13 @@ namespace Weapons
 			profile.MaxAmmo = 10;
 			profile.AmmoType = AmmoType.Fire;
 
-			return CreateFromProfile(profile);
+			return CreateFromProfile(profile, fireTransform);
 		}
 		
-		public static Weapon CreateFromProfile(WeaponProfile profile)
+		public static Weapon CreateFromProfile(WeaponProfile profile, Transform fireTransform)
 		{
-			return Weapon.CreateFromProfile(profile);
+			return Weapon.CreateFromProfile(profile, fireTransform);
+
 		}
 	}
 }

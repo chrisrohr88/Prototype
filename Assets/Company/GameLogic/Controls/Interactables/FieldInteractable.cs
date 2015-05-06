@@ -65,6 +65,11 @@ public class FieldInteractable : MonoBehaviour, Interactable
         }
     }
 
+	public void Start()
+	{
+		_fireTransform.position = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, 100));
+	}
+
     public void OnPress(MyTouch touch)
     {
         SetFirePositionFromTouchPosition(touch.WorldHitPosition);

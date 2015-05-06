@@ -40,7 +40,7 @@ namespace Weapons.States
 	    
 	    private void CreateProjectile()
 	    {
-			var spawnPosition = GameMode.FireTransform.position;
+			var spawnPosition = _weapon.Weapon.FireTransform.position;
 
 			// TODO make this better. Deviation range not positive range
 			if((Time.time - _previousUseTime) < _weapon.Weapon.DeviationTime.ModifiedValue)
@@ -49,7 +49,7 @@ namespace Weapons.States
 				dev.z = -50;
 				spawnPosition += dev;
 			}
-			var projectile = Projectile.Create(spawnPosition);
+			var projectile = Projectile.Create(_weapon.Weapon.FireTransform);
 	        AddDamageToProjectile(projectile);
 	    }
 	    
