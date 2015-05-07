@@ -8,6 +8,7 @@
 	Charged,
 	WarmFirst,
 	Burst,
-	Spread
+	Spread,
+	AI
 }
 

@@ -42,7 +42,6 @@ namespace Weapons.States
 	    {
 			var spawnPosition = _weapon.Weapon.FireTransform.position;
 
-			// TODO make this better. Deviation range not positive range
 			if((Time.time - _previousUseTime) < _weapon.Weapon.DeviationTime.ModifiedValue)
 			{
 				var dev = MyVector3.RandomShellVector(_weapon.Weapon.MinDeviation, _weapon.Weapon.MaxDeviation);

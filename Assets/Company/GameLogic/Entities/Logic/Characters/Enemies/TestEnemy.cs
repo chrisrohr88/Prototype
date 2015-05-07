@@ -1,10 +1,12 @@
 using UnityEngine;
+using Weapons;
 using System.Collections;
 
 public class TestEnemy : BaseEnemy
 {
     [SerializeField] private float _speed = 50f;
 	private CharacterBehavior _movementBehavior;
+	private Weapon _weapon;
 
     protected override void PreStart()
     {
@@ -13,6 +15,7 @@ public class TestEnemy : BaseEnemy
     protected override void Start()
     {
 		_movementBehavior = new BasicMovementBehavior(_speed, gameObject);
+		_weapon = Weapon.CreateFromProfile(ProfileManager.GetWeaponProfileByName("AI"), _spwanTransform);
     }
 
     protected override void PostStart()
@@ -29,6 +32,7 @@ public class TestEnemy : BaseEnemy
 		{
 			_movementBehavior = new BlinkMovementBehavior(gameObject, 5f, OnMovementBehaviorComplete);
 		}
+		_weapon.TriggerPulled();
 	}
 
 	protected void OnMovementBehaviorComplete()

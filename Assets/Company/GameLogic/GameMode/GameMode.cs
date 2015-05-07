@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//TODO Do this better
 public class GameMode : MonoBehaviour
 {
     private static FieldInteractable _field;

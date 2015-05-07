@@ -3,8 +3,9 @@ using System.Collections;
 
 public abstract class BaseEnemy : MonoBehaviour
 {
-    [SerializeField] protected float _damage = 100f;
-    [SerializeField] protected GameObject _deathEffectPrefab;
+	[SerializeField] protected float _damage = 100f;
+	[SerializeField] protected GameObject _deathEffectPrefab;
+	[SerializeField] protected Transform _spwanTransform;
 
     protected HealthComponent _health = null;
 
@@ -56,6 +57,7 @@ public abstract class BaseEnemy : MonoBehaviour
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         var damageData = other.gameObject.GetComponent<DamageData>();
+
         if (damageData != null)
         {
             UpdateHealth(-damageData.Damage);

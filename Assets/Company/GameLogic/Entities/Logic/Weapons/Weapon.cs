@@ -42,7 +42,7 @@ namespace Weapons
 	        }
 		}
 
-		public void Init()
+		private void Init()
 		{
 			if(!_initialized)
 			{
@@ -50,8 +50,6 @@ namespace Weapons
 				_currentState = new ReadyWeaponState(_internalWeapon);
 				_currentState.CurrentAmmo = (int)MaxAmmo.ModifiedValue;
 				_rangeAttackBehavior = WeaponBehavior.CreateWeaponBehavior(_internalWeapon);
-
-				SetupTriggers();
 			}
 		}
 
@@ -79,26 +77,9 @@ namespace Weapons
 			newWeapon.MinDeviation = (profile.MinimumDeviation != null) ? new Vector3(profile.MinimumDeviation.X, profile.MinimumDeviation.Y, profile.MinimumDeviation.Z) : Vector3.zero;
 			newWeapon.MaxDeviation = (profile.MaximumDeviation != null) ? new Vector3(profile.MaximumDeviation.X, profile.MaximumDeviation.Y, profile.MaximumDeviation.Z) : Vector3.zero;
 			newWeapon.FireTransform = fireTransform;
-			newWeapon.Init ();
+			newWeapon.Init();
 
 			return newWeapon;
-		}
-
-		//TODO: Redo Input solution
-	    private void SetupTriggers()
-		{
-			FieldInteractable.OnHeld += TriggerHeld;
-	        FieldInteractable.OnMoved += TriggerHeld;
-			FieldInteractable.OnPressed += TriggerPulled;
-			FieldInteractable.OnReleased += TriggerReleased;
-	    }
-
-		public void UnsubscribeEvents()
-		{
-			FieldInteractable.OnHeld -= TriggerHeld;
-			FieldInteractable.OnMoved -= TriggerHeld;
-			FieldInteractable.OnPressed -= TriggerPulled;
-			FieldInteractable.OnReleased -= TriggerReleased;
 		}
 	    
 	    public void TriggerPulled()

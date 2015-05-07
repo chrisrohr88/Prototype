@@ -30,6 +30,7 @@ public class Player
 
     private Player()
     {
+		SubscribeEvents();
     }
 
 	public void PickupWeapon(string profileName)
@@ -44,15 +45,44 @@ public class Player
 	
 	public void PickupWeapon(WeaponProfile profile)
 	{
-		if(Weapon != null)
-		{
-			Weapon.UnsubscribeEvents();
-		}
 		Weapon = WeaponFactory.CreateFromProfile(profile, GameMode.FireTransform);
 		Debug.Log("Weapon is " + Weapon.Name);
+	} 
+
+	public void TriggerPulled()
+	{
+		Weapon.TriggerPulled();
+	}
+	
+	public void TriggerHeld()
+	{
+		Weapon.TriggerHeld();
+	}
+	
+	public void TriggerReleased()
+	{
+		Weapon.TriggerReleased();
+	}
+	
+	private void SubscribeEvents()
+	{
+		UnsubscribeEvents();
+		FieldInteractable.OnHeld += TriggerHeld;
+		FieldInteractable.OnMoved += TriggerHeld;
+		FieldInteractable.OnPressed += TriggerPulled;
+		FieldInteractable.OnReleased += TriggerReleased;
+	}
+	
+	public void UnsubscribeEvents()
+	{
+		FieldInteractable.OnHeld -= TriggerHeld;
+		FieldInteractable.OnMoved -= TriggerHeld;
+		FieldInteractable.OnPressed -= TriggerPulled;
+		FieldInteractable.OnReleased -= TriggerReleased;
 	}
 
     ~Player()
-    {
-    }
+	{
+		UnsubscribeEvents();
+	}
 }
