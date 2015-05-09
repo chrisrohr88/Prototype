@@ -13,7 +13,7 @@ public static class EnemyManager
 
     static EnemyManager()
     {
-        _enemies = new List<GameObject>();
+		_enemies = new List<GameObject>();
         _spawnedEnemies = new List<BaseEnemy>();
         _spawnAreas = new List<SpawnArea>();
     }
@@ -30,7 +30,7 @@ public static class EnemyManager
         while (_isSpawning)
         {
 			int rnd = Random.Range(0, _enemies.Count);
-            var enemy = _spawnAreas[0].SpawnEnemy(_enemies[rnd]).GetComponent<BaseEnemy>();
+            var enemy = _spawnAreas[0].SpawnEnemy(ENEMY_PATH + _enemies[rnd].name);
             _spawnedEnemies.Add(enemy);
             yield return new WaitForSeconds(5);
         }
@@ -69,11 +69,11 @@ public class SpawnArea
         _spawnAreaCenter = spawnAreaCenter;
     }
 
-    public GameObject SpawnEnemy(GameObject enemyToSpawn)
+	public BaseEnemy SpawnEnemy(string enemyPath)
     {
-        var enemy = GameObject.Instantiate(enemyToSpawn) as GameObject;
-        enemy.transform.parent = _enemyParentObject.transform;
-		enemy.transform.localPosition = _spawnAreaCenter + new Vector3(0, Random.Range(-_maxDistance, _maxDistance), -50);
-        return enemy;
+		var enemy = Enemy.Create(100, enemyPath);
+        enemy.TestEnemy.transform.parent = _enemyParentObject.transform;
+		enemy.TestEnemy.transform.localPosition = _spawnAreaCenter + new Vector3(0, Random.Range(-_maxDistance, _maxDistance), -50);
+        return enemy.TestEnemy;
     }
 }

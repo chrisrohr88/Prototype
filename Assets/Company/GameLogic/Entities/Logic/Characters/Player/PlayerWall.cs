@@ -15,7 +15,7 @@ public class PlayerWall : MonoBehaviour
         if(other.gameObject.tag == "Enemy")
         {
             var enemy = other.gameObject.GetComponent<BaseEnemy>();
-            _player.Health.UpdateHealth(-enemy.Damage);
+            _player.Health.UpdateHealth(-enemy.Enemy.Damage);
             Debug.Log("Health: " + _player.Health.TestHealth);
         }
     }

@@ -3,44 +3,23 @@ using System.Collections;
 
 public abstract class BaseEnemy : MonoBehaviour
 {
-	[SerializeField] protected float _damage = 100f;
 	[SerializeField] protected GameObject _deathEffectPrefab;
-	[SerializeField] protected Transform _spwanTransform;
-
-    protected HealthComponent _health = null;
-
-    public bool IsPressed { get; protected set; }
-
-    public float Damage
-    {
-        get
-        {
-            return _damage;
-        }
-
-        protected set
-        {
-            _damage = value;
-        }
-    }
 
     protected abstract void PreStart();
-    protected abstract void Start();
     protected abstract void PostStart();
-
-    protected abstract void Update();
-    protected abstract void FixedUpdate();
+	
+	public Transform SpwanTransform;
+	public Enemy Enemy { get; set; }
     
-    protected void Awake()
+    protected virtual void Start()
     {
-        _health = HealthComponent.Create(250);
-        _health.Death += OnDeath;
-    }
-
-    protected void UpdateHealth(float amount)
-    {
-        _health.UpdateHealth(amount);
-    }
+		Enemy.Health.Death += OnDeath;
+	}
+	
+	protected virtual void Update()
+	{
+		Enemy.Update();
+	}
 
     protected void OnDeath()
     {
@@ -50,8 +29,8 @@ public abstract class BaseEnemy : MonoBehaviour
     }
 
     protected void OnDestroy()
-    {
-        _health.Destroy();
+	{
+		Enemy.Health.Death -= OnDeath;
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
@@ -60,7 +39,8 @@ public abstract class BaseEnemy : MonoBehaviour
 
         if (damageData != null)
         {
-            UpdateHealth(-damageData.Damage);
+			Enemy.UpdateHealth(-damageData.Damage);
+			Debug.Log(Enemy.Health.TestHealth);
         }
     }
 }
