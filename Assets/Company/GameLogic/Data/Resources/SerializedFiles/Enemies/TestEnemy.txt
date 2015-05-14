@@ -1,0 +1,9 @@
+{
+	"Name": "Skeleton",
+	"Level": 1,
+	"Speed": 35,
+	"BaseHealth": 100,
+	"PointValue": 100,
+	"EnemyPrefabPath": "Game/Enemies/Skeleton",
+	"WeaponProfileName": "AI"
+}

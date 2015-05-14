@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum MovementBehaviorType // MovementBehavior?
+{
+	BasicMovement,
+	Blink,
+	Stagger
+}
+
 public abstract class CharacterBehavior
 {
 	protected GameObject _gameObject;

@@ -10,13 +10,13 @@ public class Enemy
 	private float _speed = 50f;
 	private CharacterBehavior _movementBehavior;
 	private Weapon _weapon;
-	public ModifiableAttribute BaseDamage { get; private set; }
+	public ModifiableAttribute BaseDamage { get; private set; } // TODO remove damage
 
 	public float Damage
 	{
 		get
 		{
-			return BaseDamage.ModifiedValue;
+			return 0;
 		}
 	}
 	
@@ -32,23 +32,20 @@ public class Enemy
 		}
 	}
 	
-	public static Enemy Create(float baseHealth, string enemyPath)
+	public static Enemy Create(EnemyProfile profile)
 	{
-		var enemy = new Enemy(baseHealth, enemyPath);
+		var enemy = new Enemy();
+		enemy.Health = HealthComponent.Create(profile.BaseHealth);
+		enemy.TestEnemy = (GameObject.Instantiate(Resources.Load(profile.EnemyPrefabPath)) as GameObject).GetComponent<TestEnemy>();
+		enemy.TestEnemy.Enemy = enemy;
+		enemy._weapon = Weapon.CreateFromProfile(ProfileManager.GetWeaponProfileByName(profile.WeaponProfileName), enemy.TestEnemy.SpwanTransform);
+		enemy._movementBehavior = new BasicMovementBehavior(profile.Speed, enemy.TestEnemy.gameObject);
 		return enemy;
 	}
 
-	// TODO make from profile
-	private Enemy(float baseHealth, string enemyPath)
+	private Enemy()
 	{
-		BaseDamage = ModifiableAttribute.Create(25);
-		Health = HealthComponent.Create(baseHealth);
-		Death += () => { Debug.Log ("Enemy is dead!"); };
-		TestEnemy = (GameObject.Instantiate(Resources.Load(enemyPath)) as GameObject).GetComponent<TestEnemy>();
-		Debug.Log (TestEnemy + enemyPath);
-		TestEnemy.Enemy = this;
-		_movementBehavior = new BasicMovementBehavior(_speed, TestEnemy.gameObject);
-		_weapon = Weapon.CreateFromProfile(ProfileManager.GetWeaponProfileByName("AI"), TestEnemy.SpwanTransform);
+//		Death += OnDeath;
 	}
 
 	protected void OnDeath()
@@ -92,5 +89,6 @@ public class Enemy
 	
 	~Enemy()
 	{
+		Death -= OnDeath;
 	}
 }

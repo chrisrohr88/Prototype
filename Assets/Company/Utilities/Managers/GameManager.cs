@@ -20,8 +20,18 @@ public class GameManager : MonoBehaviour
     }
 
 	private void Awake ()
-    {
-		EnemyManager.LoadEnemies(new List<string> {"Skeleton", "Enemy"});
+	{
+		if(_instance == null)
+		{
+			_instance = this;
+		}
+		else if(_instance != this)
+		{
+			Destroy(gameObject);
+			return;
+		}
+
+		EnemyManager.LoadEnemies (new List<EnemyProfile> {ProfileManager.GetEnemyProfile("Skeleton")});//, ProfileManager.GetEnemyProfile("Enemy")});
         Application.targetFrameRate = 30;
 	}
 }

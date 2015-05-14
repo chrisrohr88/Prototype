@@ -7,8 +7,9 @@ using System.IO;
 public static class ProfileManager
 {
 	private static string PARENT_PROFILE_PATH = "SerializedFiles/";
-
-    private static Dictionary<string, WeaponProfile> _weaponProfiles = new Dictionary<string, WeaponProfile>();
+	
+	private static Dictionary<string, WeaponProfile> _weaponProfiles = new Dictionary<string, WeaponProfile>();
+	private static Dictionary<string, EnemyProfile> _enemyProfiles = new Dictionary<string, EnemyProfile>();
 
 	static ProfileManager()
 	{
@@ -16,7 +17,8 @@ public static class ProfileManager
 
 	public static void LoadProfiles(System.Action callback)
 	{
-        LoadWeaponProfiles();
+		LoadWeaponProfiles();
+		LoadEnemyProfiles();
 		callback.SafeInvoke();
 	}
 
@@ -24,7 +26,13 @@ public static class ProfileManager
 	{
 		var files = Resources.LoadAll<TextAsset>(PARENT_PROFILE_PATH + "Weapons/");
         LoadProfilesFromSourceToDestination<WeaponProfile>(files, _weaponProfiles);
-    }
+	}
+	
+	private static void LoadEnemyProfiles()
+	{
+		var files = Resources.LoadAll<TextAsset>(PARENT_PROFILE_PATH + "Enemies/");
+		LoadProfilesFromSourceToDestination<EnemyProfile>(files, _enemyProfiles);
+	}
 
 	private static void LoadProfilesFromSourceToDestination<T>(TextAsset[] files, Dictionary<string, T> destination) where T : BaseProfile
     {
@@ -35,6 +43,11 @@ public static class ProfileManager
             destination.Add(profile.Name, profile);
         }
     }
+
+	public static EnemyProfile GetEnemyProfile(string name)
+	{
+		return _enemyProfiles[name];
+	}
 
 	public static WeaponProfile GetRandomWeapon()
 	{

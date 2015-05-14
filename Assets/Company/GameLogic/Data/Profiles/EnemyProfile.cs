@@ -4,19 +4,19 @@ using Weapons.Enums;
 
 public class EnemyProfile : BaseProfile
 {
-	public int BaseDamage { get; set; }
-	public int RateOfFire { get; set; }
-	public int AttackPower { get; set; }
-	public float Accuracy { get; set; }
-	public int BurstCount { get; set; }
-	public float BurstTime { get; set; }
-	public float ChargeTime { get; set; }
-	public float ReloadTime { get; set; }
-	public int MaxAmmo { get; set; }
-	public AmmoType AmmoType { get; set; }
-	public WeaponBehaviorType FireBehaviorType { get; set; }
-	public WeaponBehaviorType TriggerBehaviorType { get; set; }
-	public float DeviationTime { get; set; }
-	public MyVector3 MinimumDeviation { get; set; }
-	public MyVector3 MaximumDeviation { get; set; }
+	public int Level { get; set; }
+	public int Speed { get; set; }
+	public float BaseHealth { get; set; }
+	public int PointValue { get; set; }
+	public string EnemyPrefabPath { get; set; }
+	public string WeaponProfileName { get; set; }
+//	public MovementBehaviorType MovementBehaviorType { get; set; }
+//	public MovementBehaviorType OnDamageMovementBehavior { get; set; }
+//	public MovementBehaviorType OnThreatMovementBehavior { get; set; }
+//	public MovementBehaviorType OnAttackMovementBehavior { get; set; }
+//	public MovementBehaviorType DetectBehavior { get; set; }
+//	public MovementBehaviorType OnHitDetectBehavior { get; set; }
+//	public MovementBehaviorType AttackBehavior { get; set; }
+//	public MovementBehaviorType OnAttackBehavior { get; set; }
+//	public MovementBehaviorType OnThreatBehavior { get; set; }
 }
