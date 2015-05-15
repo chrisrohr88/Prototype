@@ -39,8 +39,8 @@ public abstract class BaseEnemy : MonoBehaviour
 
         if (damageData != null)
         {
-			Enemy.UpdateHealth(-damageData.Damage);
-			Debug.Log(Enemy.Health.TestHealth);
+			Enemy.TakeDamage(damageData);
+			Destroy (other.gameObject);
         }
     }
 }

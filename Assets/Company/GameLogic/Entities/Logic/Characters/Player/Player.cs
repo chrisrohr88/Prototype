@@ -5,7 +5,8 @@ using Weapons;
 public class Player
 {
     public Weapon Weapon { get; private set; }
-    public HealthComponent Health { get; private set; }
+	public HealthComponent Health { get; private set; }
+	public int id = 1;
 
     public event System.Action Death
     {
@@ -46,6 +47,7 @@ public class Player
 	public void PickupWeapon(WeaponProfile profile)
 	{
 		Weapon = WeaponFactory.CreateFromProfile(profile, GameMode.FireTransform);
+		Weapon.EntityId = id;
 		Debug.Log("Weapon is " + Weapon.Name);
 	} 
 

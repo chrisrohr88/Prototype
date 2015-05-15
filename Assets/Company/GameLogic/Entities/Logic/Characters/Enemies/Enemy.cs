@@ -9,8 +9,8 @@ public class Enemy
 	public TestEnemy TestEnemy { get; private set; }
 	private float _speed = 50f;
 	private CharacterBehavior _movementBehavior;
-	private Weapon _weapon;
 	public ModifiableAttribute BaseDamage { get; private set; } // TODO remove damage
+	public int id = 2;
 
 	public float Damage
 	{
@@ -38,8 +38,9 @@ public class Enemy
 		enemy.Health = HealthComponent.Create(profile.BaseHealth);
 		enemy.TestEnemy = (GameObject.Instantiate(Resources.Load(profile.EnemyPrefabPath)) as GameObject).GetComponent<TestEnemy>();
 		enemy.TestEnemy.Enemy = enemy;
-		enemy._weapon = Weapon.CreateFromProfile(ProfileManager.GetWeaponProfileByName(profile.WeaponProfileName), enemy.TestEnemy.SpwanTransform);
+		enemy.Weapon = WeaponFactory.CreateFromProfile(ProfileManager.GetWeaponProfileByName(profile.WeaponProfileName), enemy.TestEnemy.SpwanTransform);
 		enemy._movementBehavior = new BasicMovementBehavior(profile.Speed, enemy.TestEnemy.gameObject);
+		enemy.Weapon.EntityId = enemy.id;
 		return enemy;
 	}
 
@@ -62,7 +63,7 @@ public class Enemy
 		{
 			_movementBehavior = new BlinkMovementBehavior(TestEnemy.gameObject, 5f, OnMovementBehaviorComplete);
 		}
-		_weapon.TriggerPulled();
+		UseWeapon();
 		
 		Move();
 	}
@@ -80,6 +81,14 @@ public class Enemy
 	public void UpdateHealth(float amount)
 	{
 		Health.UpdateHealth(amount);
+	}
+
+	public void TakeDamage(DamageData damageData)
+	{
+		if(damageData.AttackerId != id)
+		{
+			UpdateHealth(-damageData.Damage);
+		}
 	}
 	
 	public void UseWeapon()

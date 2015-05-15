@@ -55,7 +55,7 @@ namespace Weapons.States
 	    private void AddDamageToProjectile(Projectile projectile)
 	    {
 	        var damageData = projectile.gameObject.AddComponent<DamageData>();
-	        damageData.AttackerId = 1; // TODO get real id
+			damageData.AttackerId = _weapon.Weapon.EntityId;
 	        damageData.Damage = _weapon.Weapon.Damage;
 	        damageData.DamageType = DamageType.Fire;
 	    }

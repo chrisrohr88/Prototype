@@ -25,6 +25,7 @@ namespace Weapons
 		public WeaponBehaviorType TriggerBehaviorType { get; private set; }
 		public Vector3 MinDeviation { get; private set; }
 		public Vector3 MaxDeviation { get; private set; }
+		public int EntityId { get; set; } // TODO change this
 
 		public Transform FireTransform { get; private set; }
 

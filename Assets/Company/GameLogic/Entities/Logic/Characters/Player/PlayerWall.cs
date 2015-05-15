@@ -11,11 +11,13 @@ public class PlayerWall : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.gameObject.tag == "Enemy")
+	{
+		var damageData = other.gameObject.GetComponent<DamageData>();
+
+		if(damageData != null && damageData.AttackerId != _player.id)
         {
-            var enemy = other.gameObject.GetComponent<BaseEnemy>();
-            _player.Health.UpdateHealth(-enemy.Enemy.Damage);
+			_player.Health.UpdateHealth(-damageData.Damage);
+			Destroy (other.gameObject);
         }
     }
 }
