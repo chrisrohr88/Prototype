@@ -6,7 +6,7 @@ public class BlinkMovementBehavior : BaseSingleUpdateMovementBehavior
 	private Vector3 _blinkTo;
 
 	// TODO min/max blink distance
-	public BlinkMovementBehavior(GameObject gameObject, float blinkTime, System.Action callback)
+	public BlinkMovementBehavior(BaseEnemy gameObject, float blinkTime, System.Action callback)
 	{
 		_gameObject = gameObject;
 		_moveTimeLimit = blinkTime;

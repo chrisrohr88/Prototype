@@ -7,6 +7,7 @@ using Weapons.States;
 
 namespace Weapons
 {
+	[System.Serializable]
 	public class Weapon
 	{
 		public string Name { get; private set; }
@@ -25,7 +26,7 @@ namespace Weapons
 		public WeaponBehaviorType TriggerBehaviorType { get; private set; }
 		public Vector3 MinDeviation { get; private set; }
 		public Vector3 MaxDeviation { get; private set; }
-		public int EntityId { get; set; } // TODO change this
+		public long EntityId { get; set; } // TODO change this
 
 		public Transform FireTransform { get; private set; }
 

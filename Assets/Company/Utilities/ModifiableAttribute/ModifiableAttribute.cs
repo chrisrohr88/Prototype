@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[System.Serializable]
 public class ModifiableAttribute
 {
     #region Modifier
@@ -52,8 +51,8 @@ public class ModifiableAttribute
     #endregion
 
     #region Fields, Members, and Properties
-    private float _baseValue = 0;
-    private float _modifiedValue = 0;
+    [SerializeField] private float _baseValue = 0;
+	[SerializeField] private float _modifiedValue = 0;
     private int _nextKey = 0;
     private int _nextPermanentKey = -1;
     private Modifier _firstToExpireModifier = null;

@@ -69,8 +69,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 447180}
   - 61: {fileID: 6191748}
-  - 114: {fileID: 11405142}
   - 50: {fileID: 5023664}
+  - 114: {fileID: 11458212}
   m_Layer: 11
   m_Name: Skeleton
   m_TagString: Enemy
@@ -1201,7 +1201,7 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
---- !u!114 &11405142
+--- !u!114 &11458212
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1209,7 +1209,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 116364}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5fb184509867664caf534730a7d6996, type: 3}
+  m_Script: {fileID: 11500000, guid: d65bad693cd976645a758e301fcbd3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _deathEffectPrefab: {fileID: 100000, guid: 8d971ee7af4418342b6f616932f02665, type: 2}

@@ -4,7 +4,7 @@ public class StaggerMovementBehavior : BaseSingleUpdateMovementBehavior
 {
 	private Vector3 _staggerTo;
 	
-	public StaggerMovementBehavior(float moveSpeed, GameObject gameObject, float moveTimeLimit, System.Action callback)
+	public StaggerMovementBehavior(float moveSpeed, BaseEnemy gameObject, float moveTimeLimit, System.Action callback)
 	{
 		_gameObject = gameObject;
 		_moveSpeed = moveSpeed;

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BasicMovementBehavior : BaseUpdateMovementBehavior
 {
-	public BasicMovementBehavior(float moveSpeed, GameObject gameObject)
+	public BasicMovementBehavior(float moveSpeed, BaseEnemy gameObject)
 	{
 		_gameObject = gameObject;
 		_moveSpeed = moveSpeed;
@@ -15,7 +15,7 @@ public class BasicMovementBehavior : BaseUpdateMovementBehavior
 	public override void UpdateGameObject()
 	{
 		var position = _gameObject.transform.position;
-		position.x -= _moveSpeed * Time.deltaTime;
+		position.x -= _gameObject.Enemy.Speed * Time.deltaTime;
 		_gameObject.transform.position = position;
 	}
 	

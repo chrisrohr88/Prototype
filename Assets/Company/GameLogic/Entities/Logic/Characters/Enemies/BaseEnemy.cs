@@ -1,24 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class BaseEnemy : MonoBehaviour
+public class BaseEnemy : MonoBehaviour
 {
 	[SerializeField] protected GameObject _deathEffectPrefab;
+	[SerializeField] protected Transform _spawnTransform;
 
-    protected abstract void PreStart();
-    protected abstract void PostStart();
-	
-	public Transform SpwanTransform;
 	public Enemy Enemy { get; set; }
     
+	public Transform SpawnTransform
+	{
+		get
+		{
+			return _spawnTransform;
+		}
+	}
+
     protected virtual void Start()
-    {
+	{
 		Enemy.Health.Death += OnDeath;
 	}
 	
 	protected virtual void Update()
 	{
-		Enemy.Update();
+		if(Enemy != null)
+		{
+			Enemy.Update();
+		}
 	}
 
     protected void OnDeath()

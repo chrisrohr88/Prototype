@@ -6,19 +6,10 @@ public class Enemy
 {
 	public Weapon Weapon { get; private set; }
 	public HealthComponent Health { get; private set; }
-	public TestEnemy TestEnemy { get; private set; }
-	private float _speed = 50f;
+	[HideInInspector] public BaseEnemy EnemyRenderable { get; private set; }
+	public float Speed { get; private set; }
 	private CharacterBehavior _movementBehavior;
-	public ModifiableAttribute BaseDamage { get; private set; } // TODO remove damage
-	public int id = 2;
-
-	public float Damage
-	{
-		get
-		{
-			return 0;
-		}
-	}
+	public readonly long id = 2;
 	
 	public event System.Action Death
 	{
@@ -36,17 +27,17 @@ public class Enemy
 	{
 		var enemy = new Enemy();
 		enemy.Health = HealthComponent.Create(profile.BaseHealth);
-		enemy.TestEnemy = (GameObject.Instantiate(Resources.Load(profile.EnemyPrefabPath)) as GameObject).GetComponent<TestEnemy>();
-		enemy.TestEnemy.Enemy = enemy;
-		enemy.Weapon = WeaponFactory.CreateFromProfile(ProfileManager.GetWeaponProfileByName(profile.WeaponProfileName), enemy.TestEnemy.SpwanTransform);
-		enemy._movementBehavior = new BasicMovementBehavior(profile.Speed, enemy.TestEnemy.gameObject);
+		enemy.EnemyRenderable = (GameObject.Instantiate(Resources.Load(profile.EnemyPrefabPath)) as GameObject).GetComponent<BaseEnemy>();
+		enemy.EnemyRenderable.Enemy = enemy;
+		enemy.Speed = profile.Speed;
+		enemy.Weapon = WeaponFactory.CreateFromProfile(ProfileManager.GetWeaponProfileByName(profile.WeaponProfileName), enemy.EnemyRenderable.SpawnTransform);
+		enemy._movementBehavior = new BasicMovementBehavior(enemy.Speed, enemy.EnemyRenderable);
 		enemy.Weapon.EntityId = enemy.id;
 		return enemy;
 	}
 
 	private Enemy()
 	{
-//		Death += OnDeath;
 	}
 
 	protected void OnDeath()
@@ -57,11 +48,11 @@ public class Enemy
 	{
 		if(Input.GetKeyDown(KeyCode.Q))
 		{
-			_movementBehavior = new StaggerMovementBehavior(_speed, TestEnemy.gameObject, 5f, OnMovementBehaviorComplete);
+			_movementBehavior = new StaggerMovementBehavior(Speed, EnemyRenderable, 5f, OnMovementBehaviorComplete);
 		}
 		if(Input.GetKeyDown(KeyCode.B))
 		{
-			_movementBehavior = new BlinkMovementBehavior(TestEnemy.gameObject, 5f, OnMovementBehaviorComplete);
+			_movementBehavior = new BlinkMovementBehavior(EnemyRenderable, 5f, OnMovementBehaviorComplete);
 		}
 		UseWeapon();
 		
@@ -75,7 +66,7 @@ public class Enemy
 
 	protected void OnMovementBehaviorComplete()
 	{
-		_movementBehavior = new BasicMovementBehavior(_speed, TestEnemy.gameObject);
+		_movementBehavior = new BasicMovementBehavior(Speed, EnemyRenderable);
 	}
 	
 	public void UpdateHealth(float amount)
@@ -94,10 +85,5 @@ public class Enemy
 	public void UseWeapon()
 	{
 		Weapon.TriggerPulled();
-	}
-	
-	~Enemy()
-	{
-		Death -= OnDeath;
 	}
 }

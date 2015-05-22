@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[System.Serializable]
 public class HealthComponent
 {
-    private ModifiableAttribute _maxHealthAttribute = null;
-    private float _currentHealth;
-    private bool _isDead;
+	private ModifiableAttribute _maxHealthAttribute = null;
+	private float _currentHealth;
+	private bool _isDead;
 
     public float TestHealth
     {

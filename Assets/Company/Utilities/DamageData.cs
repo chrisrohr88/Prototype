@@ -12,7 +12,7 @@ public enum DamageType
 
 public class DamageData : MonoBehaviour
 {
-    public int AttackerId { get; set; }
+    public long AttackerId { get; set; }
     public int TargetrId { get; set; }
     public float Damage { get; set; }
     public DamageType DamageType { get; set; }

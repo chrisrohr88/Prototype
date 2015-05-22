@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -75,8 +75,8 @@ public class SpawnArea
 	public BaseEnemy SpawnEnemy(EnemyProfile enemyProfile)
     {
 		var enemy = Enemy.Create(enemyProfile);
-        enemy.TestEnemy.transform.parent = _enemyParentObject.transform;
-		enemy.TestEnemy.transform.localPosition = _spawnAreaCenter + new Vector3(0, Random.Range(-_maxDistance, _maxDistance), -50);
-        return enemy.TestEnemy;
+		enemy.EnemyRenderable.transform.parent = _enemyParentObject.transform;
+		enemy.EnemyRenderable.transform.localPosition = _spawnAreaCenter + new Vector3(0, Random.Range(-_maxDistance, _maxDistance), -50);
+		return enemy.EnemyRenderable;
     }
 }

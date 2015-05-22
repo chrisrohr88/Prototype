@@ -10,7 +10,7 @@ public enum MovementBehaviorType // MovementBehavior?
 
 public abstract class CharacterBehavior
 {
-	protected GameObject _gameObject;
+	protected BaseEnemy _gameObject;
 	protected CharacterBehavior _nextBehavior;
 	
 	protected abstract void StartBehavior();
