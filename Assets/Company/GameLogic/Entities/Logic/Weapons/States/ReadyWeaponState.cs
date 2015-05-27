@@ -41,14 +41,12 @@ namespace Weapons.States
 	    private void CreateProjectile()
 	    {
 			var spawnPosition = _weapon.Weapon.FireTransform.position;
-
 			if((Time.time - _previousUseTime) < _weapon.Weapon.DeviationTime.ModifiedValue)
 			{
 				var dev = MyVector3.RandomShellVector(_weapon.Weapon.MinDeviation, _weapon.Weapon.MaxDeviation);
-				dev.z = -50;
 				spawnPosition += dev;
 			}
-			var projectile = Projectile.Create(_weapon.Weapon.FireTransform);
+			var projectile = Projectile.Create(_weapon.Weapon.FireTransform, spawnPosition);
 	        AddDamageToProjectile(projectile);
 	    }
 	    

@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deathEffectPrefab: {fileID: 100000, guid: 8d971ee7af4418342b6f616932f02665, type: 2}
-  SpwanTransform: {fileID: 486102}
+  _spawnTransform: {fileID: 486102}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

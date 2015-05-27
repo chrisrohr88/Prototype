@@ -8,6 +8,13 @@ using System.Reflection;
 [CanEditMultipleObjects]
 public class EnemyInspector : Editor 
 {
+	private EnemyDrawer _enemyDrawer;
+
+	public void OnEnable()
+	{
+		_enemyDrawer = new EnemyDrawer();
+	}
+
 	public override void OnInspectorGUI()
 	{
 		BaseEnemy enemy = (BaseEnemy)target;
@@ -31,8 +38,6 @@ public class EnemyInspector : Editor
 
 	private void DrawEnemyEntity(Enemy enemy)
 	{
-		EditorGUI.indentLevel++;
-		EnemyDrawer.Draw(enemy);
-		EditorGUI.indentLevel--;
+		_enemyDrawer.Draw(enemy);
 	}
 }

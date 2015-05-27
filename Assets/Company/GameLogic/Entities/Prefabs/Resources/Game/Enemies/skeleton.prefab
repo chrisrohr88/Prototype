@@ -1213,7 +1213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deathEffectPrefab: {fileID: 100000, guid: 8d971ee7af4418342b6f616932f02665, type: 2}
-  SpwanTransform: {fileID: 426348}
+  _spawnTransform: {fileID: 426348}
 --- !u!137 &13702532
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
