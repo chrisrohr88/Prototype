@@ -6,9 +6,10 @@ public class Enemy
 {
 	public Weapon Weapon { get; private set; }
 	public HealthComponent Health { get; private set; }
-	[HideInInspector] public BaseEnemy EnemyRenderable { get; private set; }
+	public BaseEnemy EnemyRenderable { get; private set; }
 	public float Speed { get; private set; }
 	private CharacterBehavior _movementBehavior;
+
 	public readonly long id = 2;
 	
 	public event System.Action Death
