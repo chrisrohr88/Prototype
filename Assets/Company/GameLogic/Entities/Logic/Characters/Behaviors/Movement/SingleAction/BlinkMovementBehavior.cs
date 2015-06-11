@@ -11,7 +11,7 @@ public class BlinkMovementBehavior : BaseSingleUpdateMovementBehavior
 		_gameObject = gameObject;
 		_moveTimeLimit = blinkTime;
 		_callback = callback;
-		StartBehavior ();
+		StartBehavior();
 	}
 	
 	protected override void StartBehavior()
@@ -32,7 +32,7 @@ public class BlinkMovementBehavior : BaseSingleUpdateMovementBehavior
 		//TODO Fade out
 		_gameObject.transform.position = _blinkTo;
 		//TODO Fade in
-		FinishBehavior ();
+		FinishBehavior();
 
 	}
 	

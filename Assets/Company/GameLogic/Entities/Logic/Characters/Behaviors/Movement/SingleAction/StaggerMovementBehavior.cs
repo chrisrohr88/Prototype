@@ -10,7 +10,7 @@ public class StaggerMovementBehavior : BaseSingleUpdateMovementBehavior
 		_moveSpeed = moveSpeed;
 		_moveTimeLimit = moveTimeLimit;
 		_callback = callback;
-		StartBehavior ();
+		StartBehavior();
 	}
 	
 	protected override void StartBehavior()
