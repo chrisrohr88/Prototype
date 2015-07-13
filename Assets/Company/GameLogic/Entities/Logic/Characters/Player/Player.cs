@@ -51,19 +51,19 @@ public class Player
 		Debug.Log("Weapon is " + Weapon.Name);
 	} 
 
-	public void TriggerPulled()
+	public void TriggerPulled(Vector3 position)
 	{
-		Weapon.TriggerPulled();
+		Weapon.TriggerPulled(position);
 	}
 	
-	public void TriggerHeld()
+	public void TriggerHeld(Vector3 position)
 	{
-		Weapon.TriggerHeld();
+		Weapon.TriggerHeld(position);
 	}
 	
-	public void TriggerReleased()
+	public void TriggerReleased(Vector3 position)
 	{
-		Weapon.TriggerReleased();
+		Weapon.TriggerReleased(position);
 	}
 	
 	private void SubscribeEvents()

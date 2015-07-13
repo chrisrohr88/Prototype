@@ -85,9 +85,4 @@ public class Enemy
 			UpdateHealth(-damageData.Damage);
 		}
 	}
-	
-	public void UseWeapon()
-	{
-		Weapon.TriggerPulled();
-	}
 }

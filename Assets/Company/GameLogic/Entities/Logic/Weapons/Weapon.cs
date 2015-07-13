@@ -34,6 +34,7 @@ namespace Weapons
 		private bool _initialized = false;
 		private float _chargePercent = -1;
 		private WeaponBehavior _rangeAttackBehavior;
+		private Vector3 _targetPosition;
 
 	    public float Damage
 	    {
@@ -83,21 +84,24 @@ namespace Weapons
 			return newWeapon;
 		}
 	    
-	    public void TriggerPulled()
+	    public void TriggerPulled(Vector3 position)
 		{
 			SetWeaponForUse();
+			_targetPosition = position;
 			_rangeAttackBehavior.OnTriggerPressed();
 	    }
 
-	    public void TriggerHeld()
+		public void TriggerHeld(Vector3 position)
 		{
 			SetWeaponForUse();
+			_targetPosition = position;
 			_rangeAttackBehavior.OnTriggerHeld();
 	    }
 
-	    public void TriggerReleased()
+		public void TriggerReleased(Vector3 position)
 		{
 			SetWeaponForUse();
+			_targetPosition = position;
 			_rangeAttackBehavior.OnTriggerRelease();
 	    }
 

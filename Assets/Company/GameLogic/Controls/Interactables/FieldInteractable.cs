@@ -13,8 +13,8 @@ public class FieldInteractable : MonoBehaviour, Interactable
         }
     }
 
-    private static event System.Action _onPressed;
-    public static event System.Action OnPressed
+    private static event System.Action<Vector3> _onPressed;
+	public static event System.Action<Vector3> OnPressed
     {
         add
         {
@@ -26,8 +26,8 @@ public class FieldInteractable : MonoBehaviour, Interactable
         }
     }
     
-    private static event System.Action _onHeld;
-    public static event System.Action OnHeld
+	private static event System.Action<Vector3> _onHeld;
+	public static event System.Action<Vector3> OnHeld
     {
         add
         {
@@ -39,8 +39,8 @@ public class FieldInteractable : MonoBehaviour, Interactable
         }
     }
     
-    private static event System.Action _onReleased;
-    public static event System.Action OnReleased
+	private static event System.Action<Vector3> _onReleased;
+	public static event System.Action<Vector3> OnReleased
     {
         add
         {
@@ -52,8 +52,8 @@ public class FieldInteractable : MonoBehaviour, Interactable
         }
     }
     
-    private static event System.Action _onMoved;
-    public static event System.Action OnMoved
+	private static event System.Action<Vector3> _onMoved;
+	public static event System.Action<Vector3> OnMoved
     {
         add
         {
@@ -75,7 +75,7 @@ public class FieldInteractable : MonoBehaviour, Interactable
         SetFirePositionFromTouchPosition(touch.WorldHitPosition);
         if(_onPressed != null)
         {
-            _onPressed();
+            _onPressed(touch.WorldHitPosition);
         }
     }
 
@@ -84,7 +84,7 @@ public class FieldInteractable : MonoBehaviour, Interactable
         SetFirePositionFromTouchPosition(touch.WorldHitPosition);
         if(_onReleased != null)
         {
-            _onReleased();
+			_onReleased(touch.WorldHitPosition);
         }
     }
 
@@ -93,7 +93,7 @@ public class FieldInteractable : MonoBehaviour, Interactable
         SetFirePositionFromTouchPosition(touch.WorldHitPosition);
         if(_onHeld != null)
         {
-            _onHeld();
+			_onHeld(touch.WorldHitPosition);
         }
     }
 
@@ -102,7 +102,7 @@ public class FieldInteractable : MonoBehaviour, Interactable
         SetFirePositionFromTouchPosition(touch.WorldHitPosition);
         if(_onMoved != null)
         {
-            _onMoved();
+			_onMoved(touch.WorldHitPosition);
         }
     }
 

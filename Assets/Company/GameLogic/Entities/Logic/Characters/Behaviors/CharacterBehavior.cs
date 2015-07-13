@@ -24,7 +24,7 @@ public abstract class TargetingBehavior
 	protected BaseEnemy _gameObject;
 	protected Vector3 _target;
 	
-	public abstract void AcquireTarget();
+	public abstract bool AcquireTarget();
 
 	public Vector3 GetTarget()
 	{
@@ -39,11 +39,12 @@ public class SimpleTagetingBehavior : TargetingBehavior
 		_gameObject = enemy;
 	}
 
-	public override void AcquireTarget()
+	public override bool AcquireTarget()
 	{
 		// TODO -- Finish targeting
 		Physics2D.Raycast(_gameObject.SpawnTransform.position, _gameObject.SpawnTransform.forward, 50);
 		Debug.DrawRay(_gameObject.SpawnTransform.position, _gameObject.SpawnTransform.forward, Color.red, 50);
+		return true;
 	}
 }
 
@@ -68,7 +69,11 @@ public class SimpleAttackBehavior : AttackBehavior
 
 	public override void UpdateBehavior ()
 	{
-		TargetingBehavior.AcquireTarget();
+		if(TargetingBehavior.AcquireTarget())
+		{
+
+			_weapon.TriggerPulled(new Vector3(0,0,0));
+		}
 	}
 
 	protected override void FinishBehavior ()
