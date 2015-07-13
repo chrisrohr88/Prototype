@@ -28,7 +28,7 @@ namespace Weapons.States
 	        if(CanUse())
 			{
 	            UpdateUseTimes();
-	            CreateProjectile();
+	            _weapon.Fire(_previousUseTime);
 	            UpdateAmmo();
 	        }
 	    }
@@ -36,26 +36,6 @@ namespace Weapons.States
 	    public bool CanUse()
 	    {
 	        return ((_timeToUseNext <= Time.time) && (CurrentAmmo > 0));
-	    }
-	    
-	    private void CreateProjectile()
-	    {
-			var spawnPosition = _weapon.Weapon.FireTransform.position;
-			if((Time.time - _previousUseTime) < _weapon.Weapon.DeviationTime.ModifiedValue)
-			{
-				var dev = MyVector3.RandomShellVector(_weapon.Weapon.MinDeviation, _weapon.Weapon.MaxDeviation);
-				spawnPosition += dev;
-			}
-			var projectile = Projectile.Create(_weapon.Weapon.FireTransform, spawnPosition);
-	        AddDamageToProjectile(projectile);
-	    }
-	    
-	    private void AddDamageToProjectile(Projectile projectile)
-	    {
-	        var damageData = projectile.gameObject.AddComponent<DamageData>();
-			damageData.AttackerId = _weapon.Weapon.EntityId;
-	        damageData.Damage = _weapon.Weapon.Damage;
-	        damageData.DamageType = DamageType.Fire;
 	    }
 	    
 	    private void UpdateUseTimes()

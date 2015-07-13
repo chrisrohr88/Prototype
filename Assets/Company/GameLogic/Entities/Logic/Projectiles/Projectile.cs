@@ -6,9 +6,9 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float _speed = 100;
 	private Vector3 _velocity;
 
-	public static Projectile Create(Transform spawnTransform, Vector3 position)
+	public static Projectile Create(Transform spawnTransform, Vector3 targetPosition)
     {
-		var projectile = (GameObject.Instantiate(Resources.Load("Game/Projectiles/BasicProjectile"), position, Quaternion.identity) as GameObject).AddComponent<Projectile>();
+		var projectile = (GameObject.Instantiate(Resources.Load("Game/Projectiles/BasicProjectile"), spawnTransform.position, Quaternion.identity) as GameObject).AddComponent<Projectile>();
 		projectile._velocity = spawnTransform.forward;
         return projectile;
     }

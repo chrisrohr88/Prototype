@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class BlinkMovementBehavior : BaseSingleUpdateMovementBehavior
@@ -27,7 +27,7 @@ public class BlinkMovementBehavior : BaseSingleUpdateMovementBehavior
 		_blinkTo = _gameObject.transform.position + new Vector3 (Random.Range(-30, 30), -1, 0);
 	}
 	
-	public override void UpdateGameObject()
+	public override void UpdateBehavior()
 	{
 		//TODO Fade out
 		_gameObject.transform.position = _blinkTo;

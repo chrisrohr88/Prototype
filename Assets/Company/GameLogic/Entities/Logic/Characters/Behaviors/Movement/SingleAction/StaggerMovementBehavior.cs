@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class StaggerMovementBehavior : BaseSingleUpdateMovementBehavior
 {
@@ -24,7 +24,7 @@ public class StaggerMovementBehavior : BaseSingleUpdateMovementBehavior
 		_staggerTo = _gameObject.transform.position + new Vector3 (Random.Range(-10, 10), -1, 0);
 	}
 	
-	public override void UpdateGameObject()
+	public override void UpdateBehavior()
 	{
 		if(Vector3.Distance(_staggerTo, _gameObject.transform.position) > .5f)
 		{

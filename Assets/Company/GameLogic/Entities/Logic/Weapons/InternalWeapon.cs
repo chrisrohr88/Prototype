@@ -7,6 +7,7 @@
 		void SetChargePercent(float chargeAmount);
 		float GetChargePercent();
 		void ResetNextTimeToUse();
+		void Fire(float previousUseTime);
 		bool CanUse();
 	}
 }

@@ -9,6 +9,7 @@ public class Enemy
 	public BaseEnemy EnemyRenderable { get; private set; }
 	public float Speed { get; private set; }
 	private CharacterBehavior _movementBehavior;
+	private AttackBehavior _attackBehavior;
 
 	public readonly long id = 2;
 	
@@ -26,19 +27,22 @@ public class Enemy
 	
 	public static Enemy Create(EnemyProfile profile)
 	{
-		var enemy = new Enemy();
+		BaseEnemy baseEnemy = (GameObject.Instantiate(Resources.Load(profile.EnemyPrefabPath)) as GameObject).GetComponent<BaseEnemy>();
+		Weapon weapon = WeaponFactory.CreateFromProfile(ProfileManager.GetWeaponProfileByName(profile.WeaponProfileName), baseEnemy.SpawnTransform);
+		var enemy = new Enemy(new SimpleAttackBehavior(baseEnemy, weapon));
 		enemy.Health = HealthComponent.Create(profile.BaseHealth);
-		enemy.EnemyRenderable = (GameObject.Instantiate(Resources.Load(profile.EnemyPrefabPath)) as GameObject).GetComponent<BaseEnemy>();
+		enemy.EnemyRenderable = baseEnemy;
 		enemy.EnemyRenderable.Enemy = enemy;
 		enemy.Speed = profile.Speed;
-		enemy.Weapon = WeaponFactory.CreateFromProfile(ProfileManager.GetWeaponProfileByName(profile.WeaponProfileName), enemy.EnemyRenderable.SpawnTransform);
+		enemy.Weapon = weapon;
 		enemy._movementBehavior = new BasicMovementBehavior(enemy.Speed, enemy.EnemyRenderable);
 		enemy.Weapon.EntityId = enemy.id;
 		return enemy;
 	}
 
-	private Enemy()
+	private Enemy(AttackBehavior attackBehavior)
 	{
+		_attackBehavior = attackBehavior;
 	}
 
 	protected void OnDeath()
@@ -55,14 +59,13 @@ public class Enemy
 		{
 			_movementBehavior = new BlinkMovementBehavior(EnemyRenderable, 5f, OnMovementBehaviorComplete);
 		}
-		UseWeapon();
-		
+		_attackBehavior.UpdateBehavior();
 		Move();
 	}
 	
 	private void Move()
 	{
-		_movementBehavior.UpdateGameObject();
+		_movementBehavior.UpdateBehavior();
 	}
 
 	protected void OnMovementBehaviorComplete()

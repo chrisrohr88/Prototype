@@ -9,3 +9,5 @@ EditorBuildSettings:
     path: Assets/Company/Scenes/Bootloader.unity
   - enabled: 1
     path: Assets/Company/Scenes/Prototype.unity
+  - enabled: 1
+    path: Assets/Company/Scenes/Tanks.unity

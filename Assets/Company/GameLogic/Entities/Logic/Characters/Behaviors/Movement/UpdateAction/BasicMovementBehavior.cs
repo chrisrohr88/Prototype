@@ -12,7 +12,7 @@ public class BasicMovementBehavior : BaseUpdateMovementBehavior
 	{
 	}
 	
-	public override void UpdateGameObject()
+	public override void UpdateBehavior()
 	{
 		var position = _gameObject.transform.position;
 		position.x -= _gameObject.Enemy.Speed * Time.deltaTime;

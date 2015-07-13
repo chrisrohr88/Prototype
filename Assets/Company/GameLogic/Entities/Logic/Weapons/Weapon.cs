@@ -138,7 +138,27 @@ namespace Weapons
 			_currentState = _currentState.SwitchToDisableState();
 	        _currentState.Disable();
 	    }
+
+		private void Fire(float previousUseTime)
+		{
+			var spawnPosition = FireTransform.position;
+			if((Time.time - previousUseTime) < DeviationTime.ModifiedValue)
+			{
+				var dev = MyVector3.RandomShellVector(MinDeviation, MaxDeviation);
+				spawnPosition += dev;
+			}
+			var projectile = Projectile.Create(FireTransform, spawnPosition);
+			AddDamageToProjectile(projectile);
+		}
 		
+		private void AddDamageToProjectile(Projectile projectile)
+		{
+			var damageData = projectile.gameObject.AddComponent<DamageData>();
+			damageData.AttackerId = EntityId;
+			damageData.Damage = Damage;
+			damageData.DamageType = DamageType.Fire;
+		}
+
 		private class InternalWeapon : Internal.InternalWeapon
 		{
 			public Weapon _weapon;
@@ -154,6 +174,11 @@ namespace Weapons
 			public InternalWeapon(Weapon weapon)
 			{
 				_weapon = weapon;
+			}
+
+			public void Fire(float previousUseTime)
+			{
+				_weapon.Fire(previousUseTime);
 			}
 			
 			public void ResetNextTimeToUse()

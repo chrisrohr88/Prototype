@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Bootloader : MonoBehaviour
 {
+	[SerializeField] private string _level = "Prototype"; 
+
     private void Start()
     {
 		Application.targetFrameRate = 60;
@@ -11,6 +13,6 @@ public class Bootloader : MonoBehaviour
 
     private void LoadScene()
     {
-        Application.LoadLevel("Prototype");
+		Application.LoadLevel(_level);
     }
 }
