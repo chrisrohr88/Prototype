@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour
 	public static Projectile Create(Transform spawnTransform, Vector3 targetPosition)
     {
 		var projectile = (GameObject.Instantiate(Resources.Load("Game/Projectiles/BasicProjectile"), spawnTransform.position, Quaternion.identity) as GameObject).AddComponent<Projectile>();
-		projectile._velocity = spawnTransform.forward;
+		projectile._velocity = (targetPosition - spawnTransform.position).normalized;
         return projectile;
     }
 
@@ -17,12 +17,4 @@ public class Projectile : MonoBehaviour
     {
 		transform.localPosition += _velocity * _speed * Time.deltaTime;
 	}
-
-//    private void OnTriggerEnter2D(Collider2D other)
-//    {
-//		if(((1 << other.gameObject.layer) & destroyLayerMask.value) != 0)
-//        {
-//            Destroy(gameObject);
-//        }
-//    }
 }

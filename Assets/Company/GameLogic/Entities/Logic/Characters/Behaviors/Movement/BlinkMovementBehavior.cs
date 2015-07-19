@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class BlinkMovementBehavior : BaseSingleUpdateMovementBehavior
+public class BlinkMovementBehavior : MovementBehavior
 {
 	private Vector3 _blinkTo;
 

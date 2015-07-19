@@ -51,21 +51,10 @@ public class Enemy
 
 	public void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Q))
-		{
-			_movementBehavior = new StaggerMovementBehavior(Speed, EnemyRenderable, 5f, OnMovementBehaviorComplete);
-		}
-		if(Input.GetKeyDown(KeyCode.B))
-		{
-			_movementBehavior = new BlinkMovementBehavior(EnemyRenderable, 5f, OnMovementBehaviorComplete);
-		}
 		_attackBehavior.UpdateBehavior();
-		Move();
-	}
-	
-	private void Move()
-	{
-		_movementBehavior.UpdateBehavior();
+		if(!_attackBehavior.HasTarget) {
+			_movementBehavior.UpdateBehavior();
+		}
 	}
 
 	protected void OnMovementBehaviorComplete()

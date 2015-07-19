@@ -145,13 +145,13 @@ namespace Weapons
 
 		private void Fire(float previousUseTime)
 		{
-			var spawnPosition = FireTransform.position;
 			if((Time.time - previousUseTime) < DeviationTime.ModifiedValue)
 			{
 				var dev = MyVector3.RandomShellVector(MinDeviation, MaxDeviation);
-				spawnPosition += dev;
+				_targetPosition += dev;
 			}
-			var projectile = Projectile.Create(FireTransform, spawnPosition);
+
+			var projectile = Projectile.Create(FireTransform, _targetPosition);
 			AddDamageToProjectile(projectile);
 		}
 		

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StaggerMovementBehavior : BaseSingleUpdateMovementBehavior
+public class StaggerMovementBehavior : MovementBehavior
 {
 	private Vector3 _staggerTo;
 	

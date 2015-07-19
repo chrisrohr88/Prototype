@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BasicMovementBehavior : BaseUpdateMovementBehavior
+public class BasicMovementBehavior : MovementBehavior
 {
 	public BasicMovementBehavior(float moveSpeed, BaseEnemy gameObject)
 	{
