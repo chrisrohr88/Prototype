@@ -148,6 +148,7 @@ namespace Weapons
 			if((Time.time - previousUseTime) < DeviationTime.ModifiedValue)
 			{
 				var dev = MyVector3.RandomShellVector(MinDeviation, MaxDeviation);
+				dev.z = -50;
 				_targetPosition += dev;
 			}
 
