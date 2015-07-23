@@ -28,8 +28,9 @@ public class Enemy
 	public static Enemy Create(EnemyProfile profile, Weapon weapon, BaseEnemy baseEnemy)
 	{
 		var enemy = new Enemy();
-		enemy.AttackBehavior = new BasicAttackBehavior(enemy, weapon);
-		enemy.MovementBehavior = new BasicMovementBehavior(enemy);
+		enemy.AttackBehavior = CharacterBehaviorFactory.CreateAttackBehaviorFromType(profile.AttackBehaviorType, enemy, weapon);
+		enemy.AttackBehavior.TargetingBehavior = CharacterBehaviorFactory.CreateTargetingBehaviorFromType(profile.TargetingBehaviorType, enemy);
+		enemy.MovementBehavior = CharacterBehaviorFactory.CreateMovementBehaviorFromType(profile.MovementBehaviorType, enemy);
 		enemy.Health = HealthComponent.Create(profile.BaseHealth);
 		enemy.EnemyRenderable = baseEnemy;
 		enemy.EnemyRenderable.Enemy = enemy;

@@ -6,7 +6,6 @@ public class BasicAttackBehavior : AttackBehavior
 {
 	public BasicAttackBehavior(Enemy enemy, Weapon weapon) : base(enemy, weapon)
 	{
-		TargetingBehavior = new SimpleTagetingBehavior(enemy);
 	}
 
 	protected override void StartBehavior()
@@ -15,8 +14,8 @@ public class BasicAttackBehavior : AttackBehavior
 
 	public override void UpdateBehavior()
 	{
-		TargetingBehavior.UpdateBehavior();
-		if(TargetingBehavior.HasTarget)
+		HasTarget = TargetingBehavior.AcquireTarget();
+		if(HasTarget)
 		{
 			_weapon.TriggerPulled(TargetingBehavior.GetTarget());
 		}

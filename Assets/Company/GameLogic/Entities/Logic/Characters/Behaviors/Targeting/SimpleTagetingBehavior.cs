@@ -27,7 +27,7 @@ public class SimpleTagetingBehavior : TargetingBehavior
 	private RaycastHit2D doRaycast()
 	{
 		LayerMask layerMask = 1 << LayerMask.NameToLayer("Player");
-		var hit = Physics2D.Raycast(_enemy.EnemyRenderable.SpawnTransform.position, _enemy.EnemyRenderable.SpawnTransform.forward, 50, layerMask.value);
+		var hit = Physics2D.Raycast(Enemy.EnemyRenderable.SpawnTransform.position, Enemy.EnemyRenderable.SpawnTransform.forward, 50, layerMask.value);
 		return hit;
 	}
 }
