@@ -10,13 +10,7 @@ public class EnemyProfile : BaseProfile
 	public int PointValue { get; set; }
 	public string EnemyPrefabPath { get; set; }
 	public string WeaponProfileName { get; set; }
-//	public MovementBehaviorType MovementBehaviorType { get; set; }
-//	public MovementBehaviorType OnDamageMovementBehavior { get; set; }
-//	public MovementBehaviorType OnThreatMovementBehavior { get; set; }
-//	public MovementBehaviorType OnAttackMovementBehavior { get; set; }
-//	public MovementBehaviorType DetectBehavior { get; set; }
-//	public MovementBehaviorType OnHitDetectBehavior { get; set; }
-//	public MovementBehaviorType AttackBehavior { get; set; }
-//	public MovementBehaviorType OnAttackBehavior { get; set; }
-//	public MovementBehaviorType OnThreatBehavior { get; set; }
+	public MovementBehaviorType MovementBehaviorType { get; set; }
+	public TargetingBehaviorType TargetingBehaviorType { get; set; }
+	public AttackBehaviorType AttackBehaviorType { get; set; }
 }

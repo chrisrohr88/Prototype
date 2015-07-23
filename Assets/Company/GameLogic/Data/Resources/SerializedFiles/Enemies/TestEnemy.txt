@@ -5,5 +5,8 @@
 	"BaseHealth": 100,
 	"PointValue": 100,
 	"EnemyPrefabPath": "Game/Enemies/Skeleton",
-	"WeaponProfileName": "AI"
+	"WeaponProfileName": "AI",
+	"MovementBehaiorType": "BasicMovement",
+	"TargetingBehaviorType": "SimpleTargeting",
+	"AttackBehaviorType": "BasicAttack"
 }

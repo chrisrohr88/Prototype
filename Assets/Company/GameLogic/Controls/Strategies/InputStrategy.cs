@@ -61,7 +61,6 @@ public abstract class InputStrategy : MonoBehaviour
     private RaycastHit2D GetFirstRaycastHit(Vector3 origin)
     {
 		var ray = new Ray(origin, new Vector3(0, 0, 1000));
-		Debug.DrawRay(origin, new Vector3(0, 0, 1000), Color.red, 100);
         var layerMask = 1 << LayerMask.NameToLayer("Interactable");
         return Physics2D.GetRayIntersection(ray, 1000, layerMask);
     }

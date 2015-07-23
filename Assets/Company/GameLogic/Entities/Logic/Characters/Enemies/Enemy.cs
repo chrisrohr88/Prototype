@@ -29,20 +29,20 @@ public class Enemy
 	{
 		BaseEnemy baseEnemy = (GameObject.Instantiate(Resources.Load(profile.EnemyPrefabPath)) as GameObject).GetComponent<BaseEnemy>();
 		Weapon weapon = WeaponFactory.CreateFromProfile(ProfileManager.GetWeaponProfileByName(profile.WeaponProfileName), baseEnemy.SpawnTransform);
-		var enemy = new Enemy(new SimpleAttackBehavior(baseEnemy, weapon));
+		var enemy = new Enemy();
+		enemy._attackBehavior = new BasicAttackBehavior(enemy, weapon);
 		enemy.Health = HealthComponent.Create(profile.BaseHealth);
 		enemy.EnemyRenderable = baseEnemy;
 		enemy.EnemyRenderable.Enemy = enemy;
 		enemy.Speed = profile.Speed;
 		enemy.Weapon = weapon;
-		enemy._movementBehavior = new BasicMovementBehavior(enemy.Speed, enemy.EnemyRenderable);
+		enemy._movementBehavior = new BasicMovementBehavior(enemy);
 		enemy.Weapon.EntityId = enemy.id;
 		return enemy;
 	}
 
-	private Enemy(AttackBehavior attackBehavior)
+	private Enemy()
 	{
-		_attackBehavior = attackBehavior;
 	}
 
 	protected void OnDeath()
@@ -59,7 +59,7 @@ public class Enemy
 
 	protected void OnMovementBehaviorComplete()
 	{
-		_movementBehavior = new BasicMovementBehavior(Speed, EnemyRenderable);
+		_movementBehavior = new BasicMovementBehavior(this);
 	}
 	
 	public void UpdateHealth(float amount)

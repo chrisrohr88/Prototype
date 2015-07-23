@@ -4,10 +4,8 @@ public class StaggerMovementBehavior : MovementBehavior
 {
 	private Vector3 _staggerTo;
 	
-	public StaggerMovementBehavior(float moveSpeed, BaseEnemy gameObject, float moveTimeLimit, System.Action callback)
+	public StaggerMovementBehavior(Enemy enemy, float moveTimeLimit, System.Action callback) : base(enemy)
 	{
-		_gameObject = gameObject;
-		_moveSpeed = moveSpeed;
 		_moveTimeLimit = moveTimeLimit;
 		_callback = callback;
 		StartBehavior();
@@ -21,14 +19,14 @@ public class StaggerMovementBehavior : MovementBehavior
 	private void SetStaggerDirection()
 	{
 		//TODO: Get bounds of fields and calulate movement
-		_staggerTo = _gameObject.transform.position + new Vector3 (Random.Range(-10, 10), -1, 0);
+		_staggerTo = _enemy.EnemyRenderable.transform.position + new Vector3 (Random.Range(-10, 10), -1, 0);
 	}
 	
 	public override void UpdateBehavior()
 	{
-		if(Vector3.Distance(_staggerTo, _gameObject.transform.position) > .5f)
+		if(Vector3.Distance(_staggerTo, _enemy.EnemyRenderable.transform.position) > .5f)
 		{
-			_gameObject.transform.position = Vector3.MoveTowards(_gameObject.transform.position, _staggerTo, _moveSpeed * 0.1f);
+			_enemy.EnemyRenderable.transform.position = Vector3.MoveTowards(_enemy.EnemyRenderable.transform.position, _staggerTo, _moveSpeed * 0.1f);
 		}
 		else
 		{

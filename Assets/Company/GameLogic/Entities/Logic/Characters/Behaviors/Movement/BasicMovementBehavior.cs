@@ -2,10 +2,8 @@ using UnityEngine;
 
 public class BasicMovementBehavior : MovementBehavior
 {
-	public BasicMovementBehavior(float moveSpeed, BaseEnemy gameObject)
+	public BasicMovementBehavior(Enemy enemy) : base(enemy) 
 	{
-		_gameObject = gameObject;
-		_moveSpeed = moveSpeed;
 	}
 	
 	protected override void StartBehavior()
@@ -14,9 +12,9 @@ public class BasicMovementBehavior : MovementBehavior
 	
 	public override void UpdateBehavior()
 	{
-		var position = _gameObject.transform.position;
-		position.x -= _gameObject.Enemy.Speed * Time.deltaTime;
-		_gameObject.transform.position = position;
+		var position = _enemy.EnemyRenderable.transform.position;
+		position.x -= _enemy.EnemyRenderable.Enemy.Speed * Time.deltaTime;
+		_enemy.EnemyRenderable.transform.position = position;
 	}
 	
 	protected override void FinishBehavior()

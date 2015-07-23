@@ -4,9 +4,8 @@ using Weapons;
 
 public class SimpleTagetingBehavior : TargetingBehavior
 {
-	public SimpleTagetingBehavior(BaseEnemy enemy)
+	public SimpleTagetingBehavior(Enemy enemy) : base(enemy)
 	{
-		_gameObject = enemy;
 	}
 
 	public override bool AcquireTarget()
@@ -28,8 +27,7 @@ public class SimpleTagetingBehavior : TargetingBehavior
 	private RaycastHit2D doRaycast()
 	{
 		LayerMask layerMask = 1 << LayerMask.NameToLayer("Player");
-		var hit = Physics2D.Raycast(_gameObject.SpawnTransform.position, _gameObject.SpawnTransform.forward, 50, layerMask.value);
-		Debug.DrawRay(_gameObject.SpawnTransform.position, _gameObject.SpawnTransform.forward * 50, Color.red, 1);
+		var hit = Physics2D.Raycast(_enemy.EnemyRenderable.SpawnTransform.position, _enemy.EnemyRenderable.SpawnTransform.forward, 50, layerMask.value);
 		return hit;
 	}
 }
