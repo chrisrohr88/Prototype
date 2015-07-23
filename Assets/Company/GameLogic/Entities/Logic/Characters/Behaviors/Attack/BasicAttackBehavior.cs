@@ -15,8 +15,8 @@ public class BasicAttackBehavior : AttackBehavior
 
 	public override void UpdateBehavior()
 	{
-		HasTarget = TargetingBehavior.AcquireTarget();
-		if(HasTarget)
+		TargetingBehavior.UpdateBehavior();
+		if(TargetingBehavior.HasTarget)
 		{
 			_weapon.TriggerPulled(TargetingBehavior.GetTarget());
 		}

@@ -4,12 +4,12 @@ using Weapons;
 
 public class Enemy
 {
-	public Weapon Weapon { get; private set; }
-	public HealthComponent Health { get; private set; }
-	public BaseEnemy EnemyRenderable { get; private set; }
-	public float Speed { get; private set; }
-	private CharacterBehavior _movementBehavior;
-	private AttackBehavior _attackBehavior;
+	public Weapon Weapon { get; set; }
+	public HealthComponent Health { get; set; }
+	public BaseEnemy EnemyRenderable { get; set; }
+	public float Speed { get; set; }
+	public CharacterBehavior MovementBehavior { get; set; }
+	public AttackBehavior AttackBehavior { get; set; }
 
 	public readonly long id = 2;
 	
@@ -24,25 +24,19 @@ public class Enemy
 			Health.Death -= value;
 		}
 	}
-	
-	public static Enemy Create(EnemyProfile profile)
+
+	public static Enemy Create(EnemyProfile profile, Weapon weapon, BaseEnemy baseEnemy)
 	{
-		BaseEnemy baseEnemy = (GameObject.Instantiate(Resources.Load(profile.EnemyPrefabPath)) as GameObject).GetComponent<BaseEnemy>();
-		Weapon weapon = WeaponFactory.CreateFromProfile(ProfileManager.GetWeaponProfileByName(profile.WeaponProfileName), baseEnemy.SpawnTransform);
 		var enemy = new Enemy();
-		enemy._attackBehavior = new BasicAttackBehavior(enemy, weapon);
+		enemy.AttackBehavior = new BasicAttackBehavior(enemy, weapon);
+		enemy.MovementBehavior = new BasicMovementBehavior(enemy);
 		enemy.Health = HealthComponent.Create(profile.BaseHealth);
 		enemy.EnemyRenderable = baseEnemy;
 		enemy.EnemyRenderable.Enemy = enemy;
 		enemy.Speed = profile.Speed;
 		enemy.Weapon = weapon;
-		enemy._movementBehavior = new BasicMovementBehavior(enemy);
 		enemy.Weapon.EntityId = enemy.id;
 		return enemy;
-	}
-
-	private Enemy()
-	{
 	}
 
 	protected void OnDeath()
@@ -51,15 +45,15 @@ public class Enemy
 
 	public void Update()
 	{
-		_attackBehavior.UpdateBehavior();
-		if(!_attackBehavior.HasTarget) {
-			_movementBehavior.UpdateBehavior();
+		AttackBehavior.UpdateBehavior();
+		if(!AttackBehavior.HasTarget) {
+			MovementBehavior.UpdateBehavior();
 		}
 	}
 
 	protected void OnMovementBehaviorComplete()
 	{
-		_movementBehavior = new BasicMovementBehavior(this);
+		MovementBehavior = new BasicMovementBehavior(this);
 	}
 	
 	public void UpdateHealth(float amount)

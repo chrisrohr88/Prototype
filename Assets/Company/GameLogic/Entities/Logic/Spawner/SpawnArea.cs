@@ -74,7 +74,7 @@ public class SpawnArea
 
 	public BaseEnemy SpawnEnemy(EnemyProfile enemyProfile)
     {
-		var enemy = Enemy.Create(enemyProfile);
+		var enemy = CharacterFactory.CreateEnemyFromProfile(enemyProfile);
 		enemy.EnemyRenderable.transform.parent = _enemyParentObject.transform;
 		enemy.EnemyRenderable.transform.localPosition = _spawnAreaCenter + new Vector3(0, Random.Range(-_maxDistance, _maxDistance), -50);
 		return enemy.EnemyRenderable;
