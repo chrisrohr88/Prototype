@@ -1,6 +1,7 @@
 {
 	"Name": "Skeleton",
 	"Level": 1,
+	"LayerMask": 1024,
 	"Speed": 35,
 	"BaseHealth": 100,
 	"PointValue": 100,

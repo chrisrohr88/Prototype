@@ -5,6 +5,7 @@ using Weapons.Enums;
 public class EnemyProfile : BaseProfile
 {
 	public int Level { get; set; }
+	public int LayerMask { get; set; }
 	public int Speed { get; set; }
 	public float BaseHealth { get; set; }
 	public int PointValue { get; set; }

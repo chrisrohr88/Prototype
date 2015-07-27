@@ -10,6 +10,7 @@ public class Enemy
 	public float Speed { get; set; }
 	public CharacterBehavior MovementBehavior { get; set; }
 	public AttackBehavior AttackBehavior { get; set; }
+	public LayerMask TargetingLayerMask { get; private set; }
 
 	public readonly long id = 2;
 	
@@ -36,6 +37,7 @@ public class Enemy
 		enemy.EnemyRenderable.Enemy = enemy;
 		enemy.Speed = profile.Speed;
 		enemy.Weapon = weapon;
+		enemy.TargetingLayerMask = (LayerMask) profile.LayerMask;
 		enemy.Weapon.EntityId = enemy.id;
 		return enemy;
 	}
