@@ -2,7 +2,7 @@
 using System.Collections;
 using Weapons;
 
-public class Enemy
+public class Enemy : Entity
 {
 	public Weapon Weapon { get; set; }
 	public HealthComponent Health { get; set; }
@@ -40,6 +40,10 @@ public class Enemy
 		enemy.TargetingLayerMask = (LayerMask) profile.LayerMask;
 		enemy.Weapon.EntityId = enemy.id;
 		return enemy;
+	}
+
+	private Enemy() : base()
+	{
 	}
 
 	protected void OnDeath()

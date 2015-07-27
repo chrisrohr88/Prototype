@@ -2,7 +2,7 @@
 using UnityEngine;
 using Weapons;
 
-public class Player
+public class Player : Entity
 {
     public Weapon Weapon { get; private set; }
 	public HealthComponent Health { get; private set; }
@@ -29,7 +29,7 @@ public class Player
         return player;
     }
 
-    private Player()
+    private Player() : base()
     {
 		SubscribeEvents();
     }
