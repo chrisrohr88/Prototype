@@ -13,7 +13,7 @@ public class ModifiableAttributeManager : MonoBehaviour
             {
                 var gameObject = new GameObject();
                 gameObject.name = "ModifiableAttributes";
-                _instance = gameObject.AddComponent<ModifiableAttributeManager>();
+				_instance = gameObject.AddComponent<ModifiableAttributeManager>();
             }
 
             return _instance;
@@ -35,13 +35,13 @@ public class ModifiableAttributeManager : MonoBehaviour
         if (_instance != null)
         {
             return;
-        }
-        _listOfAllModifiableAttributes = new List<ModifiableAttribute>();
+		}
+		_instance._listOfAllModifiableAttributes = new List<ModifiableAttribute>();
     }
     
     private void Update()
     {
-        if (IsFirstModifiableAttributeExpired())
+		if (HasInstance && IsFirstModifiableAttributeExpired())
         {
             UpdateAllAttributes();
         }

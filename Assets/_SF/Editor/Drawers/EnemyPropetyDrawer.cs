@@ -37,7 +37,7 @@ namespace UnityEditor.Custom
 		private void DrawId(Enemy enemy)
 		{
 			GUI.enabled = false;
-			EditorGUILayout.LongField("Entity ID", enemy.id);
+			EditorGUILayout.LongField("Entity ID", enemy.EntityId);
 			GUI.enabled = true;
 		}
 		

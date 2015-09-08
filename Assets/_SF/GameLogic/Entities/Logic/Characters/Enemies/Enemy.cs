@@ -11,8 +11,6 @@ public class Enemy : Entity
 	public CharacterBehavior MovementBehavior { get; set; }
 	public AttackBehavior AttackBehavior { get; set; }
 	public LayerMask TargetingLayerMask { get; private set; }
-
-	public readonly long id = 2;
 	
 	public event System.Action Death
 	{
@@ -38,7 +36,7 @@ public class Enemy : Entity
 		enemy.Speed = profile.Speed;
 		enemy.Weapon = weapon;
 		enemy.TargetingLayerMask = (LayerMask) profile.LayerMask;
-		enemy.Weapon.EntityId = enemy.id;
+		enemy.Weapon.EntityId = enemy.EntityId;
 		return enemy;
 	}
 
@@ -70,7 +68,7 @@ public class Enemy : Entity
 
 	public void TakeDamage(DamageData damageData)
 	{
-		if(damageData.AttackerId != id)
+		if(damageData.AttackerId != EntityId)
 		{
 			UpdateHealth(-damageData.Damage);
 		}

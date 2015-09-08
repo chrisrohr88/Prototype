@@ -6,15 +6,16 @@ public enum GeneratorIds
 {
 	Entity = 0
 }
+
 public class Entity
 {
 	private static Id64Generator ID_GENERATOR = new Id64Generator((int)GeneratorIds.Entity);
 
-	public long entityId { get; private set; }
+	public long EntityId { get; private set; }
 
 	public Entity()
 	{
-		entityId = ID_GENERATOR.GenerateId();
-		Debug.Log(entityId);
+		EntityId = ID_GENERATOR.GenerateId();
+		Debug.Log(EntityId);
 	}
 }
