@@ -14,6 +14,7 @@ public class ModifiableAttributeManager : MonoBehaviour
                 var gameObject = new GameObject();
                 gameObject.name = "ModifiableAttributes";
 				_instance = gameObject.AddComponent<ModifiableAttributeManager>();
+				_instance._listOfAllModifiableAttributes = new List<ModifiableAttribute>();
             }
 
             return _instance;
@@ -36,7 +37,6 @@ public class ModifiableAttributeManager : MonoBehaviour
         {
             return;
 		}
-		_instance._listOfAllModifiableAttributes = new List<ModifiableAttribute>();
     }
     
     private void Update()

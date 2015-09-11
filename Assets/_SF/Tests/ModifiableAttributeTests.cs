@@ -25,14 +25,8 @@ public class ModifiableAttributeTests : Test
 	
 	public IEnumerator ModifierExpiredTest()
 	{
-        Debug.Log("ModifierExpiredTest");
 		_attribute.AddModifierAndUpdateAttribute(1.1f, 1);
-		Debug.Log(_attribute.ModifiedValue);
-		Debug.Log(Time.time);
 		yield return new WaitForSeconds(2);
-		Debug.Log(Time.time);
-		Debug.Log(_attribute.ModifiedValue);
 		Assert.AssertEquals(100, _attribute.ModifiedValue);
-		yield break;
 	}
 }
