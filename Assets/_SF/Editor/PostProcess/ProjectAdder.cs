@@ -12,7 +12,6 @@ public class PostProcessVisualStudioCSProject : AssetPostprocessor
 		string pathToProject = System.IO.Directory.GetParent(Application.dataPath).FullName;
 		string projectName = Path.GetFileName(pathToProject);
 		string slnFile = Path.Combine(pathToProject, string.Format("{0}.sln", projectName));
-		Debug.Log(pathToProject);
 		string pathToUnitTestSolution = Path.Combine(pathToProject, "../SFUnitTest/");
 		string unitTestsSlnFile = Path.Combine(pathToUnitTestSolution, string.Format("{0}.sln", "SFUnitTest"));
 		
