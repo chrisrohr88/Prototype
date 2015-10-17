@@ -7,7 +7,7 @@ using CWDev.SLNTools.Core;
 
 public class PostProcessVisualStudioCSProject : AssetPostprocessor
 {
-	static public void OnGeneratedCSProjectFiles()
+	private static void OnGeneratedCSProjectFiles()
 	{
 		string pathToProject = System.IO.Directory.GetParent(Application.dataPath).FullName;
 		string projectName = Path.GetFileName(pathToProject);

@@ -1,4 +1,4 @@
-using SFUnitTest;
+using SFUnitTestCore;
 using UnityEngine;
 using System.Collections;
 
@@ -12,30 +12,30 @@ public class ModifiableAttributeTests : Test
 		_attribute = ModifiableAttribute.Create(100);
 	}
 
-	[Test()]
-	public void BaseValueShoulrBeUnmodified()
+	[Test(OverrideClearScene = true)]
+	public void BaseValueShouldBeUnmodified()
 	{
 		Assert.AssertEquals(100, _attribute.ModifiedValue);
 	}
 
-	[Test()]
+	[Test(OverrideClearScene = true)]
 	public void ValueShouldAlterWhenAModifierIsApplied()
 	{
 		_attribute.AddModifierAndUpdateAttribute(1.1f);
 		Assert.AssertEquals(110, _attribute.ModifiedValue);
 	}
 	
-	[Test()]
+	[Test(OverrideClearScene = true, Timeout = 2)]
 	public IEnumerator ValueShouldAlterWhenAModifierIsExpired()
 	{
 		Assert.AssertEquals(100, _attribute.ModifiedValue);
 		_attribute.AddModifierAndUpdateAttribute(1.1f, 1);
 		Assert.AssertEquals(110, _attribute.ModifiedValue);
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(1.5f);
 		Assert.AssertEquals(100, _attribute.ModifiedValue);
 	}
 	
-	[Test()]
+	[Test(OverrideClearScene = true)]
 	public void ValueShouldAlterWhenAModifierIsRemoved()
 	{
 		Assert.AssertEquals(100, _attribute.ModifiedValue);
@@ -47,6 +47,16 @@ public class ModifiableAttributeTests : Test
 	
 	[Test()]
 	public IEnumerator FoYoTests()
+	{
+		var component = GameObject.Instantiate(Resources.Load("Test")) as GameObject;
+		if(component != null)
+		{
+			yield return StartCoroutine(component.GetComponent<TestFoTests>().Test2());
+		}
+	}
+	
+	[Test()]
+	public IEnumerator NewTest()
 	{
 		var component = GameObject.Instantiate(Resources.Load("Test")) as GameObject;
 		if(component != null)
