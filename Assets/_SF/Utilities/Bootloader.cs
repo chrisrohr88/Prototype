@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Bootloader : MonoBehaviour
 {
@@ -13,6 +14,6 @@ public class Bootloader : MonoBehaviour
 
     private void LoadScene()
     {
-		Application.LoadLevel(_level);
+		SceneManager.LoadScene(_level);
     }
 }

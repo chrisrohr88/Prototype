@@ -12,7 +12,7 @@ public static class CharacterBehaviorFactory
 			case MovementBehaviorType.BasicMovement:
 				return new BasicMovementBehavior(enemy);
 			case MovementBehaviorType.Stagger:
-				return new StaggerMovementBehavior(enemy, 1, callback); // TODO: set time
+			return new StaggerMovementBehavior(enemy, 1, callback); // TODO: set time
 			case MovementBehaviorType.Blink:
 				return new BlinkMovementBehavior(enemy, 1, callback); // TODO: set time
 		}

@@ -1,20 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile : MonoBehaviour
+public class Projectile
 {
-    [SerializeField] private float _speed = 100;
-	private Vector3 _velocity;
+	public Vector3 Velocity { get; private set; }
+	public float Speed { get; private set; }
+	public GameObject BaseProjectile { get; private set; }
 
-	public static Projectile Create(Transform spawnTransform, Vector3 targetPosition)
+	public static Projectile Create(ProjectileSpawnData spawnData, BaseProjectile projectileBase)
     {
-		var projectile = (GameObject.Instantiate(Resources.Load("Game/Projectiles/BasicProjectile"), spawnTransform.position, Quaternion.identity) as GameObject).AddComponent<Projectile>();
-		projectile._velocity = (targetPosition - spawnTransform.position).normalized;
+		var projectile = new Projectile();
+		projectile.Velocity = (spawnData.TargetPosition - spawnData.SpawnTransform.position).normalized;
+		projectile.Speed = spawnData.Speed;
+		projectileBase.Projectile = projectile;
+		projectile.BaseProjectile = projectileBase.gameObject;
         return projectile;
-    }
-
-    private void Update()
-    {
-		transform.localPosition += _velocity * _speed * Time.deltaTime;
 	}
 }

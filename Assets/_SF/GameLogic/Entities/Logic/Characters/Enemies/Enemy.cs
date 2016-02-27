@@ -11,6 +11,7 @@ public class Enemy : Entity
 	public CharacterBehavior MovementBehavior { get; set; }
 	public AttackBehavior AttackBehavior { get; set; }
 	public LayerMask TargetingLayerMask { get; private set; }
+	public int PointValue { get; private set; }
 	
 	public event System.Action Death
 	{
@@ -37,6 +38,8 @@ public class Enemy : Entity
 		enemy.Weapon = weapon;
 		enemy.TargetingLayerMask = (LayerMask) profile.LayerMask;
 		enemy.Weapon.EntityId = enemy.EntityId;
+		enemy.PointValue = profile.PointValue;
+		enemy.Health.Death += enemy.OnDeath;
 		return enemy;
 	}
 
@@ -46,6 +49,8 @@ public class Enemy : Entity
 
 	protected void OnDeath()
 	{
+		GameManager.Instance.ScoreManager.UpdateScore(PointValue);
+		Health.Death += OnDeath;
 	}
 
 	public void Update()

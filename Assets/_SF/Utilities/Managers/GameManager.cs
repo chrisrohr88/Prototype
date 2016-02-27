@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+	public SinglePlayerScoreManager ScoreManager;
+
 	private void Awake ()
 	{
 		if(_instance == null)
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
 			Destroy(gameObject);
 			return;
 		}
-
+		ScoreManager = new SinglePlayerScoreManager();
 		EnemyManager.LoadEnemies (new List<EnemyProfile> {ProfileManager.GetEnemyProfile("Skeleton")});//, ProfileManager.GetEnemyProfile("Enemy")});
         Application.targetFrameRate = 30;
 	}

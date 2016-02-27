@@ -152,13 +152,13 @@ namespace Weapons
 				_targetPosition += dev;
 			}
 
-			var projectile = Projectile.Create(FireTransform, _targetPosition);
+			var projectile = ProjectileFactory.CreateProjectileFromProfile(FireTransform, _targetPosition);
 			AddDamageToProjectile(projectile);
 		}
 		
 		private void AddDamageToProjectile(Projectile projectile)
 		{
-			var damageData = projectile.gameObject.AddComponent<DamageData>();
+			var damageData = projectile.BaseProjectile.AddComponent<DamageData>();
 			damageData.AttackerId = EntityId;
 			damageData.Damage = Damage;
 			damageData.DamageType = DamageType.Fire;
