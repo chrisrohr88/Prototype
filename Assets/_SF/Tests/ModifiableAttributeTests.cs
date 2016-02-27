@@ -12,20 +12,20 @@ public class ModifiableAttributeTests : Test
 		_attribute = ModifiableAttribute.Create(100);
 	}
 
-	[Test(OverrideClearScene = true)]
+	[Test(OverrideClearScene = true, ContinuousIntegrationOverride = true)]
 	public void BaseValueShouldBeUnmodified()
 	{
 		Assert.AssertEquals(100, _attribute.ModifiedValue);
 	}
 
-	[Test(OverrideClearScene = true)]
+	[Test(OverrideClearScene = true, ContinuousIntegrationOverride = true)]
 	public void ValueShouldAlterWhenAModifierIsApplied()
 	{
 		_attribute.AddModifierAndUpdateAttribute(1.1f);
 		Assert.AssertEquals(110, _attribute.ModifiedValue);
 	}
 	
-	[Test(OverrideClearScene = true, Timeout = 2)]
+	[Test(OverrideClearScene = true, Timeout = 2, ContinuousIntegrationOverride = true)]
 	public IEnumerator ValueShouldAlterWhenAModifierIsExpired()
 	{
 		Assert.AssertEquals(100, _attribute.ModifiedValue);
@@ -35,7 +35,7 @@ public class ModifiableAttributeTests : Test
 		Assert.AssertEquals(100, _attribute.ModifiedValue);
 	}
 	
-	[Test(OverrideClearScene = true)]
+	[Test(OverrideClearScene = true, ContinuousIntegrationOverride = true)]
 	public void ValueShouldAlterWhenAModifierIsRemoved()
 	{
 		Assert.AssertEquals(100, _attribute.ModifiedValue);
@@ -45,7 +45,7 @@ public class ModifiableAttributeTests : Test
 		Assert.AssertEquals(100, _attribute.ModifiedValue);
 	}
 	
-	[Test()]
+	[Test(ContinuousIntegrationOverride = true)]
 	public IEnumerator FoYoTests()
 	{
 		var component = GameObject.Instantiate(Resources.Load("Test")) as GameObject;
@@ -55,7 +55,7 @@ public class ModifiableAttributeTests : Test
 		}
 	}
 	
-	[Test()]
+	[Test(ContinuousIntegrationOverride = true)]
 	public IEnumerator NewTest()
 	{
 		var component = GameObject.Instantiate(Resources.Load("Test")) as GameObject;
@@ -65,7 +65,7 @@ public class ModifiableAttributeTests : Test
 		}
 	}
 	
-	[Test()]
+	[Test(ContinuousIntegrationOverride = true)]
 	public IEnumerator FoYoTests2()
 	{
 		var component = GameObject.Instantiate(Resources.Load("Test")) as GameObject;
