@@ -1,0 +1,12 @@
+﻿using UnityEngine;
+using System.Collections;
+using UnityEngine.SceneManagement;
+
+//TODO Do this better
+public class LevelLoader : MonoBehaviour
+{
+	private void Start()
+	{
+		GameManager.Instance.GameMode.StartGame();
+	}
+}

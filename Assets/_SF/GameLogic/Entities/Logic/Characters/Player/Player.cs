@@ -46,7 +46,7 @@ public class Player : Entity
 	
 	public void PickupWeapon(WeaponProfile profile)
 	{
-		Weapon = WeaponFactory.CreateFromProfile(profile, GameMode.FireTransform);
+		Weapon = WeaponFactory.CreateFromProfile(profile, GameManager.Instance.GameMode.FireTransform);
 		Weapon.EntityId = id;
 		Debug.Log("Weapon is " + Weapon.Name);
 	} 

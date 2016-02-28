@@ -2,11 +2,11 @@
 using System.Collections;
 
 //TODO Do this better
-public class GameMode : MonoBehaviour
+public class GameMode
 {
-    private static FieldInteractable _field;
+    private FieldInteractable _field;
 
-    public static Transform FireTransform
+    public Transform FireTransform
     {
         get
         {
@@ -14,15 +14,16 @@ public class GameMode : MonoBehaviour
         }
     }
 
-	private void Start()
+	public void StartGame()
     {
         LoadGameModeDependancies();
 	}
 
     private void LoadGameModeDependancies()
-    {
-        _field = (Instantiate(Resources.Load("Game/Field/Field")) as GameObject).GetComponent<FieldInteractable>();
-        var playerWall = (Instantiate(Resources.Load("Game/Field/Barrier")) as GameObject).GetComponent<PlayerWall>();
+	{
+		_field = (GameManager.Instantiate(Resources.Load("Game/Field/Field")) as GameObject).GetComponent<FieldInteractable>();
+		GameManager.Instantiate(Resources.Load("InputManager"));
+		var playerWall = (GameManager.Instantiate(Resources.Load("Game/Field/Barrier")) as GameObject).GetComponent<PlayerWall>();
         playerWall.AssignPlayer(Player.Create(1000));
 		playerWall.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, 100)) + new Vector3(-80, 4, 0);
         EnemyManager.EnableSpawning();
