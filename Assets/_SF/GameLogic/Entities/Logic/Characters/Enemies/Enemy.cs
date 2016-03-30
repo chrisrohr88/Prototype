@@ -49,14 +49,15 @@ public class Enemy : Entity
 
 	protected void OnDeath()
 	{
-		GameManager.Instance.ScoreManager.UpdateScore(PointValue);
+		GameManager.Instance.GameMode.ScoreManager.UpdateScore(PointValue);
 		Health.Death += OnDeath;
 	}
 
 	public void Update()
 	{
 		AttackBehavior.UpdateBehavior();
-		if(!AttackBehavior.HasTarget) {
+		if(!AttackBehavior.HasTarget)
+		{
 			MovementBehavior.UpdateBehavior();
 		}
 	}

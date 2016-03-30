@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-	public SinglePlayerScoreManager ScoreManager { get; private set; }
 	public GameMode GameMode { get; private set; }
 
 	private void Awake ()
@@ -36,10 +35,17 @@ public class GameManager : MonoBehaviour
 			Destroy(gameObject);
 			return;
 		}
-		ScoreManager = new SinglePlayerScoreManager();
-		GameMode = new GameMode();
-		EnemyManager.LoadEnemies (new List<EnemyProfile> {ProfileManager.GetEnemyProfile("Skeleton")});//, ProfileManager.GetEnemyProfile("Enemy")});
         Application.targetFrameRate = 30;
+	}
+
+	public void SetGameMode(GameModeType gameModeType)
+	{
+		switch(gameModeType)
+		{
+			case GameModeType.Survival:
+				GameMode = new GameMode();
+				break;
+		}
 	}
 
 	public void LoadLevel()

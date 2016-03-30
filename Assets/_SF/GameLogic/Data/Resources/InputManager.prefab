@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 417496}
   - 114: {fileID: 11459356}
-  - 114: {fileID: 11450262}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -29,7 +28,6 @@ GameObject:
   - 92: {fileID: 9207792}
   - 124: {fileID: 12471084}
   - 81: {fileID: 8195050}
-  - 114: {fileID: 11417450}
   m_Layer: 0
   m_Name: HUDCamera
   m_TagString: MainCamera
@@ -138,28 +136,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150350}
   m_Enabled: 1
---- !u!114 &11417450
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 150350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98f7582e2e589e44ea38c61de9ea7c75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11450262
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 109150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98f7582e2e589e44ea38c61de9ea7c75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11459356
 MonoBehaviour:
   m_ObjectHideFlags: 1
