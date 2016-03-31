@@ -9,3 +9,5 @@ EditorBuildSettings:
     path: Assets/_SF/Scenes/Bootloader.unity
   - enabled: 1
     path: Assets/_SF/Scenes/Prototype.unity
+  - enabled: 1
+    path: Assets/_SF/Scenes/Main Menu.unity
