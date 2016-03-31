@@ -25,6 +25,7 @@ public class PlayerWall : MonoBehaviour
 	private void OnPlayerDeath()
 	{
 		Destroy(this.gameObject);
+		_player.UnsubscribeEvents();
 		GameManager.Instance.EndGame();
 	}
 
