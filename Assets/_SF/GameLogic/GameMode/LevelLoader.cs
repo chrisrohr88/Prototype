@@ -9,6 +9,6 @@ public class LevelLoader : MonoBehaviour
 	private void Start()
 	{
 		GameManager.Instance.SetGameMode(GameModeType.Survival);
-		GameManager.Instance.GameMode.StartGame();
+		GameManager.Instance.StartGame();
 	}
 }

@@ -8,6 +8,7 @@ public class PlayerWall : MonoBehaviour
     public void AssignPlayer(Player player)
     {
         _player = player;
+		_player.Health.Death += OnPlayerDeath;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -20,4 +21,15 @@ public class PlayerWall : MonoBehaviour
 			Destroy (other.gameObject);
         }
     }
+
+	private void OnPlayerDeath()
+	{
+		Destroy(this.gameObject);
+		GameManager.Instance.EndGame();
+	}
+
+	private void OnDestroy()
+	{
+		_player.Health.Death -= OnPlayerDeath;
+	}
 }

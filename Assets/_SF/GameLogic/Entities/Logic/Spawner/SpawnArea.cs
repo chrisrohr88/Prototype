@@ -16,18 +16,18 @@ public static class EnemyManager
     {
 		_enemies = new List<GameObject>();
         _spawnedEnemies = new List<BaseEnemy>();
-        _spawnAreas = new List<SpawnArea>();
     }
 
     public static void EnableSpawning()
-    {
+	{
+		_spawnAreas = new List<SpawnArea>();
+		SetupSpawnAreas();
         _isSpawning = true;
         GameManager.Instance.StartCoroutine(BeginSpawning());
     }
 
     private static IEnumerator BeginSpawning()
-    {
-        SetupSpawnAreas();
+	{
         while (_isSpawning)
         {
 			int rnd = Random.Range(0, _enemies.Count);

@@ -12,6 +12,6 @@ public class Bootloader : MonoBehaviour
 
     private void LoadScene()
     {
-		GameManager.Instance.LoadLevel();
+		SceneManager.LoadScene("Main Menu");
     }
 }

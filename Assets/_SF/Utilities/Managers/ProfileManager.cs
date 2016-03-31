@@ -11,14 +11,20 @@ public static class ProfileManager
 	private static Dictionary<string, WeaponProfile> _weaponProfiles = new Dictionary<string, WeaponProfile>();
 	private static Dictionary<string, EnemyProfile> _enemyProfiles = new Dictionary<string, EnemyProfile>();
 
+	private static bool _profilesLoaded = false;
+
 	static ProfileManager()
 	{
 	}
 
 	public static void LoadProfiles(System.Action callback)
 	{
-		LoadWeaponProfiles();
-		LoadEnemyProfiles();
+		if(!_profilesLoaded)
+		{
+			LoadWeaponProfiles();
+			LoadEnemyProfiles();
+			_profilesLoaded = true;
+		}
 		callback.SafeInvoke();
 	}
 

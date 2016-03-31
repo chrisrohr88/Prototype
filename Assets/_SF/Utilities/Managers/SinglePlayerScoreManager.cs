@@ -4,6 +4,7 @@ using System.Collections;
 public class SinglePlayerScoreManager
 {
 	public int Score { get; private set; }
+	public event System.Action<int> OnScoreUpdated;
 
 	public SinglePlayerScoreManager()
 	{
@@ -13,12 +14,12 @@ public class SinglePlayerScoreManager
 	public void UpdateScore(int pointsToAward)
 	{
 		Score += pointsToAward;
-		OnScoreUpdated();
+		ScoreUpdated();
 	}
 
-	public void OnScoreUpdated()
+	public void ScoreUpdated()
 	{
-		// TODO: Add Score UI
+		OnScoreUpdated.SafeInvoke(Score);
 		Debug.logger.Log(Score);
 	}
 }

@@ -52,4 +52,18 @@ public class GameManager : MonoBehaviour
 	{
 		SceneManager.LoadScene(LEVEL_NAME);
 	}
+
+	public void StartGame()
+	{
+		if(GameMode == null)
+		{
+			SetGameMode(GameModeType.Survival);
+		}
+		GameMode.StartGame();
+	}
+
+	public void EndGame()
+	{
+		GameMode.EndLevel();
+	}
 }
