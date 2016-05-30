@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using SF.EventSystem;
 
 public enum GameModeType
 {
@@ -26,7 +27,7 @@ public class GameMode
 	public void StartGame()
     {
         LoadGameModeDependancies();
-		StartLevel();
+		SFEventManager.FireEvent(new SFEventData { OriginId = SFEventManager.GLOBAL_EVENT_ID, EventType = SFEventType.LevelStart } );
 	}
 
     private void LoadGameModeDependancies()
@@ -49,12 +50,6 @@ public class GameMode
 		playerWall.AssignPlayer(player);
 		playerWall.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, 100)) + new Vector3(-80, 4, 0);
 		ScoreManager.OnScoreUpdated += scoreListner.UpdateScore;
-	}
-
-	public void StartLevel()
-	{
-		EnemyManager.EnableSpawning();
-		// TODO: unLoad Blocker object???
 	}
 
 	public void EndLevel()

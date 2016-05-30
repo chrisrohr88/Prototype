@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using SF.EventSystem;
 
 public class Bootloader : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Bootloader : MonoBehaviour
     {
 		Application.targetFrameRate = 60;
         ProfileManager.LoadProfiles(LoadScene);
+		SFEventManager.Initialize();
     }
 
     private void LoadScene()

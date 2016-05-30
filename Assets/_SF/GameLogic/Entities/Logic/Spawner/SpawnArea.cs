@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using SF.EventSystem;
 
 public static class EnemyManager
 {
@@ -16,6 +17,7 @@ public static class EnemyManager
     {
 		_enemies = new List<GameObject>();
         _spawnedEnemies = new List<BaseEnemy>();
+		SFEventManager.RegisterEventListner(SFEventType.LevelStart, new OnGameStarted{ GameStartMethod = EnableSpawning });
     }
 
     public static void EnableSpawning()
