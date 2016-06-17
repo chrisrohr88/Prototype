@@ -1,9 +1,19 @@
 ﻿namespace SF.EventSystem
 {
-	public abstract class SFEventListner
+	public interface SFEventListner
+	{
+		long? TargetId { get; set; }
+		void EventHandlerMethod(SFEventData eventData);
+	}
+
+	public class ConcreteSFEventListner<T> : SFEventListner where T : SFEventData
 	{
 		public long? TargetId { get; set; }
+		public System.Action<T> MethodToExecute { get; set; }
 
-		public abstract void EventHandlerMethod(SFEventData eventData);
+		public void EventHandlerMethod(SFEventData eventData)
+		{
+			MethodToExecute((T)eventData);
+		}
 	}
 }

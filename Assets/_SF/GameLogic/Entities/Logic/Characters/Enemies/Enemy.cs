@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Weapons;
+using SF.EventSystem;
 
 public class Enemy : Entity
 {
@@ -40,7 +41,13 @@ public class Enemy : Entity
 		enemy.Weapon.EntityId = enemy.EntityId;
 		enemy.PointValue = profile.PointValue;
 		enemy.Health.Death += enemy.OnDeath;
+		enemy.RegisterWithEventManager();
 		return enemy;
+	}
+
+	private void RegisterWithEventManager()
+	{
+		SFEventManager.RegisterEvent(new SFEvent { OriginId = this.EntityId, EventType = SFEventType.EnemyDeath });
 	}
 
 	private Enemy() : base()
@@ -49,8 +56,14 @@ public class Enemy : Entity
 
 	protected void OnDeath()
 	{
-		GameManager.Instance.GameMode.ScoreManager.UpdateScore(PointValue);
-		Health.Death += OnDeath;
+		SFEventManager.FireEvent(
+			new EnemyDeathEventData 
+			{ 
+				OriginId = this.EntityId, 
+				EventType = SFEventType.EnemyDeath, 
+				PointValue = this.PointValue 
+			});
+		Health.Death -= OnDeath;
 	}
 
 	public void Update()

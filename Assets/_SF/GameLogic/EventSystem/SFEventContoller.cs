@@ -4,12 +4,12 @@ using System.Collections.Generic;
 namespace SF.EventSystem
 {
 	public class SFEventContoller
-	{
+	{		
 		private Dictionary<long, SFEventListner> _targetedListner = new Dictionary<long, SFEventListner>();
-		private event System.Action<SFEventData> _globalEventListners;
+		private List<SFEventListner> _globalEventListners = new List<SFEventListner>();
 		private Dictionary<long, SFEvent> _events = new Dictionary<long, SFEvent>();
 
-		public void FireEvent(SFEventData eventData)
+		public void FireEvent<T>(T eventData) where T : SFEventData
 		{
 			if(!_events.ContainsKey(eventData.OriginId))
 			{
@@ -28,7 +28,11 @@ namespace SF.EventSystem
 					Debug.LogWarning(string.Format("EventType {0} for ObjectId {1} does not have a registered listner for TargetId {2}.", eventData.EventType, eventData.OriginId, eventData.TargetId.Value));
 				}
 			}
-			_globalEventListners(eventData);
+
+			foreach(var eventListner in _globalEventListners)
+			{
+				eventListner.EventHandlerMethod(eventData);
+			}
 		}
 
 		public void RegisterEvent(SFEvent eventToRegister)
@@ -44,7 +48,7 @@ namespace SF.EventSystem
 			}
 		}
 
-		public void RegisterEventListner(SFEventListner eventListner)
+		public void RegisterEventListner(SFEventType eventType, SFEventListner eventListner)
 		{
 			if(eventListner.TargetId.HasValue)
 			{
@@ -52,7 +56,7 @@ namespace SF.EventSystem
 			}
 			else
 			{
-				_globalEventListners += eventListner.EventHandlerMethod;
+				_globalEventListners.Add(eventListner);
 			}
 		}
 
@@ -71,7 +75,7 @@ namespace SF.EventSystem
 			}
 			else
 			{
-				_globalEventListners -= eventListner.EventHandlerMethod;
+				_globalEventListners.Remove(eventListner);
 			}
 		}
 	}

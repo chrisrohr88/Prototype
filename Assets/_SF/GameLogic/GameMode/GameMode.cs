@@ -27,7 +27,7 @@ public class GameMode
 	public void StartGame()
     {
         LoadGameModeDependancies();
-		SFEventManager.FireEvent(new SFEventData { OriginId = SFEventManager.GLOBAL_EVENT_ID, EventType = SFEventType.LevelStart } );
+		SFEventManager.FireEvent(new SFEventData { OriginId = SFEventManager.SYSTEM_ORIGIN_ID, EventType = SFEventType.LevelStart } );
 	}
 
     private void LoadGameModeDependancies()

@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace SF.EventSystem
 {
 	public static class SFEventManager
 	{
-		public static long GLOBAL_EVENT_ID = -7017234;
+		public static long SYSTEM_ORIGIN_ID = -7017234;
 
 		private static Dictionary<SFEventType, SFEventContoller> _events;
 
@@ -17,17 +18,18 @@ namespace SF.EventSystem
 
 		private static void RegisterGlobalEvents()
 		{
-			RegisterEvent(new SFEvent { OriginId = GLOBAL_EVENT_ID, EventType = SFEventType.LevelStart });
+			RegisterEvent(new SFEvent { OriginId = SYSTEM_ORIGIN_ID, EventType = SFEventType.LevelStart });
 		}
 
-		public static void FireEvent(SFEventData eventData)
+		public static void FireEvent<T>(T eventData) where T : SFEventData
 		{
 			try
 			{
 				_events[eventData.EventType].FireEvent(eventData);
 			}
-			catch
+			catch(Exception ex)
 			{
+				Debug.logger.Log(ex.Message);
 				Debug.Log(string.Format("EventType {0} has not been registered.", eventData.EventType));
 			}
 		}
@@ -36,7 +38,8 @@ namespace SF.EventSystem
 		{
 			if(_events.ContainsKey(eventToRegister.EventType))
 			{
-				_events[eventToRegister.EventType].RegisterEvent(eventToRegister);
+				var controller = _events[eventToRegister.EventType];
+				controller.RegisterEvent(eventToRegister);
 			}
 			else
 			{
@@ -58,13 +61,13 @@ namespace SF.EventSystem
 		{
 			if(_events.ContainsKey(eventType))
 			{
-				_events[eventType].RegisterEventListner(eventListner);
+				_events[eventType].RegisterEventListner(eventType, eventListner);
 			}
 			else
 			{
 				var eventController = new SFEventContoller();
 				_events.Add(eventType, eventController);
-				eventController.RegisterEventListner(eventListner);
+				eventController.RegisterEventListner(eventType, eventListner);
 			}
 		}
 

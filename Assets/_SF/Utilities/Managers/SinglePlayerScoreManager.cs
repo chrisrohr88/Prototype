@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SF.EventSystem;
 
 public class SinglePlayerScoreManager
 {
@@ -9,15 +10,26 @@ public class SinglePlayerScoreManager
 	public SinglePlayerScoreManager()
 	{
 		Score = 0;
+		RegisterWithEventManager();
 	}
 
-	public void UpdateScore(int pointsToAward)
+	private void RegisterWithEventManager()
+	{
+		SFEventManager.RegisterEventListner(SFEventType.EnemyDeath, new ConcreteSFEventListner<EnemyDeathEventData> { MethodToExecute = HandleEnemyDeath });
+	}
+
+	private void HandleEnemyDeath(EnemyDeathEventData eventData)
+	{
+		UpdateScore(eventData.PointValue);
+	}
+
+	private void UpdateScore(int pointsToAward)
 	{
 		Score += pointsToAward;
 		ScoreUpdated();
 	}
 
-	public void ScoreUpdated()
+	private void ScoreUpdated()
 	{
 		OnScoreUpdated.SafeInvoke(Score);
 		Debug.logger.Log(Score);

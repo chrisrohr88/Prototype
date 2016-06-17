@@ -17,10 +17,16 @@ public static class EnemyManager
     {
 		_enemies = new List<GameObject>();
         _spawnedEnemies = new List<BaseEnemy>();
-		SFEventManager.RegisterEventListner(SFEventType.LevelStart, new OnGameStarted{ GameStartMethod = EnableSpawning });
+		RegisterWithEventManager();
     }
 
-    public static void EnableSpawning()
+	private static void RegisterWithEventManager()
+	{
+		SFEventManager.RegisterEventListner(SFEventType.LevelStart, new ConcreteSFEventListner<SFEventData> { MethodToExecute = EnableSpawning });
+		SFEventManager.RegisterEvent(new SFEvent { OriginId = SFEventManager.SYSTEM_ORIGIN_ID, EventType = SFEventType.EnemySpawned });
+	}
+
+	public static void EnableSpawning(SFEventData eventData)
 	{
 		_spawnAreas = new List<SpawnArea>();
 		SetupSpawnAreas();
@@ -79,6 +85,7 @@ public class SpawnArea
 		var enemy = CharacterFactory.CreateEnemyFromProfile(enemyProfile);
 		enemy.EnemyRenderable.transform.parent = _enemyParentObject.transform;
 		enemy.EnemyRenderable.transform.localPosition = _spawnAreaCenter + new Vector3(0, Random.Range(-_maxDistance, _maxDistance), -50);
+		SFEventManager.FireEvent(new EnemySpawnEventData { EnemyId = enemy.EntityId });
 		return enemy.EnemyRenderable;
     }
 }
