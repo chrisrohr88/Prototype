@@ -8,6 +8,8 @@
 
 		// Enemy Events
 		EnemySpawned = 1000,
-		EnemyDeath = 1001
+		EnemyDeath = 1001,
+		EnemyAttack = 1002,
+		EnemyHit = 1003
 	}
 }

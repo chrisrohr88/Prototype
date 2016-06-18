@@ -10,7 +10,7 @@ public class SimpleTagetingBehavior : TargetingBehavior
 
 	public override bool AcquireTarget()
 	{
-		var hit = doRaycast();
+		var hit = DoRaycast();
 		return EvaluateHit(hit);
 	}
 
@@ -24,7 +24,7 @@ public class SimpleTagetingBehavior : TargetingBehavior
 		return false;
 	}
 
-	private RaycastHit2D doRaycast()
+	private RaycastHit2D DoRaycast()
 	{
 		var enemySpawnTransform = Enemy.EnemyRenderable.SpawnTransform;
 		var hit = Physics2D.Raycast(enemySpawnTransform.position, enemySpawnTransform.forward, 50, Enemy.TargetingLayerMask.value);

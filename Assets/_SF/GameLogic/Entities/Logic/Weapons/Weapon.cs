@@ -158,10 +158,11 @@ namespace Weapons
 		
 		private void AddDamageToProjectile(Projectile projectile)
 		{
-			var damageData = projectile.BaseProjectile.AddComponent<DamageData>();
-			damageData.AttackerId = EntityId;
-			damageData.Damage = Damage;
-			damageData.DamageType = DamageType.Fire;
+			projectile.DamageData = new DamageData {
+				AttackerId = EntityId,
+				Damage = Damage,
+				DamageType = DamageType.Fire
+			};
 		}
 
 		private class InternalWeapon : Internal.InternalWeapon

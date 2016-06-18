@@ -48,6 +48,8 @@ public class Enemy : Entity
 	private void RegisterWithEventManager()
 	{
 		SFEventManager.RegisterEvent(new SFEvent { OriginId = this.EntityId, EventType = SFEventType.EnemyDeath });
+		SFEventManager.RegisterEvent(new SFEvent { OriginId = this.EntityId, EventType = SFEventType.EnemyAttack });
+		SFEventManager.RegisterEventListner(SFEventType.EnemyHit, new ConcreteSFEventListner<EnemyHitEventData> { TargetId = this.EntityId, MethodToExecute = TakeDamage });
 	}
 
 	private Enemy() : base()
@@ -85,11 +87,11 @@ public class Enemy : Entity
 		Health.UpdateHealth(amount);
 	}
 
-	public void TakeDamage(DamageData damageData)
+	public void TakeDamage(EnemyHitEventData eventData)
 	{
-		if(damageData.AttackerId != EntityId)
+		if(eventData.DamageData.AttackerId != EntityId)
 		{
-			UpdateHealth(-damageData.Damage);
+			UpdateHealth(-eventData.DamageData.Damage);
 		}
 	}
 }

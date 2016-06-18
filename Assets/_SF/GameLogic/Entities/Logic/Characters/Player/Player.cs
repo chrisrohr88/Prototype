@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Weapons;
+using SF.EventSystem;
 
 public class Player : Entity
 {
@@ -26,8 +27,14 @@ public class Player : Entity
 		player.Health = HealthComponent.Create(baseHealth);
 		player.Death += () => { Debug.Log ("Player is dead!"); };
         player.PickupWeapon();
+		player.RegisterWithEventManager();
         return player;
     }
+
+	private void RegisterWithEventManager()
+	{
+		SFEventManager.RegisterEvent(new SFEvent { OriginId = this.EntityId, EventType = SFEventType.EnemyHit });
+	}
 
     private Player() : base()
     {
@@ -47,7 +54,7 @@ public class Player : Entity
 	public void PickupWeapon(WeaponProfile profile)
 	{
 		Weapon = WeaponFactory.CreateFromProfile(profile, GameManager.Instance.GameMode.FireTransform);
-		Weapon.EntityId = id;
+		Weapon.EntityId = EntityId;
 		Debug.Log("Weapon is " + Weapon.Name);
 	} 
 
