@@ -6,6 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/GraveDefender/Scenes/Bootloader.unity
+    path: Assets/_SF/Scenes/Bootloader.unity
   - enabled: 1
-    path: Assets/GraveDefender/Scenes/Prototype.unity
+    path: Assets/_SF/Scenes/Prototype.unity
+  - enabled: 1
+    path: Assets/_SF/Scenes/Main Menu.unity

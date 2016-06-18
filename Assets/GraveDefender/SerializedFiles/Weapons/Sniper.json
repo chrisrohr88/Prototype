@@ -1,9 +1,0 @@
-{
-	"Name": "Sniper",
-	"BaseDamage": 200,
-	"RateOfFire": 30,
-	"AttackPower": 500,
-	"ReloadTime": 2.5,
-	"AmmoType": "Fire",
-	"MaxAmmo": 2
-}

@@ -1,9 +1,0 @@
-{
-	"Name": "Pistol",
-	"BaseDamage": 45,
-	"RateOfFire": 250,
-	"AttackPower": 100,
-	"ReloadTime": 2,
-	"AmmoType": "Fire",
-	"MaxAmmo": 10
-}

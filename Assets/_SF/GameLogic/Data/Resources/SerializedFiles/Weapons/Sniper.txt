@@ -1,0 +1,11 @@
+{
+	"Name": "Sniper",
+	"BaseDamage": 200,
+	"RateOfFire": 75,
+	"AttackPower": 250,
+	"ReloadTime": 2.5,
+	"AmmoType": "Fire",
+	"Accuracy": 1,
+	"MaxAmmo": 4,
+	"FireBehaviorType": "OnRelease"
+}

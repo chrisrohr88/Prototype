@@ -1,0 +1,11 @@
+{
+	"Name": "Revolver",
+	"BaseDamage": 100,
+	"RateOfFire": 100,
+	"AttackPower": 500,
+	"ReloadTime": 2.5,
+	"AmmoType": "Fire",
+	"Accuracy": 0.90,
+	"MaxAmmo": 6,
+	"FireBehaviorType": "SemiAutoUnCapped"
+}

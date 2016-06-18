@@ -1,0 +1,16 @@
+{
+	"Name": "SubmachineGun",
+	"BaseDamage": 15,
+	"RateOfFire": 100,
+	"AttackPower": 500,
+	"ReloadTime": 1.5,
+	"AmmoType": "Fire",
+	"Accuracy": 0.85,
+	"MaxAmmo": 50,
+	"BurstCount": 5,
+	"BurstTime": 0.25,
+	"DeviationTime": 0.5,
+	"MaximumDeviation": {"X": 9, "Y": 5, "Z": 0},
+	"MinimumDeviation": {"X": 2, "Y": 0, "Z": 0},
+	"FireBehaviorType": "Burst"
+}

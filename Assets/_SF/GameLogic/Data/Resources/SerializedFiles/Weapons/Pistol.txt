@@ -1,0 +1,11 @@
+{
+	"Name": "Pistol",
+	"BaseDamage": 45,
+	"RateOfFire": 250,
+	"AttackPower": 100,
+	"ReloadTime": 2,
+	"AmmoType": "Fire",
+	"Accuracy": 0.90,
+	"MaxAmmo": 10,
+	"FireBehaviorType": "SemiAuto"
+}
