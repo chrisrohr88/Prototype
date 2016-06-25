@@ -17,7 +17,8 @@ public class BaseProjectile : MonoBehaviour
 
 	protected virtual void OnTriggerEnter2D(Collider2D other)
 	{
-		var baseEnemy = other.gameObject.GetComponent<BaseEnemy>();
+		Projectile.GameObjectHit = other.gameObject;
+		var baseEnemy = Projectile.GameObjectHit.GetComponent<BaseEnemy>();
 
 		if(baseEnemy != null && baseEnemy.Enemy.EntityId != Projectile.DamageData.AttackerId)
 		{
@@ -26,7 +27,7 @@ public class BaseProjectile : MonoBehaviour
 			return;
 		}
 
-		var basePlayer = other.gameObject.GetComponent<PlayerWall>();
+		var basePlayer = Projectile.GameObjectHit.GetComponent<PlayerWall>();
 
 		if(basePlayer != null && basePlayer.Player.EntityId != Projectile.DamageData.AttackerId)
 		{

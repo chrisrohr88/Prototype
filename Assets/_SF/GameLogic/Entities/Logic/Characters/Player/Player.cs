@@ -33,7 +33,8 @@ public class Player : Entity
 
 	private void RegisterWithEventManager()
 	{
-		SFEventManager.RegisterEvent(new SFEvent { OriginId = this.EntityId, EventType = SFEventType.EnemyHit });
+		SFEventManager.RegisterEvent(new SFEvent { OriginId = this.EntityId, EventType = SFEventType.EntityHit });
+		SFEventManager.RegisterEventListner(SFEventType.EntityHit, new ConcreteSFEventListner<EntityHitEventData> { TargetId = this.EntityId, MethodToExecute = TakeDamage });
 	}
 
     private Player() : base()
@@ -54,23 +55,31 @@ public class Player : Entity
 	public void PickupWeapon(WeaponProfile profile)
 	{
 		Weapon = WeaponFactory.CreateFromProfile(profile, GameManager.Instance.GameMode.FireTransform);
-		Weapon.EntityId = EntityId;
+		Weapon.PlayerEntityId = EntityId;
 		Debug.Log("Weapon is " + Weapon.Name);
 	} 
 
 	public void TriggerPulled(Vector3 position)
 	{
-		Weapon.TriggerPulled(position);
+		SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerPull, OriginId = Weapon.EntityId, TargetId = Weapon.EntityId, TargetPosition = position });
 	}
 	
 	public void TriggerHeld(Vector3 position)
 	{
-		Weapon.TriggerHeld(position);
+		SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerHold, OriginId = Weapon.EntityId, TargetId = Weapon.EntityId, TargetPosition = position });
 	}
 	
 	public void TriggerReleased(Vector3 position)
 	{
-		Weapon.TriggerReleased(position);
+		SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerRelease, OriginId = Weapon.EntityId, TargetId = Weapon.EntityId, TargetPosition = position });
+	}
+
+	public void TakeDamage(EntityHitEventData eventData)
+	{
+		if(eventData.DamageData.AttackerId != EntityId)
+		{
+			Health.UpdateHealth(-eventData.DamageData.Damage);
+		}
 	}
 	
 	private void SubscribeEvents()

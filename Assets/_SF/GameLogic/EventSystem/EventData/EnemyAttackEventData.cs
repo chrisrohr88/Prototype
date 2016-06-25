@@ -9,7 +9,7 @@ namespace SF.EventSystem
 
 		public EnemyAttackEventData()
 		{
-			EventType = SFEventType.EnemyAttack;
+			EventType = SFEventType.EntityAttack;
 		}
 	}
 }

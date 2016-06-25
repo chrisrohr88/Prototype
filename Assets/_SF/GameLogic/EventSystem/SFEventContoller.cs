@@ -33,6 +33,10 @@ namespace SF.EventSystem
 			{
 				eventListner.EventHandlerMethod(eventData);
 			}
+
+			#if DEBUG
+			Debug.logger.Log(eventData.EventType + " was fired.");
+			#endif
 		}
 
 		public void RegisterEvent(SFEvent eventToRegister)

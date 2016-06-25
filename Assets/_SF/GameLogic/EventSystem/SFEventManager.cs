@@ -8,11 +8,10 @@ namespace SF.EventSystem
 	{
 		public static long SYSTEM_ORIGIN_ID = -7017234;
 
-		private static Dictionary<SFEventType, SFEventContoller> _events;
+		private static Dictionary<SFEventType, SFEventContoller> _events = new Dictionary<SFEventType, SFEventContoller>();
 
 		public static void Initialize()
 		{
-			_events = new Dictionary<SFEventType, SFEventContoller>();
 			RegisterGlobalEvents();
 		}
 
@@ -51,6 +50,7 @@ namespace SF.EventSystem
 
 		public static void UnegisterEvent(SFEvent eventToUnregister)
 		{
+			Debug.logger.Log("Unregistering event " + eventToUnregister.EventType);
 			if(_events.ContainsKey(eventToUnregister.EventType))
 			{
 				_events[eventToUnregister.EventType].UnregisterEvent(eventToUnregister);
@@ -71,7 +71,7 @@ namespace SF.EventSystem
 			}
 		}
 
-		public static void UnegisterEvent(SFEventType eventType, SFEventListner eventListner)
+		public static void UnegisterEventListner(SFEventType eventType, SFEventListner eventListner)
 		{
 			if(_events.ContainsKey(eventType))
 			{

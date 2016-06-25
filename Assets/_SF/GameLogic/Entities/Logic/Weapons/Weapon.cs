@@ -4,10 +4,11 @@ using UnityEngine;
 using Weapons.Behaviors;
 using Weapons.Enums;
 using Weapons.States;
+using SF.EventSystem;
 
 namespace Weapons
 {
-	public class Weapon
+	public class Weapon : Entity
 	{
 		public string Name { get; private set; }
 		public AmmoType AmmoType { get; private set; }
@@ -25,7 +26,7 @@ namespace Weapons
 		public WeaponBehaviorType TriggerBehaviorType { get; private set; }
 		public Vector3 MinDeviation { get; private set; }
 		public Vector3 MaxDeviation { get; private set; }
-		public long EntityId { get; set; }
+		public long PlayerEntityId { get; set; }
 
 		public Transform FireTransform { get; private set; }
 
@@ -79,29 +80,52 @@ namespace Weapons
 			newWeapon.MinDeviation = (profile.MinimumDeviation != null) ? new Vector3(profile.MinimumDeviation.X, profile.MinimumDeviation.Y, profile.MinimumDeviation.Z) : Vector3.zero;
 			newWeapon.MaxDeviation = (profile.MaximumDeviation != null) ? new Vector3(profile.MaximumDeviation.X, profile.MaximumDeviation.Y, profile.MaximumDeviation.Z) : Vector3.zero;
 			newWeapon.FireTransform = fireTransform;
+			newWeapon.SetupEventRegistar();
 			newWeapon.Init();
 
 			return newWeapon;
 		}
+
+		// TODO : want to make this datadriven & move to Entity
+		private	List<SFEvent> CreateEventsToRegister()
+		{
+			return new List<SFEvent>
+			{
+				new SFEvent { OriginId = EntityId, EventType = SFEventType.WeaponFired },
+				new SFEvent { OriginId = EntityId, EventType = SFEventType.WeaponReloaded },
+				new SFEvent { OriginId = EntityId, EventType = SFEventType.WeaponTriggerHold },
+				new SFEvent { OriginId = EntityId, EventType = SFEventType.WeaponTriggerPull },
+				new SFEvent { OriginId = EntityId, EventType = SFEventType.WeaponTriggerRelease }
+			};
+		}
+
+		private void SetupEventRegistar()
+		{
+			_eventRegistar = new EventRegistar(CreateEventsToRegister());
+			_eventRegistar.RegisterEvents();
+			SFEventManager.RegisterEventListner(SFEventType.WeaponTriggerHold, new ConcreteSFEventListner<WeaponTriggerEventData> { TargetId = EntityId, MethodToExecute = TriggerHeld });
+			SFEventManager.RegisterEventListner(SFEventType.WeaponTriggerPull, new ConcreteSFEventListner<WeaponTriggerEventData> { TargetId = EntityId, MethodToExecute = TriggerPulled });
+			SFEventManager.RegisterEventListner(SFEventType.WeaponTriggerRelease, new ConcreteSFEventListner<WeaponTriggerEventData> { TargetId = EntityId, MethodToExecute = TriggerReleased });
+		}
 	    
-	    public void TriggerPulled(Vector3 position)
+		public void TriggerPulled(WeaponTriggerEventData eventData)
 		{
 			SetWeaponForUse();
-			_targetPosition = position;
+			_targetPosition = eventData.TargetPosition;
 			_rangeAttackBehavior.OnTriggerPressed();
 	    }
 
-		public void TriggerHeld(Vector3 position)
+		public void TriggerHeld(WeaponTriggerEventData eventData)
 		{
 			SetWeaponForUse();
-			_targetPosition = position;
+			_targetPosition = eventData.TargetPosition;
 			_rangeAttackBehavior.OnTriggerHeld();
 	    }
 
-		public void TriggerReleased(Vector3 position)
+		public void TriggerReleased(WeaponTriggerEventData eventData)
 		{
 			SetWeaponForUse();
-			_targetPosition = position;
+			_targetPosition = eventData.TargetPosition;
 			_rangeAttackBehavior.OnTriggerRelease();
 	    }
 
@@ -135,6 +159,7 @@ namespace Weapons
 	    {
 			_currentState = _currentState.SwitchToReloadState();
 	        _currentState.Reload();
+			SFEventManager.FireEvent(new SFEventData { OriginId = EntityId, EventType = SFEventType.WeaponReloaded });
 	    }
 
 	    public void Disable()
@@ -154,12 +179,13 @@ namespace Weapons
 
 			var projectile = ProjectileFactory.CreateProjectileFromProfile(FireTransform, _targetPosition);
 			AddDamageToProjectile(projectile);
+			SFEventManager.FireEvent(new SFEventData { OriginId = EntityId, EventType = SFEventType.WeaponFired });
 		}
 		
 		private void AddDamageToProjectile(Projectile projectile)
 		{
 			projectile.DamageData = new DamageData {
-				AttackerId = EntityId,
+				AttackerId = PlayerEntityId,
 				Damage = Damage,
 				DamageType = DamageType.Fire
 			};

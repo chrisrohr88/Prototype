@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Weapons;
 using SF.EventSystem;
 
@@ -29,34 +30,54 @@ public class Enemy : Entity
 	public static Enemy Create(EnemyProfile profile, Weapon weapon, BaseEnemy baseEnemy)
 	{
 		var enemy = new Enemy();
-		enemy.AttackBehavior = CharacterBehaviorFactory.CreateAttackBehaviorFromType(profile.AttackBehaviorType, enemy, weapon);
-		enemy.AttackBehavior.TargetingBehavior = CharacterBehaviorFactory.CreateTargetingBehaviorFromType(profile.TargetingBehaviorType, enemy);
 		enemy.MovementBehavior = CharacterBehaviorFactory.CreateMovementBehaviorFromType(profile.MovementBehaviorType, enemy);
-		enemy.Health = HealthComponent.Create(profile.BaseHealth);
-		enemy.EnemyRenderable = baseEnemy;
-		enemy.EnemyRenderable.Enemy = enemy;
 		enemy.Speed = profile.Speed;
-		enemy.Weapon = weapon;
 		enemy.TargetingLayerMask = (LayerMask) profile.LayerMask;
-		enemy.Weapon.EntityId = enemy.EntityId;
 		enemy.PointValue = profile.PointValue;
+		enemy.Health = HealthComponent.Create(profile.BaseHealth);
 		enemy.Health.Death += enemy.OnDeath;
-		enemy.RegisterWithEventManager();
+
+		if(weapon != null)
+		{
+			enemy.AttackBehavior = CharacterBehaviorFactory.CreateAttackBehaviorFromType(profile.AttackBehaviorType, enemy, weapon);
+			enemy.AttackBehavior.TargetingBehavior = CharacterBehaviorFactory.CreateTargetingBehaviorFromType(profile.TargetingBehaviorType, enemy);
+			enemy.Weapon = weapon;
+			enemy.Weapon.PlayerEntityId = enemy.EntityId;
+		}
+
+		if(baseEnemy != null)
+		{
+			enemy.EnemyRenderable = baseEnemy;
+			enemy.EnemyRenderable.Enemy = enemy;
+		}
+
+		enemy.SetupEventRegistar();
 		return enemy;
 	}
 
-	private void RegisterWithEventManager()
+	// TODO : want to make this datadriven & move to Entity
+	private	List<SFEvent> CreateEventsToRegister()
 	{
-		SFEventManager.RegisterEvent(new SFEvent { OriginId = this.EntityId, EventType = SFEventType.EnemyDeath });
-		SFEventManager.RegisterEvent(new SFEvent { OriginId = this.EntityId, EventType = SFEventType.EnemyAttack });
-		SFEventManager.RegisterEventListner(SFEventType.EnemyHit, new ConcreteSFEventListner<EnemyHitEventData> { TargetId = this.EntityId, MethodToExecute = TakeDamage });
+		return new List<SFEvent>
+		{
+			new SFEvent { OriginId = EntityId, EventType = SFEventType.EnemyDeath },
+			new SFEvent { OriginId = EntityId, EventType = SFEventType.EntityHit },
+			new SFEvent { OriginId = EntityId, EventType = SFEventType.EntityAttack }
+		};
+	}
+
+	private void SetupEventRegistar()
+	{
+		_eventRegistar = new EventRegistar(CreateEventsToRegister());
+		_eventRegistar.RegisterEvents();
+		SFEventManager.RegisterEventListner(SFEventType.EntityHit, new ConcreteSFEventListner<EntityHitEventData> { TargetId = this.EntityId, MethodToExecute = TakeDamage });
 	}
 
 	private Enemy() : base()
 	{
 	}
 
-	protected void OnDeath()
+	protected override void OnDeath()
 	{
 		SFEventManager.FireEvent(
 			new EnemyDeathEventData 
@@ -66,6 +87,7 @@ public class Enemy : Entity
 				PointValue = this.PointValue 
 			});
 		Health.Death -= OnDeath;
+		base.OnDeath();
 	}
 
 	public void Update()
@@ -87,7 +109,7 @@ public class Enemy : Entity
 		Health.UpdateHealth(amount);
 	}
 
-	public void TakeDamage(EnemyHitEventData eventData)
+	public void TakeDamage(EntityHitEventData eventData)
 	{
 		if(eventData.DamageData.AttackerId != EntityId)
 		{

@@ -2,13 +2,13 @@
 
 namespace SF.EventSystem
 {
-	public class EnemyHitEventData : SFEventData 
+	public class EntityHitEventData : SFEventData 
 	{
 		public DamageData DamageData { get; set; }
 
-		public EnemyHitEventData()
+		public EntityHitEventData()
 		{
-			EventType = SFEventType.EnemyHit;
+			EventType = SFEventType.EntityHit;
 		}
 	}
 }
