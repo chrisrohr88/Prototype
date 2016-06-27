@@ -6,6 +6,7 @@
 		LevelEnded = 0,
 		LevelStart = 1,
 		GameOver = 2,
+		SinglePlayerScoreUpdate = 3,
 
 		// Enemy Events 1000 - 1999
 		EnemySpawned = 1000,

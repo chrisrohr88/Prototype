@@ -12,27 +12,49 @@ public static class EnemyManager
     private static List<BaseEnemy> _spawnedEnemies;
     private static List<SpawnArea> _spawnAreas;
     private static bool _isSpawning = false;
+	private static EventRegistar _eventRegistar;
 
     static EnemyManager()
     {
 		_enemies = new List<GameObject>();
         _spawnedEnemies = new List<BaseEnemy>();
-		RegisterWithEventManager();
-    }
-
-	private static void RegisterWithEventManager()
-	{
-		SFEventManager.RegisterEventListner(SFEventType.LevelStart, new ConcreteSFEventListner<SFEventData> { MethodToExecute = EnableSpawning });
-		SFEventManager.RegisterEvent(new SFEvent { OriginId = SFEventManager.SYSTEM_ORIGIN_ID, EventType = SFEventType.EnemySpawned });
+		SetupEventRegistar();
 	}
 
-	public static void EnableSpawning(SFEventData eventData)
+	// TODO : want to make this datadriven & move to Entity
+	private	static List<SFEvent> CreateEventsToRegister()
+	{
+		return new List<SFEvent>
+		{
+			new SFEvent { OriginId = SFEventManager.SYSTEM_ORIGIN_ID, EventType = SFEventType.EnemySpawned }
+		};
+	}
+
+	private static void SetupEventRegistar()
+	{
+		_eventRegistar = new EventRegistar(CreateEventsToRegister());
+		_eventRegistar.RegisterEvents();
+		SFEventManager.RegisterEventListner(SFEventType.GameOver, new ConcreteSFEventListner<SFEventData> { MethodToExecute = OnGameOver } ); 
+		SFEventManager.RegisterEventListner(SFEventType.LevelStart, new ConcreteSFEventListner<SFEventData> { MethodToExecute = OnLevelStart });
+	}
+
+	private static void OnLevelStart(SFEventData eventData)
+	{
+		EnableSpawning();
+	}
+
+	private static void OnGameOver(SFEventData eventData)
+	{
+		DisableSpawning();
+	}
+
+	public static void EnableSpawning()
 	{
 		_spawnAreas = new List<SpawnArea>();
 		SetupSpawnAreas();
-        _isSpawning = true;
-        GameManager.Instance.StartCoroutine(BeginSpawning());
-    }
+		_isSpawning = true;
+		GameManager.Instance.StartCoroutine(BeginSpawning());
+	}
 
     private static IEnumerator BeginSpawning()
 	{

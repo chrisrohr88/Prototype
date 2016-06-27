@@ -18,6 +18,7 @@ namespace SF.EventSystem
 		private static void RegisterGlobalEvents()
 		{
 			RegisterEvent(new SFEvent { OriginId = SYSTEM_ORIGIN_ID, EventType = SFEventType.LevelStart });
+			RegisterEvent(new SFEvent { OriginId = SYSTEM_ORIGIN_ID, EventType = SFEventType.GameOver });
 		}
 
 		public static void FireEvent<T>(T eventData) where T : SFEventData

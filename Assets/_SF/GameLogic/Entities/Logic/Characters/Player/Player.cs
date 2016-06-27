@@ -2,6 +2,7 @@
 using UnityEngine;
 using Weapons;
 using SF.EventSystem;
+using System.Collections.Generic;
 
 public class Player : Entity
 {
@@ -9,32 +10,31 @@ public class Player : Entity
 	public HealthComponent Health { get; private set; }
 	public int id = 1;
 
-    public event System.Action Death
-    {
-        add
-        {
-            Health.Death += value;
-        }
-        remove
-        {
-            Health.Death -= value;
-        }
-    }
-
     public static Player Create(float baseHealth)
     {
         var player = new Player();
 		player.Health = HealthComponent.Create(baseHealth);
-		player.Death += () => { Debug.Log ("Player is dead!"); };
+		player.Health.Death += player.OnDeath;
         player.PickupWeapon();
-		player.RegisterWithEventManager();
+		player.SetupEventRegistar();
         return player;
-    }
+	}
 
-	private void RegisterWithEventManager()
+	// TODO : want to make this datadriven & move to Entity
+	private	List<SFEvent> CreateEventsToRegister()
 	{
-		SFEventManager.RegisterEvent(new SFEvent { OriginId = this.EntityId, EventType = SFEventType.EntityHit });
-		SFEventManager.RegisterEventListner(SFEventType.EntityHit, new ConcreteSFEventListner<EntityHitEventData> { TargetId = this.EntityId, MethodToExecute = TakeDamage });
+		return new List<SFEvent>
+		{
+			new SFEvent { OriginId = EntityId, EventType = SFEventType.EntityHit },
+			new SFEvent { OriginId = EntityId, EventType = SFEventType.PlayerDeath }
+		};
+	}
+
+	private void SetupEventRegistar()
+	{
+		_eventRegistar = new EventRegistar(CreateEventsToRegister());
+		_eventRegistar.RegisterEvents();
+		SFEventManager.RegisterEventListner(SFEventType.EntityHit, new ConcreteSFEventListner<EntityHitEventData> { TargetId = EntityId, MethodToExecute = TakeDamage });
 	}
 
     private Player() : base()
@@ -76,9 +76,12 @@ public class Player : Entity
 
 	public void TakeDamage(EntityHitEventData eventData)
 	{
+		Debug.Log("Player Hit");
 		if(eventData.DamageData.AttackerId != EntityId)
 		{
+			Debug.Log("Player Health Updated by " + eventData.DamageData.Damage);
 			Health.UpdateHealth(-eventData.DamageData.Damage);
+			Debug.Log("Player Health is " + Health.TestHealth);
 		}
 	}
 	
@@ -97,6 +100,12 @@ public class Player : Entity
 		FieldInteractable.OnMoved -= TriggerHeld;
 		FieldInteractable.OnPressed -= TriggerPulled;
 		FieldInteractable.OnReleased -= TriggerReleased;
+	}
+
+	protected override void OnDeath()
+	{
+		SFEventManager.FireEvent(new SFEventData { OriginId = EntityId, EventType = SFEventType.PlayerDeath });
+		base.OnDeath();
 	}
 
     ~Player()

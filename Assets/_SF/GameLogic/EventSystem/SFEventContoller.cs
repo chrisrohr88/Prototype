@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace SF.EventSystem
 {
@@ -34,14 +35,21 @@ namespace SF.EventSystem
 				eventListner.EventHandlerMethod(eventData);
 			}
 
-			#if DEBUG
+			#if DEBUGs
 			Debug.logger.Log(eventData.EventType + " was fired.");
 			#endif
 		}
 
 		public void RegisterEvent(SFEvent eventToRegister)
 		{
-			_events.Add(eventToRegister.OriginId, eventToRegister);
+			try
+			{
+				_events.Add(eventToRegister.OriginId, eventToRegister);
+			}
+			catch(Exception ex)
+			{
+				Debug.LogWarning("Could not register event for EventType " + eventToRegister.EventType + " : " + ex.Message);
+			}
 		}
 
 		public void UnregisterEvent(SFEvent eventToRegister)
@@ -54,13 +62,20 @@ namespace SF.EventSystem
 
 		public void RegisterEventListner(SFEventType eventType, SFEventListner eventListner)
 		{
-			if(eventListner.TargetId.HasValue)
+			try
 			{
-				_targetedListner.Add(eventListner.TargetId.Value, eventListner);
+				if(eventListner.TargetId.HasValue)
+				{
+					_targetedListner.Add(eventListner.TargetId.Value, eventListner);
+				}
+				else
+				{
+					_globalEventListners.Add(eventListner);
+				}
 			}
-			else
+			catch(Exception ex)
 			{
-				_globalEventListners.Add(eventListner);
+				Debug.LogWarning("Could not register listner for EventType " + eventType + " : " + ex.Message);
 			}
 		}
 
