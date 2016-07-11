@@ -5,6 +5,7 @@ using Weapons.Behaviors;
 using Weapons.Enums;
 using Weapons.States;
 using SF.EventSystem;
+using Weapons.TriggerAdapters;
 
 namespace Weapons
 {
@@ -29,6 +30,7 @@ namespace Weapons
 		public long PlayerEntityId { get; set; }
 
 		public Transform FireTransform { get; private set; }
+		public TriggerAdapter TriggerAdapter { get; private set; }
 
 		private InternalWeapon _internalWeapon;
 		private WeaponState _currentState;
@@ -62,7 +64,8 @@ namespace Weapons
 		
 		public static Weapon CreateFromProfile(WeaponProfile profile, Transform fireTransform)
 		{
-			var newWeapon = new Weapon();		
+			var newWeapon = new Weapon();
+			newWeapon.SetupEventRegistar();	
 			newWeapon.Name = profile.Name;
 			newWeapon.AmmoType = profile.AmmoType;
 			newWeapon.TriggerBehaviorType = profile.TriggerBehaviorType;
@@ -80,7 +83,7 @@ namespace Weapons
 			newWeapon.MinDeviation = (profile.MinimumDeviation != null) ? new Vector3(profile.MinimumDeviation.X, profile.MinimumDeviation.Y, profile.MinimumDeviation.Z) : Vector3.zero;
 			newWeapon.MaxDeviation = (profile.MaximumDeviation != null) ? new Vector3(profile.MaximumDeviation.X, profile.MaximumDeviation.Y, profile.MaximumDeviation.Z) : Vector3.zero;
 			newWeapon.FireTransform = fireTransform;
-			newWeapon.SetupEventRegistar();
+			newWeapon.TriggerAdapter = TriggerAdapter.Create(newWeapon);
 			newWeapon.Init();
 
 			return newWeapon;

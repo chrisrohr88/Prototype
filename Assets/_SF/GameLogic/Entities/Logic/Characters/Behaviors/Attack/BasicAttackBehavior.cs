@@ -21,9 +21,12 @@ public class BasicAttackBehavior : AttackBehavior
 			if(HasTarget)
 			{
 				var targetPosition = TargetingBehavior.GetTarget();
+				_enemy.WeaponController.StartFiring(targetPosition);
 				SFEventManager.FireEvent(new EnemyAttackEventData { OriginId = _enemy.EntityId, TargetPosition = targetPosition });
-				SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerPull, OriginId = _weapon.EntityId, TargetId = _weapon.EntityId, TargetPosition = targetPosition });
-
+			}
+			else
+			{
+				_enemy.WeaponController.StopFiring();
 			}
 		}
 	}

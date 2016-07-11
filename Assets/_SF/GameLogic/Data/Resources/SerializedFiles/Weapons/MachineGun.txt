@@ -1,0 +1,11 @@
+{
+	"Name": "MachineGun",
+	"BaseDamage": 10,
+	"RateOfFire": 650,
+	"AttackPower": 100,
+	"ReloadTime": 3,
+	"AmmoType": "Fire",
+	"Accuracy": 0.80,
+	"MaxAmmo": 100,
+	"FireBehaviorType": "Automatic"
+}

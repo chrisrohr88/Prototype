@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Weapons;
 using SF.EventSystem;
+using Weapons.Controllers;
 
 public class Enemy : Entity
 {
@@ -14,6 +15,7 @@ public class Enemy : Entity
 	public AttackBehavior AttackBehavior { get; set; }
 	public LayerMask TargetingLayerMask { get; private set; }
 	public int PointValue { get; private set; }
+	public WeaponController WeaponController { get; private set; }
 	
 	public event System.Action Death
 	{
@@ -30,6 +32,7 @@ public class Enemy : Entity
 	public static Enemy Create(EnemyProfile profile, Weapon weapon, BaseEnemy baseEnemy)
 	{
 		var enemy = new Enemy();
+		enemy.SetupEventRegistar();
 		enemy.MovementBehavior = CharacterBehaviorFactory.CreateMovementBehaviorFromType(profile.MovementBehaviorType, enemy);
 		enemy.Speed = profile.Speed;
 		enemy.TargetingLayerMask = (LayerMask) profile.LayerMask;
@@ -51,7 +54,7 @@ public class Enemy : Entity
 			enemy.EnemyRenderable.Enemy = enemy;
 		}
 
-		enemy.SetupEventRegistar();
+		enemy.WeaponController = new WeaponController(enemy.Weapon);
 		return enemy;
 	}
 
@@ -84,7 +87,8 @@ public class Enemy : Entity
 			{ 
 				OriginId = this.EntityId, 
 				EventType = SFEventType.EnemyDeath, 
-				PointValue = this.PointValue 
+				PointValue = this.PointValue,
+				TargetId = this.EntityId
 			});
 		Health.Death -= OnDeath;
 		base.OnDeath();
