@@ -13,6 +13,13 @@ namespace Weapons.TriggerAdapters
 			Waiting
 		}
 
+		protected enum WeaponTriggerEvents
+		{
+			Pulled,
+			Held,
+			Released
+		}
+
 		public States CurrentState { get; set; }
 		public States PreviousState { get; set; }
 		protected Weapon _weapon;
@@ -40,22 +47,35 @@ namespace Weapons.TriggerAdapters
 			if(CurrentState == States.Firing)
 			{
 				CurrentState = States.Waiting;
-				SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerRelease, OriginId = _weapon.EntityId, TargetId = _weapon.EntityId, TargetPosition = TargetPosition });				
+				FireWeaponTrigerEvent(WeaponTriggerEvents.Released);
 			}
 		}
 
-		public abstract void Update();
+		public void Update()
+		{
+			if(CurrentState == States.Firing)
+			{
+				Fire();
+			}
+			PreviousState = CurrentState;
+		}
+
+		protected void FireWeaponTrigerEvent(WeaponTriggerEvents eventType)
+		{
+			switch(eventType)
+			{
+			case WeaponTriggerEvents.Held:
+				SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerHold, OriginId = _weapon.EntityId, TargetId = _weapon.EntityId, TargetPosition = TargetPosition });
+				break;
+			case WeaponTriggerEvents.Pulled:
+				SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerPull, OriginId = _weapon.EntityId, TargetId = _weapon.EntityId, TargetPosition = TargetPosition });
+				break;
+			case WeaponTriggerEvents.Released:
+				SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerRelease, OriginId = _weapon.EntityId, TargetId = _weapon.EntityId, TargetPosition = TargetPosition });				
+				break;
+			}
+		}
+
+		protected abstract void Fire();
 	}
 }
-
-
-//None,
-//Automatic,
-//SemiAuto,
-//SemiAutoUnCapped,
-//OnRelease,
-//Charged,
-//WarmFirst,
-//Burst,
-//Spread,
-//AI

@@ -4,13 +4,14 @@ using SF.EventSystem;
 
 namespace Weapons.TriggerAdapters
 {
-	public class OnReleaseTriggerAdapter : TriggerAdapter
+	public class ChargedTriggerAdapter : TriggerAdapter
 	{
 		private bool _didPullTrigger = false;
+		private float _timeToFire = 0;
 
 		protected override void Fire()
 		{
-			if(_didPullTrigger)
+			if(_didPullTrigger && _timeToFire < Time.time)
 			{
 				_didPullTrigger = false;
 				FireWeaponTrigerEvent(WeaponTriggerEvents.Released);
@@ -18,6 +19,7 @@ namespace Weapons.TriggerAdapters
 			else
 			{
 				_didPullTrigger = true;
+				_timeToFire = Time.time + _weapon.ChargeTime.ModifiedValue;
 				FireWeaponTrigerEvent(WeaponTriggerEvents.Pulled);
 			}
 		}

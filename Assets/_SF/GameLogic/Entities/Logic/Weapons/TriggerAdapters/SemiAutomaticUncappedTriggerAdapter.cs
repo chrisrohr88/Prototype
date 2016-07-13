@@ -4,17 +4,17 @@ using SF.EventSystem;
 
 namespace Weapons.TriggerAdapters
 {
-	public class WarmFirstTriggerAdapter : TriggerAdapter
+	public class SemiAutomaticUncappedTriggerAdapter : TriggerAdapter
 	{
+		private const float FIRE_RATE = .175f;
+		private float _timeToFire = 0;
+
 		protected override void Fire()
 		{
-			if(PreviousState == States.Waiting)
+			if(_timeToFire < Time.time)
 			{
+				_timeToFire = Time.time + FIRE_RATE;
 				FireWeaponTrigerEvent(WeaponTriggerEvents.Pulled);
-			}
-			else
-			{
-				FireWeaponTrigerEvent(WeaponTriggerEvents.Held);
 			}
 		}
 	}

@@ -6,18 +6,9 @@ namespace Weapons.TriggerAdapters
 {
 	public class BurstTriggerAdapter : TriggerAdapter
 	{
-		public override void Update()
+		protected override void Fire()
 		{
-			if(CurrentState == States.Firing)
-			{
-				Fire();
-			}
-			PreviousState = CurrentState;
-		}
-
-		private void Fire()
-		{
-			SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerPull, OriginId = _weapon.EntityId, TargetId = _weapon.EntityId, TargetPosition = TargetPosition });				
+			FireWeaponTrigerEvent(WeaponTriggerEvents.Pulled);
 		}
 	}
 }
