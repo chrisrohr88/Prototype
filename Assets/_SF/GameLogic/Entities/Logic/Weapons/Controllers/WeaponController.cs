@@ -14,7 +14,7 @@ namespace Weapons.Controllers
 			_weapon = weapon;
 			_dummyGameObject = new GameObject("Dummy", typeof(DummyGameObject)).GetComponent<DummyGameObject>();
 			_dummyGameObject.OnUpdate += HandleUpdate;
-			SFEventManager.RegisterEventListner(SFEventType.EnemyDeath, new ConcreteSFEventListner<EnemyDeathEventData> { MethodToExecute = HandleEnemyDeath, TargetId = _weapon.PlayerEntityId });
+			SFEventManager.RegisterEventListener(SFEventType.EnemyDeath, new ConcreteSFEventListener<EnemyDeathEventData> { MethodToExecute = HandleEnemyDeath, TargetId = _weapon.PlayerEntityId });
 		}
 
 		private void HandleEnemyDeath(EnemyDeathEventData eventData)

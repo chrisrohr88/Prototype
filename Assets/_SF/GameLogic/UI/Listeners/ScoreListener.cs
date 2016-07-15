@@ -3,15 +3,16 @@ using System.Collections;
 using UnityEngine.UI;
 using SF.EventSystem;
 
-public class ScoreListner : MonoBehaviour
+public class ScoreListener : MonoBehaviour
 {
 	[SerializeField] private Text _text;
+	private EventRegistrar _eventRegistrar;
 
 	public int Score { get; set; }
 
 	private void Start()
 	{ 
-		SFEventManager.RegisterEventListner(SFEventType.SinglePlayerScoreUpdate, new ConcreteSFEventListner<SinglePlayerScoreUpdateEventData> { MethodToExecute = UpdateScore });
+		_eventRegistrar = new SinglePlayerScoreListenerEventRegistrar(this);
 		_text.text = "0";
 	}
 

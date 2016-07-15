@@ -64,51 +64,29 @@ namespace Weapons
 		
 		public static Weapon CreateFromProfile(WeaponProfile profile, Transform fireTransform)
 		{
-			var newWeapon = new Weapon();
-			newWeapon.SetupEventRegistar();	
-			newWeapon.Name = profile.Name;
-			newWeapon.AmmoType = profile.AmmoType;
-			newWeapon.TriggerBehaviorType = profile.TriggerBehaviorType;
-			newWeapon.ActorBehaviorType = profile.FireBehaviorType;
-			newWeapon.MaxAmmo = ModifiableAttribute.Create(profile.MaxAmmo);
-			newWeapon.Accuracy = ModifiableAttribute.Create(profile.Accuracy);
-			newWeapon.ReloadTime = ModifiableAttribute.Create(profile.ReloadTime);
-			newWeapon.RateOfFire = ModifiableAttribute.Create(profile.RateOfFire); // 3500 is about the max ROF (rounds per minute) for 30fps
-			newWeapon.BaseDamage = ModifiableAttribute.Create(profile.BaseDamage);
-			newWeapon.AttackPower = ModifiableAttribute.Create(profile.AttackPower);
-			newWeapon.ChargeTime = ModifiableAttribute.Create(profile.ChargeTime);
-			newWeapon.BurstTime = ModifiableAttribute.Create(profile.BurstTime);
-			newWeapon.BurstCount = ModifiableAttribute.Create(profile.BurstCount);
-			newWeapon.DeviationTime = ModifiableAttribute.Create(profile.DeviationTime);
-			newWeapon.MinDeviation = (profile.MinimumDeviation != null) ? new Vector3(profile.MinimumDeviation.X, profile.MinimumDeviation.Y, profile.MinimumDeviation.Z) : Vector3.zero;
-			newWeapon.MaxDeviation = (profile.MaximumDeviation != null) ? new Vector3(profile.MaximumDeviation.X, profile.MaximumDeviation.Y, profile.MaximumDeviation.Z) : Vector3.zero;
-			newWeapon.FireTransform = fireTransform;
-			newWeapon.TriggerAdapter = TriggerAdapter.Create(newWeapon);
-			newWeapon.Init();
+			var weapon = new Weapon();
+			weapon._eventRegistar = new WeaponEventRegistrar(weapon);
+			weapon.Name = profile.Name;
+			weapon.AmmoType = profile.AmmoType;
+			weapon.TriggerBehaviorType = profile.TriggerBehaviorType;
+			weapon.ActorBehaviorType = profile.FireBehaviorType;
+			weapon.MaxAmmo = ModifiableAttribute.Create(profile.MaxAmmo);
+			weapon.Accuracy = ModifiableAttribute.Create(profile.Accuracy);
+			weapon.ReloadTime = ModifiableAttribute.Create(profile.ReloadTime);
+			weapon.RateOfFire = ModifiableAttribute.Create(profile.RateOfFire); // 3500 is about the max ROF (rounds per minute) for 30fps
+			weapon.BaseDamage = ModifiableAttribute.Create(profile.BaseDamage);
+			weapon.AttackPower = ModifiableAttribute.Create(profile.AttackPower);
+			weapon.ChargeTime = ModifiableAttribute.Create(profile.ChargeTime);
+			weapon.BurstTime = ModifiableAttribute.Create(profile.BurstTime);
+			weapon.BurstCount = ModifiableAttribute.Create(profile.BurstCount);
+			weapon.DeviationTime = ModifiableAttribute.Create(profile.DeviationTime);
+			weapon.MinDeviation = (profile.MinimumDeviation != null) ? new Vector3(profile.MinimumDeviation.X, profile.MinimumDeviation.Y, profile.MinimumDeviation.Z) : Vector3.zero;
+			weapon.MaxDeviation = (profile.MaximumDeviation != null) ? new Vector3(profile.MaximumDeviation.X, profile.MaximumDeviation.Y, profile.MaximumDeviation.Z) : Vector3.zero;
+			weapon.FireTransform = fireTransform;
+			weapon.TriggerAdapter = TriggerAdapter.Create(weapon);
+			weapon.Init();
 
-			return newWeapon;
-		}
-
-		// TODO : want to make this datadriven & move to Entity
-		private	List<SFEvent> CreateEventsToRegister()
-		{
-			return new List<SFEvent>
-			{
-				new SFEvent { OriginId = EntityId, EventType = SFEventType.WeaponFired },
-				new SFEvent { OriginId = EntityId, EventType = SFEventType.WeaponReloaded },
-				new SFEvent { OriginId = EntityId, EventType = SFEventType.WeaponTriggerHold },
-				new SFEvent { OriginId = EntityId, EventType = SFEventType.WeaponTriggerPull },
-				new SFEvent { OriginId = EntityId, EventType = SFEventType.WeaponTriggerRelease }
-			};
-		}
-
-		private void SetupEventRegistar()
-		{
-			_eventRegistar = new EventRegistar(CreateEventsToRegister());
-			_eventRegistar.RegisterEvents();
-			SFEventManager.RegisterEventListner(SFEventType.WeaponTriggerHold, new ConcreteSFEventListner<WeaponTriggerEventData> { TargetId = EntityId, MethodToExecute = TriggerHeld });
-			SFEventManager.RegisterEventListner(SFEventType.WeaponTriggerPull, new ConcreteSFEventListner<WeaponTriggerEventData> { TargetId = EntityId, MethodToExecute = TriggerPulled });
-			SFEventManager.RegisterEventListner(SFEventType.WeaponTriggerRelease, new ConcreteSFEventListner<WeaponTriggerEventData> { TargetId = EntityId, MethodToExecute = TriggerReleased });
+			return weapon;
 		}
 	    
 		public void TriggerPulled(WeaponTriggerEventData eventData)

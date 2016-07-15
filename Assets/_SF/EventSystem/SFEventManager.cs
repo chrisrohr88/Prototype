@@ -6,16 +6,12 @@ namespace SF.EventSystem
 {
 	public static class SFEventManager
 	{
-		public static long SYSTEM_ORIGIN_ID = -7017234;
+		public const long SYSTEM_ORIGIN_ID = -7017234;
 
 		private static Dictionary<SFEventType, SFEventContoller> _events = new Dictionary<SFEventType, SFEventContoller>();
+		private static List<EventRegistrar> _eventRegistrars = new List<EventRegistrar>();
 
-		public static void Initialize()
-		{
-			RegisterGlobalEvents();
-		}
-
-		private static void RegisterGlobalEvents()
+		public static void RegisterGlobalEvents()
 		{
 			RegisterEvent(new SFEvent { OriginId = SYSTEM_ORIGIN_ID, EventType = SFEventType.LevelStart });
 			RegisterEvent(new SFEvent { OriginId = SYSTEM_ORIGIN_ID, EventType = SFEventType.GameOver });
@@ -26,11 +22,16 @@ namespace SF.EventSystem
 			try
 			{
 				_events[eventData.EventType].FireEvent(eventData);
+
+				if(eventData.EventType == SFEventType.GameOver)
+				{
+					RegisterAllEventRegistrars();
+				}
 			}
 			catch(Exception ex)
 			{
 				Debug.logger.Log(ex.Message);
-				Debug.Log(string.Format("EventType {0} has not been registered.", eventData.EventType));
+				Debug.LogWarning(string.Format("EventType {0} has not been registered.", eventData.EventType));
 			}
 		}
 
@@ -58,26 +59,40 @@ namespace SF.EventSystem
 			}
 		}
 
-		public static void RegisterEventListner(SFEventType eventType, SFEventListner eventListner)
+		public static void RegisterEventListener(SFEventType eventType, SFEventListener eventListner)
 		{
 			if(_events.ContainsKey(eventType))
 			{
-				_events[eventType].RegisterEventListner(eventType, eventListner);
+				_events[eventType].RegisterEventListener(eventType, eventListner);
 			}
 			else
 			{
 				var eventController = new SFEventContoller();
 				_events.Add(eventType, eventController);
-				eventController.RegisterEventListner(eventType, eventListner);
+				eventController.RegisterEventListener(eventType, eventListner);
 			}
 		}
 
-		public static void UnegisterEventListner(SFEventType eventType, SFEventListner eventListner)
+		public static void UnegisterEventListener(SFEventType eventType, SFEventListener eventListner)
 		{
 			if(_events.ContainsKey(eventType))
 			{
-				_events[eventType].UnregisterEventListner(eventType, eventListner);
+				_events[eventType].UnregisterEventListener(eventType, eventListner);
 			}
+		}
+
+		public static void RegisterEventRegistrar(EventRegistrar eventRegistrar)
+		{
+			_eventRegistrars.Add(eventRegistrar);
+		}
+
+		private static void RegisterAllEventRegistrars()
+		{
+			foreach(var eventRegistrar in _eventRegistrars)
+			{
+				eventRegistrar.Unregister();
+			}
+			_eventRegistrars.Clear();
 		}
 	}
 }
