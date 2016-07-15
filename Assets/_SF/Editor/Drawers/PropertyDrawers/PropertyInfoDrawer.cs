@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Reflection;
+using UnityEditor;
 
-namespace UnityEditor.Custom
+namespace SF.Editor.Drawers.PropertyDrawers
 {
 	public static class PropertyInfoDrawer
 	{

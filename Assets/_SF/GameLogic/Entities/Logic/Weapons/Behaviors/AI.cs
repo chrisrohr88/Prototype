@@ -1,4 +1,4 @@
-namespace Weapons.Behaviors
+namespace SF.GameLogic.Entities.Logic.Weapons.Behaviors
 {
 	public class AI : WeaponBehavior
 	{

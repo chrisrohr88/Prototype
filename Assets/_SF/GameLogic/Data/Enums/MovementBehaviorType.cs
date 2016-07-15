@@ -1,10 +1,9 @@
-using UnityEngine;
-using System.Collections;
-using Weapons;
-
-public enum MovementBehaviorType
+namespace SF.GameLogic.Data.Enums
 {
-	BasicMovement,
-	Blink, 
-	Stagger
+	public enum MovementBehaviorType
+	{
+		BasicMovement,
+		Blink, 
+		Stagger
+	}
 }

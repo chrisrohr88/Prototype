@@ -1,25 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SF.Utilities.Managers;
 
-public class PlayerWall : MonoBehaviour
+namespace SF.GameLogic.Entities.Logic.Charaters.Player
 {
-	public Player Player { get; private set; }
-
-    public void AssignPlayer(Player player)
-    {
-        Player = player;
-		Player.Health.Death += OnPlayerDeath;
-    }
-
-	private void OnPlayerDeath()
+	public class PlayerWall : MonoBehaviour
 	{
-		Destroy(this.gameObject);
-		Player.UnsubscribeEvents();
-		GameManager.Instance.EndGame();
-	}
+		public Player Player { get; private set; }
 
-	private void OnDestroy()
-	{
-		Player.Health.Death -= OnPlayerDeath;
+	    public void AssignPlayer(Player player)
+	    {
+	        Player = player;
+			Player.Health.Death += OnPlayerDeath;
+	    }
+
+		private void OnPlayerDeath()
+		{
+			Destroy(this.gameObject);
+			Player.UnsubscribeEvents();
+		}
+
+		private void OnDestroy()
+		{
+			Player.Health.Death -= OnPlayerDeath;
+		}
 	}
 }

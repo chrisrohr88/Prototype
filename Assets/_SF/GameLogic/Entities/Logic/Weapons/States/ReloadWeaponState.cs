@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
-using Weapons.Internal;
+using SF.GameLogic.Entities.Logic.Weapons.Internal;
+using SF.Utilities.Managers;
 
-namespace Weapons.States
+namespace SF.GameLogic.Entities.Logic.Weapons.States
 {
 	public class ReloadWeaponState : WeaponState
 	{

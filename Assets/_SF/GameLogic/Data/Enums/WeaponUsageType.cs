@@ -1,4 +1,4 @@
-﻿namespace Weapons.Behaviors.Enums
+﻿namespace SF.GameLogic.Data.Enums
 {
 	public enum WeaponBehaviorUsageType
 	{

@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using JsonFx.Json;
-
-public abstract class BaseProfile
+﻿namespace SF.GameLogic.Data.Profiles
 {
-	public string Name { get; set; }
+	public abstract class BaseProfile
+	{
+		public string Name { get; set; }
+	}
 }

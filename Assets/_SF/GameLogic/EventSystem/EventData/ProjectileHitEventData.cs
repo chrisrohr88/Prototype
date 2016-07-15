@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using SF.EventSystem;
 
-namespace SF.EventSystem
+namespace SF.GameLogic.EventSystem.EventData
 {
 	public class ProjectileHitEventData : SFEventData
 	{

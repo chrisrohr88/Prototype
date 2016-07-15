@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SF.GameLogic.Entities.Logic.Spawner;
+using SF.EventSystem;
 
-namespace SF.EventSystem
+namespace SF.GameLogic.EventSystem.EventRegistrars
 {
 	public class SpawnerEventRegistrar : EventRegistrar
 	{
-		private Spawner _spawner;
+		private EntitySpawner _spawner;
 
-		public SpawnerEventRegistrar(Spawner spawner)
+		public SpawnerEventRegistrar(EntitySpawner spawner)
 		{
 			_spawner = spawner;
 			Register();

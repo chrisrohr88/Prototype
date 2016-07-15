@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Constants
+namespace SF.GameLogic.Data.Constants
 {
-	public class Weapon
+	public class WeaponConstants
 	{
 		public static readonly int ATTACK_POWER_REFERENCE = 1000;
 	}

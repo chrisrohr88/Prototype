@@ -1,22 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BasePlayer : MonoBehaviour
+namespace SF.GameLogic.Entities.Logic.Charaters.Player
 {
-	public Player Player { get; set; }
-
-    protected virtual void Start()
+	public class BasePlayer : MonoBehaviour
 	{
-		Player.Health.Death += OnDeath;
+		public Player Player { get; set; }
+
+	    protected virtual void Start()
+		{
+			Player.Health.Death += OnDeath;
+		}
+
+	    protected void OnDeath()
+	    {
+	        Destroy(gameObject);
+	    }
+
+	    protected void OnDestroy()
+		{
+			Player.Health.Death -= OnDeath;
+	    }
 	}
-
-    protected void OnDeath()
-    {
-        Destroy(gameObject, .1f);
-    }
-
-    protected void OnDestroy()
-	{
-		Player.Health.Death -= OnDeath;
-    }
 }

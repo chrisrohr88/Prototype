@@ -1,14 +1,16 @@
-﻿public enum WeaponBehaviorType
+﻿namespace SF.GameLogic.Data.Enums
 {
-	None,
-	Automatic,
-	SemiAuto,
-	SemiAutoUnCapped,
-	OnRelease,
-	Charged,
-	WarmFirst,
-	Burst,
-	Spread,
-	AI
+	public enum WeaponBehaviorType
+	{
+		None,
+		Automatic,
+		SemiAuto,
+		SemiAutoUnCapped,
+		OnRelease,
+		Charged,
+		WarmFirst,
+		Burst,
+		Spread,
+		AI
+	}
 }
-

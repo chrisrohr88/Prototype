@@ -1,15 +1,18 @@
-using UnityEngine;
-using System.Collections;
-using Weapons;
+using SF.GameLogic.Entities.Logic.Charaters.Behaviors.Targeting;
+using SF.GameLogic.Entities.Logic.Charaters.Enemies;
+using SF.GameLogic.Entities.Logic.Weapons;
 
-public abstract class AttackBehavior : CharacterBehavior
+namespace SF.GameLogic.Entities.Logic.Charaters.Behaviors.Attack
 {
-	protected Weapon _weapon;
-	public TargetingBehavior TargetingBehavior { get; set; }
-	public bool HasTarget { get; protected set; }
-
-	protected AttackBehavior(Enemy enemy, Weapon weapon) : base(enemy)
+	public abstract class AttackBehavior : CharacterBehavior
 	{
-		_weapon = weapon;
+		protected Weapon _weapon;
+		public TargetingBehavior TargetingBehavior { get; set; }
+		public bool HasTarget { get; protected set; }
+
+		protected AttackBehavior(Enemy enemy, Weapon weapon) : base(enemy)
+		{
+			_weapon = weapon;
+		}
 	}
 }

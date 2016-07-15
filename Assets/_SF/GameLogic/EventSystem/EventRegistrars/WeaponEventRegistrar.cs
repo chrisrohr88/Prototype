@@ -1,6 +1,8 @@
-﻿using Weapons;
+﻿using SF.GameLogic.Entities.Logic.Weapons;
+using SF.GameLogic.EventSystem.EventData;
+using SF.EventSystem;
 
-namespace SF.EventSystem
+namespace SF.GameLogic.EventSystem.EventRegistrars
 {
 	public class WeaponEventRegistrar : EventRegistrar
 	{

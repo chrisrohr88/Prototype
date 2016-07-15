@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Weapons.Internal;
+using SF.GameLogic.Entities.Logic.Weapons.Internal;
 
-namespace Weapons.States
+namespace SF.GameLogic.Entities.Logic.Weapons.States
 {
 	public class ReadyWeaponState : WeaponState
 	{

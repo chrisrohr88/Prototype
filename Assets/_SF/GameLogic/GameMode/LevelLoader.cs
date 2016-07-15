@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using SF.GameLogic.Data.Enums;
+using SF.Utilities.Managers;
 
-
-//TODO Do this better
-public class LevelLoader : MonoBehaviour
+namespace SF.GameLogic.GameModes
 {
-	private void Start()
+	//TODO: Do this better
+	public class LevelLoader : MonoBehaviour
 	{
-		GameManager.Instance.SetGameMode(GameModeType.Survival);
-		GameManager.Instance.StartGame();
+		private void Start()
+		{
+			GameManager.Instance.SetGameMode(GameModeType.Survival);
+			GameManager.Instance.StartGame();
+		}
 	}
 }

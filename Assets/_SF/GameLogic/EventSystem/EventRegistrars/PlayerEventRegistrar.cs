@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SF.GameLogic.Entities.Logic.Charaters.Player;
+using SF.EventSystem;
+using SF.GameLogic.EventSystem.EventData;
 
-namespace SF.EventSystem
+namespace SF.GameLogic.EventSystem.EventRegistrars
 {
 	public class PlayerEventRegistrar : EventRegistrar
 	{
@@ -14,7 +17,7 @@ namespace SF.EventSystem
 
 		protected override void RegisterEvents()
 		{
-			RegisterEvent(SFEventType.EnemyDeath, _player.EntityId);
+			RegisterEvent(SFEventType.PlayerDeath, _player.EntityId);
 			RegisterEvent(SFEventType.EntityHit, _player.EntityId);
 		}
 

@@ -1,41 +1,48 @@
-﻿using UnityEngine;
-using System.Collections;
-using Weapons;
-using System;
+﻿using System;
+using SF.GameLogic.Data.Enums;
+using SF.GameLogic.Entities.Logic.Charaters.Behaviors.Attack;
+using SF.GameLogic.Entities.Logic.Charaters.Behaviors.Movement;
+using SF.GameLogic.Entities.Logic.Charaters.Behaviors.Targeting;
+using UnityEngine;
+using SF.GameLogic.Entities.Logic.Charaters.Enemies;
+using SF.GameLogic.Entities.Logic.Weapons;
 
-public static class CharacterBehaviorFactory
+namespace SF.GameLogic.Entities.Logic.Charaters.Behaviors
 {
-	public static MovementBehavior CreateMovementBehaviorFromType(MovementBehaviorType movementType, Enemy enemy, System.Action callback = null)
+	public static class CharacterBehaviorFactory
 	{
-		switch(movementType)
+		public static MovementBehavior CreateMovementBehaviorFromType(MovementBehaviorType movementType, Enemy enemy, System.Action callback = null)
 		{
-			case MovementBehaviorType.BasicMovement:
-				return new BasicMovementBehavior(enemy);
-			case MovementBehaviorType.Stagger:
-			return new StaggerMovementBehavior(enemy, 1, callback); // TODO: set time
-			case MovementBehaviorType.Blink:
-				return new BlinkMovementBehavior(enemy, 1, callback); // TODO: set time
+			switch(movementType)
+			{
+				case MovementBehaviorType.BasicMovement:
+					return new BasicMovementBehavior(enemy);
+				case MovementBehaviorType.Stagger:
+				return new StaggerMovementBehavior(enemy, 1, callback); // TODO: set time
+				case MovementBehaviorType.Blink:
+					return new BlinkMovementBehavior(enemy, 1, callback); // TODO: set time
+			}
+			throw new Exception("MovementBehaviorType: " + movementType.ToString() + " has not been implemented");
 		}
-		throw new Exception("MovementBehaviorType: " + movementType.ToString() + " has not been implemented");
-	}
 
-	public static AttackBehavior CreateAttackBehaviorFromType(AttackBehaviorType attackType, Enemy enemy, Weapon weapon)
-	{
-		switch(attackType)
+		public static AttackBehavior CreateAttackBehaviorFromType(AttackBehaviorType attackType, Enemy enemy, Weapon weapon)
 		{
-			case AttackBehaviorType.BasicAttack:
-				return new BasicAttackBehavior(enemy, weapon);
+			switch(attackType)
+			{
+				case AttackBehaviorType.BasicAttack:
+					return new BasicAttackBehavior(enemy, weapon);
+			}
+			throw new Exception("AttackBehaviorType: " + attackType.ToString() + " has not been implemented");
 		}
-		throw new Exception("AttackBehaviorType: " + attackType.ToString() + " has not been implemented");
-	}
 
-	public static TargetingBehavior CreateTargetingBehaviorFromType(TargetingBehaviorType targetingType, Enemy enemy)
-	{
-		switch(targetingType)
+		public static TargetingBehavior CreateTargetingBehaviorFromType(TargetingBehaviorType targetingType, Enemy enemy)
 		{
-			case TargetingBehaviorType.SimpleTargeting:
-				return new SimpleTagetingBehavior(enemy);
+			switch(targetingType)
+			{
+				case TargetingBehaviorType.SimpleTargeting:
+					return new SimpleTagetingBehavior(enemy);
+			}
+			throw new Exception("TargetingBehaviorType: " + targetingType.ToString() + " has not been implemented");
 		}
-		throw new Exception("TargetingBehaviorType: " + targetingType.ToString() + " has not been implemented");
 	}
 }

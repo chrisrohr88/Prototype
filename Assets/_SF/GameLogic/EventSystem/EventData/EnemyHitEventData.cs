@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using SF.EventSystem;
+using SF.Utilities;
 
-namespace SF.EventSystem
+namespace SF.GameLogic.EventSystem.EventData
 {
 	public class EntityHitEventData : SFEventData 
 	{

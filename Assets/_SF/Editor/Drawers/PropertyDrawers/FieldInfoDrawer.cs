@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Reflection;
+using UnityEditor;
 
-namespace UnityEditor.Custom
-{	
+namespace SF.Editor.Drawers.PropertyDrawers
+{
 	public static class FieldInfoDrawer
 	{
 		public static void DrawFloat(FieldInfo info, System.Object obj, string label)

@@ -1,4 +1,4 @@
-﻿namespace Weapons.States
+﻿namespace SF.GameLogic.Entities.Logic.Weapons.States
 {
 	public interface WeaponState
 	{

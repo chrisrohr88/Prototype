@@ -1,33 +1,35 @@
 using UnityEngine;
-using System.Collections;
-using Weapons;
+using SF.GameLogic.Entities.Logic.Charaters.Enemies;
 
-public class SimpleTagetingBehavior : TargetingBehavior
+namespace SF.GameLogic.Entities.Logic.Charaters.Behaviors.Targeting
 {
-	public SimpleTagetingBehavior(Enemy enemy) : base(enemy)
+	public class SimpleTagetingBehavior : TargetingBehavior
 	{
-	}
-
-	public override bool AcquireTarget()
-	{
-		var hit = DoRaycast();
-		return EvaluateHit(hit);
-	}
-
-	private bool EvaluateHit(RaycastHit2D hit)
-	{
-		if(hit.transform != null)
+		public SimpleTagetingBehavior(Enemy enemy) : base(enemy)
 		{
-			_target = hit.transform.position;
-			return true;
 		}
-		return false;
-	}
 
-	private RaycastHit2D DoRaycast()
-	{
-		var enemySpawnTransform = Enemy.EnemyRenderable.SpawnTransform;
-		var hit = Physics2D.Raycast(enemySpawnTransform.position, enemySpawnTransform.forward, 50, Enemy.TargetingLayerMask.value);
-		return hit;
+		public override bool AcquireTarget()
+		{
+			var hit = DoRaycast();
+			return EvaluateHit(hit);
+		}
+
+		private bool EvaluateHit(RaycastHit2D hit)
+		{
+			if(hit.transform != null)
+			{
+				_target = hit.transform.position;
+				return true;
+			}
+			return false;
+		}
+
+		private RaycastHit2D DoRaycast()
+		{
+			var enemySpawnTransform = Enemy.EnemyRenderable.SpawnTransform;
+			var hit = Physics2D.Raycast(enemySpawnTransform.position, enemySpawnTransform.forward, 50, Enemy.TargetingLayerMask.value);
+			return hit;
+		}
 	}
 }

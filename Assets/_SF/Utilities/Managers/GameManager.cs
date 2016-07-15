@@ -3,68 +3,73 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using SF.EventSystem;
+using SF.GameLogic.GameModes;
+using SF.GameLogic.Data.Enums;
 
-public class GameManager : MonoBehaviour
+namespace SF.Utilities.Managers
 {
-	private const string LEVEL_NAME = "Prototype";
-
-    private static GameManager _instance;
-    public static GameManager Instance
-    {
-        get
-        {
-            if(_instance == null)
-            {
-                var go = new GameObject();
-				go.name = "GameManager";
-                _instance = go.AddComponent<GameManager>();
-            }
-            return _instance;
-        }
-    }
-
-	public GameMode GameMode { get; private set; }
-
-	private void Awake ()
+	public class GameManager : MonoBehaviour
 	{
-		if(_instance == null)
+		private const string LEVEL_NAME = "Prototype";
+
+	    private static GameManager _instance;
+	    public static GameManager Instance
+	    {
+	        get
+	        {
+	            if(_instance == null)
+	            {
+	                var go = new GameObject();
+					go.name = "GameManager";
+	                _instance = go.AddComponent<GameManager>();
+	            }
+	            return _instance;
+	        }
+	    }
+
+		public GameMode GameMode { get; private set; }
+
+		private void Awake ()
 		{
-			_instance = this;
+			if(_instance == null)
+			{
+				_instance = this;
+			}
+			else if(_instance != this)
+			{
+				Destroy(gameObject);
+				return;
+			}
+	        Application.targetFrameRate = 30;
 		}
-		else if(_instance != this)
+
+		public void SetGameMode(GameModeType gameModeType)
 		{
-			Destroy(gameObject);
-			return;
+			switch(gameModeType)
+			{
+				case GameModeType.Survival:
+					GameMode = new GameMode();
+					break;
+			}
 		}
-        Application.targetFrameRate = 30;
-	}
 
-	public void SetGameMode(GameModeType gameModeType)
-	{
-		switch(gameModeType)
+		public void LoadLevel()
 		{
-			case GameModeType.Survival:
-				GameMode = new GameMode();
-				break;
+			SceneManager.LoadScene(LEVEL_NAME);
 		}
-	}
 
-	public void LoadLevel()
-	{
-		SceneManager.LoadScene(LEVEL_NAME);
-	}
-
-	public void StartGame()
-	{
-		if(GameMode == null)
+		public void StartGame()
 		{
-			SetGameMode(GameModeType.Survival);
+			if(GameMode == null)
+			{
+				SetGameMode(GameModeType.Survival);
+			}
+			GameMode.StartGame();
 		}
-		GameMode.StartGame();
-	}
 
-	public void EndGame()
-	{
-		SFEventManager.FireEvent(new SFEventData { OriginId = SFEventManager.SYSTEM_ORIGIN_ID, EventType = SFEventType.GameOver });
+		public void EndGame()
+		{
+			SFEventManager.FireEvent(new SFEventData { OriginId = SFEventManager.SYSTEM_ORIGIN_ID, EventType = SFEventType.GameOver });
+		}
 	}
 }

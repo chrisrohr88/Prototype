@@ -1,8 +1,7 @@
-using UnityEngine;
-using System.Collections;
-using Weapons;
-
-public enum TargetingBehaviorType
+namespace SF.GameLogic.Data.Enums
 {
-	SimpleTargeting
+	public enum TargetingBehaviorType
+	{
+		SimpleTargeting
+	}
 }

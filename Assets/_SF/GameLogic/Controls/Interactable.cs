@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface Interactable
+namespace SF.GameLogic.Controls
 {
-    void OnPress(MyTouch touch);
-    void OnRelease(MyTouch touch);
-    void OnHold(MyTouch touch);
-    void OnMove(MyTouch touch);
+	public interface Interactable
+	{
+	    void OnPress(MyTouch touch);
+	    void OnRelease(MyTouch touch);
+	    void OnHold(MyTouch touch);
+	    void OnMove(MyTouch touch);
+	}
 }

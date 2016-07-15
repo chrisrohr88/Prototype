@@ -1,23 +1,25 @@
 using UnityEngine;
-using System.Collections;
-using Weapons;
+using SF.GameLogic.Entities.Logic.Charaters.Enemies;
 
-public abstract class TargetingBehavior
+namespace SF.GameLogic.Entities.Logic.Charaters.Behaviors.Targeting
 {
-	protected Vector3 _target;
-
-	public Enemy Enemy { get; set; }
-	public bool HasTarget { get; protected set;}
-
-	protected TargetingBehavior(Enemy enemy)
+	public abstract class TargetingBehavior
 	{
-		Enemy = enemy;
-	}
-	
-	public abstract bool AcquireTarget();
+		protected Vector3 _target;
 
-	public Vector3 GetTarget()
-	{
-		return _target;
+		public Enemy Enemy { get; set; }
+		public bool HasTarget { get; protected set;}
+
+		protected TargetingBehavior(Enemy enemy)
+		{
+			Enemy = enemy;
+		}
+		
+		public abstract bool AcquireTarget();
+
+		public Vector3 GetTarget()
+		{
+			return _target;
+		}
 	}
 }
