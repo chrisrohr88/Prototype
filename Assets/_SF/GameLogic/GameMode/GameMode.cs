@@ -15,6 +15,7 @@ public class GameMode
 
 	//TODO Do this better
     private FieldInteractable _field;
+	private Player _player;
 
     public Transform FireTransform
     {
@@ -33,8 +34,7 @@ public class GameMode
     private void LoadGameModeDependancies()
 	{
 		ProfileManager.LoadProfiles(null);
-		// TODO: Load Blocker object???
-		EnemyManager.LoadEnemies (new List<EnemyProfile> {ProfileManager.GetEnemyProfile("Skeleton")});
+		EnemyManager.LoadLevelEnemies (new List<EnemyProfile> {ProfileManager.GetEnemyProfile("Skeleton")});
 		ScoreManager = new SinglePlayerScoreManager();
 
 		InstantiateLevelObjects();
@@ -42,19 +42,29 @@ public class GameMode
 
 	private void InstantiateLevelObjects()
 	{
-		var scoreListner = GameObject.Find("Score").GetComponent<ScoreLIstner>();
 		_field = (GameManager.Instantiate(Resources.Load("Game/Field/Field")) as GameObject).GetComponent<FieldInteractable>();
 		GameManager.Instantiate(Resources.Load("InputManager"));
 		var playerWall = (GameManager.Instantiate(Resources.Load("Game/Field/Barrier")) as GameObject).GetComponent<PlayerWall>();
-		var player = Player.Create(1000);
-		playerWall.AssignPlayer(player);
+		_player = Player.Create(1000);
+		var spawner = new Spawner();
+		playerWall.AssignPlayer(_player);
 		playerWall.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, 100)) + new Vector3(-80, 4, 0);
-		ScoreManager.OnScoreUpdated += scoreListner.UpdateScore;
+		SetupEventRegistar();
 	}
 
-	public void EndLevel()
+	private void SetupEventRegistar()
 	{
-		EnemyManager.DisableSpawning();
+		SFEventManager.RegisterEventListener(SFEventType.PlayerDeath, new ConcreteSFEventListener<SFEventData> { MethodToExecute = OnPlayerDeath } ); 
+		SFEventManager.RegisterEventListener(SFEventType.GameOver, new ConcreteSFEventListener<SFEventData> { MethodToExecute = EndLevel } ); 
+	}
+
+	private void OnPlayerDeath(SFEventData eventData)
+	{
+		GameManager.Instance.EndGame();
+	}
+
+	public void EndLevel(SFEventData eventData)
+	{
 		SceneManager.LoadScene("Main Menu");
 	}
 

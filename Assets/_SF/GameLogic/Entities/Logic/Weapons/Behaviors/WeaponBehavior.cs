@@ -36,14 +36,14 @@ namespace Weapons.Behaviors
 			}
 			else
 			{
-				weaponBehavior = CreateCompundWEaponBehavior(weapon);
+				weaponBehavior = CreateCompundWeaponBehavior(weapon);
 			}
 			weaponBehavior.Weapon = weapon;
 
 			return weaponBehavior;
 		}
 
-		static WeaponBehavior CreateCompundWEaponBehavior(InternalWeapon weapon)
+		static WeaponBehavior CreateCompundWeaponBehavior(InternalWeapon weapon)
 		{
 			WeaponBehavior trigger = CreateBehavior(weapon, weapon.Weapon.TriggerBehaviorType, WeaponBehaviorUsageType.Trigger);
 			WeaponBehavior actor = CreateBehavior(weapon, weapon.Weapon.ActorBehaviorType, WeaponBehaviorUsageType.Actor);

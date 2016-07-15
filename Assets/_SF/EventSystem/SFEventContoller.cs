@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace SF.EventSystem
 {
 	public class SFEventContoller
 	{		
-		private Dictionary<long, SFEventListner> _targetedListner = new Dictionary<long, SFEventListner>();
-		private List<SFEventListner> _globalEventListners = new List<SFEventListner>();
+		private Dictionary<long, SFEventListener> _targetedListner = new Dictionary<long, SFEventListener>();
+		private List<SFEventListener> _globalEventListners = new List<SFEventListener>();
 		private Dictionary<long, SFEvent> _events = new Dictionary<long, SFEvent>();
 
 		public void FireEvent<T>(T eventData) where T : SFEventData
@@ -33,11 +34,22 @@ namespace SF.EventSystem
 			{
 				eventListner.EventHandlerMethod(eventData);
 			}
+
+			#if DEBUGs
+			Debug.logger.Log(eventData.EventType + " was fired.");
+			#endif
 		}
 
 		public void RegisterEvent(SFEvent eventToRegister)
 		{
-			_events.Add(eventToRegister.OriginId, eventToRegister);
+			try
+			{
+				_events.Add(eventToRegister.OriginId, eventToRegister);
+			}
+			catch(Exception ex)
+			{
+				Debug.LogWarning("Could not register event for EventType " + eventToRegister.EventType + " : " + ex.Message);
+			}
 		}
 
 		public void UnregisterEvent(SFEvent eventToRegister)
@@ -48,19 +60,26 @@ namespace SF.EventSystem
 			}
 		}
 
-		public void RegisterEventListner(SFEventType eventType, SFEventListner eventListner)
+		public void RegisterEventListener(SFEventType eventType, SFEventListener eventListner)
 		{
-			if(eventListner.TargetId.HasValue)
+			try
 			{
-				_targetedListner.Add(eventListner.TargetId.Value, eventListner);
+				if(eventListner.TargetId.HasValue)
+				{
+					_targetedListner.Add(eventListner.TargetId.Value, eventListner);
+				}
+				else
+				{
+					_globalEventListners.Add(eventListner);
+				}
 			}
-			else
+			catch(Exception ex)
 			{
-				_globalEventListners.Add(eventListner);
+				Debug.LogWarning("Could not register listner for EventType " + eventType + " : " + ex.Message);
 			}
 		}
 
-		public void UnregisterEventListner(SFEventType eventType, SFEventListner eventListner)
+		public void UnregisterEventListener(SFEventType eventType, SFEventListener eventListner)
 		{
 			if(eventListner.TargetId.HasValue)
 			{

@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using SF.EventSystem;
 
 public class GameManager : MonoBehaviour
 {
-	private const string LEVEL_NAME = "Prototype"; 
+	private const string LEVEL_NAME = "Prototype";
 
     private static GameManager _instance;
     public static GameManager Instance
@@ -64,6 +65,6 @@ public class GameManager : MonoBehaviour
 
 	public void EndGame()
 	{
-		GameMode.EndLevel();
+		SFEventManager.FireEvent(new SFEventData { OriginId = SFEventManager.SYSTEM_ORIGIN_ID, EventType = SFEventType.GameOver });
 	}
 }

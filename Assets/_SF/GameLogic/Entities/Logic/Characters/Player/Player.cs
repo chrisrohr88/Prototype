@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Weapons;
+using SF.EventSystem;
+using System.Collections.Generic;
 
 public class Player : Entity
 {
@@ -8,26 +10,15 @@ public class Player : Entity
 	public HealthComponent Health { get; private set; }
 	public int id = 1;
 
-    public event System.Action Death
-    {
-        add
-        {
-            Health.Death += value;
-        }
-        remove
-        {
-            Health.Death -= value;
-        }
-    }
-
     public static Player Create(float baseHealth)
     {
-        var player = new Player();
+		var player = new Player();
+		player._eventRegistar = new PlayerEventRegistrar(player);
 		player.Health = HealthComponent.Create(baseHealth);
-		player.Death += () => { Debug.Log ("Player is dead!"); };
+		player.Health.Death += player.OnDeath;
         player.PickupWeapon();
         return player;
-    }
+	}
 
     private Player() : base()
     {
@@ -47,23 +38,34 @@ public class Player : Entity
 	public void PickupWeapon(WeaponProfile profile)
 	{
 		Weapon = WeaponFactory.CreateFromProfile(profile, GameManager.Instance.GameMode.FireTransform);
-		Weapon.EntityId = id;
+		Weapon.PlayerEntityId = EntityId;
 		Debug.Log("Weapon is " + Weapon.Name);
 	} 
 
 	public void TriggerPulled(Vector3 position)
 	{
-		Weapon.TriggerPulled(position);
+		SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerPull, OriginId = Weapon.EntityId, TargetId = Weapon.EntityId, TargetPosition = position });
 	}
 	
 	public void TriggerHeld(Vector3 position)
 	{
-		Weapon.TriggerHeld(position);
+		SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerHold, OriginId = Weapon.EntityId, TargetId = Weapon.EntityId, TargetPosition = position });
 	}
 	
 	public void TriggerReleased(Vector3 position)
 	{
-		Weapon.TriggerReleased(position);
+		SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerRelease, OriginId = Weapon.EntityId, TargetId = Weapon.EntityId, TargetPosition = position });
+	}
+
+	public void TakeDamage(EntityHitEventData eventData)
+	{
+		Debug.Log("Player Hit");
+		if(eventData.DamageData.AttackerId != EntityId)
+		{
+			Debug.Log("Player Health Updated by " + eventData.DamageData.Damage);
+			Health.UpdateHealth(-eventData.DamageData.Damage);
+			Debug.Log("Player Health is " + Health.TestHealth);
+		}
 	}
 	
 	private void SubscribeEvents()
@@ -81,6 +83,12 @@ public class Player : Entity
 		FieldInteractable.OnMoved -= TriggerHeld;
 		FieldInteractable.OnPressed -= TriggerPulled;
 		FieldInteractable.OnReleased -= TriggerReleased;
+	}
+
+	protected override void OnDeath()
+	{
+		SFEventManager.FireEvent(new SFEventData { OriginId = EntityId, EventType = SFEventType.PlayerDeath });
+		base.OnDeath();
 	}
 
     ~Player()

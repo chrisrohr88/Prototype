@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using SF.EventSystem;
 
 namespace SF.EventSystem
 {
@@ -7,10 +8,5 @@ namespace SF.EventSystem
 	{
 		public SFEventType EventType { get; set; }
 		public long OriginId { get; set; }
-
-		public void FireEvent(SFEventData eventData)
-		{
-			SFEventManager.FireEvent(eventData);
-		}
 	}
 }

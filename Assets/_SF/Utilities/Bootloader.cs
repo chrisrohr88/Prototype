@@ -9,7 +9,7 @@ public class Bootloader : MonoBehaviour
     {
 		Application.targetFrameRate = 60;
         ProfileManager.LoadProfiles(LoadScene);
-		SFEventManager.Initialize();
+		SFEventManager.RegisterGlobalEvents();
     }
 
     private void LoadScene()

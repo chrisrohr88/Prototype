@@ -4,10 +4,12 @@ using UnityEngine;
 using Weapons.Behaviors;
 using Weapons.Enums;
 using Weapons.States;
+using SF.EventSystem;
+using Weapons.TriggerAdapters;
 
 namespace Weapons
 {
-	public class Weapon
+	public class Weapon : Entity
 	{
 		public string Name { get; private set; }
 		public AmmoType AmmoType { get; private set; }
@@ -25,9 +27,10 @@ namespace Weapons
 		public WeaponBehaviorType TriggerBehaviorType { get; private set; }
 		public Vector3 MinDeviation { get; private set; }
 		public Vector3 MaxDeviation { get; private set; }
-		public long EntityId { get; set; }
+		public long PlayerEntityId { get; set; }
 
 		public Transform FireTransform { get; private set; }
+		public TriggerAdapter TriggerAdapter { get; private set; }
 
 		private InternalWeapon _internalWeapon;
 		private WeaponState _currentState;
@@ -61,47 +64,49 @@ namespace Weapons
 		
 		public static Weapon CreateFromProfile(WeaponProfile profile, Transform fireTransform)
 		{
-			var newWeapon = new Weapon();		
-			newWeapon.Name = profile.Name;
-			newWeapon.AmmoType = profile.AmmoType;
-			newWeapon.TriggerBehaviorType = profile.TriggerBehaviorType;
-			newWeapon.ActorBehaviorType = profile.FireBehaviorType;
-			newWeapon.MaxAmmo = ModifiableAttribute.Create(profile.MaxAmmo);
-			newWeapon.Accuracy = ModifiableAttribute.Create(profile.Accuracy);
-			newWeapon.ReloadTime = ModifiableAttribute.Create(profile.ReloadTime);
-			newWeapon.RateOfFire = ModifiableAttribute.Create(profile.RateOfFire); // 3500 is about the max ROF (rounds per minute) for 30fps
-			newWeapon.BaseDamage = ModifiableAttribute.Create(profile.BaseDamage);
-			newWeapon.AttackPower = ModifiableAttribute.Create(profile.AttackPower);
-			newWeapon.ChargeTime = ModifiableAttribute.Create(profile.ChargeTime);
-			newWeapon.BurstTime = ModifiableAttribute.Create(profile.BurstTime);
-			newWeapon.BurstCount = ModifiableAttribute.Create(profile.BurstCount);
-			newWeapon.DeviationTime = ModifiableAttribute.Create(profile.DeviationTime);
-			newWeapon.MinDeviation = (profile.MinimumDeviation != null) ? new Vector3(profile.MinimumDeviation.X, profile.MinimumDeviation.Y, profile.MinimumDeviation.Z) : Vector3.zero;
-			newWeapon.MaxDeviation = (profile.MaximumDeviation != null) ? new Vector3(profile.MaximumDeviation.X, profile.MaximumDeviation.Y, profile.MaximumDeviation.Z) : Vector3.zero;
-			newWeapon.FireTransform = fireTransform;
-			newWeapon.Init();
+			var weapon = new Weapon();
+			weapon._eventRegistar = new WeaponEventRegistrar(weapon);
+			weapon.Name = profile.Name;
+			weapon.AmmoType = profile.AmmoType;
+			weapon.TriggerBehaviorType = profile.TriggerBehaviorType;
+			weapon.ActorBehaviorType = profile.FireBehaviorType;
+			weapon.MaxAmmo = ModifiableAttribute.Create(profile.MaxAmmo);
+			weapon.Accuracy = ModifiableAttribute.Create(profile.Accuracy);
+			weapon.ReloadTime = ModifiableAttribute.Create(profile.ReloadTime);
+			weapon.RateOfFire = ModifiableAttribute.Create(profile.RateOfFire); // 3500 is about the max ROF (rounds per minute) for 30fps
+			weapon.BaseDamage = ModifiableAttribute.Create(profile.BaseDamage);
+			weapon.AttackPower = ModifiableAttribute.Create(profile.AttackPower);
+			weapon.ChargeTime = ModifiableAttribute.Create(profile.ChargeTime);
+			weapon.BurstTime = ModifiableAttribute.Create(profile.BurstTime);
+			weapon.BurstCount = ModifiableAttribute.Create(profile.BurstCount);
+			weapon.DeviationTime = ModifiableAttribute.Create(profile.DeviationTime);
+			weapon.MinDeviation = (profile.MinimumDeviation != null) ? new Vector3(profile.MinimumDeviation.X, profile.MinimumDeviation.Y, profile.MinimumDeviation.Z) : Vector3.zero;
+			weapon.MaxDeviation = (profile.MaximumDeviation != null) ? new Vector3(profile.MaximumDeviation.X, profile.MaximumDeviation.Y, profile.MaximumDeviation.Z) : Vector3.zero;
+			weapon.FireTransform = fireTransform;
+			weapon.TriggerAdapter = TriggerAdapter.Create(weapon);
+			weapon.Init();
 
-			return newWeapon;
+			return weapon;
 		}
 	    
-	    public void TriggerPulled(Vector3 position)
+		public void TriggerPulled(WeaponTriggerEventData eventData)
 		{
 			SetWeaponForUse();
-			_targetPosition = position;
+			_targetPosition = eventData.TargetPosition;
 			_rangeAttackBehavior.OnTriggerPressed();
 	    }
 
-		public void TriggerHeld(Vector3 position)
+		public void TriggerHeld(WeaponTriggerEventData eventData)
 		{
 			SetWeaponForUse();
-			_targetPosition = position;
+			_targetPosition = eventData.TargetPosition;
 			_rangeAttackBehavior.OnTriggerHeld();
 	    }
 
-		public void TriggerReleased(Vector3 position)
+		public void TriggerReleased(WeaponTriggerEventData eventData)
 		{
 			SetWeaponForUse();
-			_targetPosition = position;
+			_targetPosition = eventData.TargetPosition;
 			_rangeAttackBehavior.OnTriggerRelease();
 	    }
 
@@ -135,6 +140,7 @@ namespace Weapons
 	    {
 			_currentState = _currentState.SwitchToReloadState();
 	        _currentState.Reload();
+			SFEventManager.FireEvent(new SFEventData { OriginId = EntityId, EventType = SFEventType.WeaponReloaded });
 	    }
 
 	    public void Disable()
@@ -154,14 +160,16 @@ namespace Weapons
 
 			var projectile = ProjectileFactory.CreateProjectileFromProfile(FireTransform, _targetPosition);
 			AddDamageToProjectile(projectile);
+			SFEventManager.FireEvent(new SFEventData { OriginId = EntityId, EventType = SFEventType.WeaponFired });
 		}
 		
 		private void AddDamageToProjectile(Projectile projectile)
 		{
-			var damageData = projectile.BaseProjectile.AddComponent<DamageData>();
-			damageData.AttackerId = EntityId;
-			damageData.Damage = Damage;
-			damageData.DamageType = DamageType.Fire;
+			projectile.DamageData = new DamageData {
+				AttackerId = PlayerEntityId,
+				Damage = Damage,
+				DamageType = DamageType.Fire
+			};
 		}
 
 		private class InternalWeapon : Internal.InternalWeapon

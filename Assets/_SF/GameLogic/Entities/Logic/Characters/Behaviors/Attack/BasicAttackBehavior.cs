@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Weapons;
+using SF.EventSystem;
 
 public class BasicAttackBehavior : AttackBehavior
 {
@@ -14,10 +15,19 @@ public class BasicAttackBehavior : AttackBehavior
 
 	public override void UpdateBehavior()
 	{
-		HasTarget = TargetingBehavior.AcquireTarget();
-		if(HasTarget)
+		if(TargetingBehavior != null)
 		{
-			_weapon.TriggerPulled(TargetingBehavior.GetTarget());
+			HasTarget = TargetingBehavior.AcquireTarget();
+			if(HasTarget)
+			{
+				var targetPosition = TargetingBehavior.GetTarget();
+				_enemy.WeaponController.StartFiring(targetPosition);
+				SFEventManager.FireEvent(new EnemyAttackEventData { OriginId = _enemy.EntityId, TargetPosition = targetPosition });
+			}
+			else
+			{
+				_enemy.WeaponController.StopFiring();
+			}
 		}
 	}
 

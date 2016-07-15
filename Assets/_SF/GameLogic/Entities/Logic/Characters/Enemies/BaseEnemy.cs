@@ -40,15 +40,4 @@ public class BaseEnemy : MonoBehaviour
 	{
 		Enemy.Health.Death -= OnDeath;
     }
-
-    protected virtual void OnTriggerEnter2D(Collider2D other)
-    {
-        var damageData = other.gameObject.GetComponent<DamageData>();
-
-        if (damageData != null)
-        {
-			Enemy.TakeDamage(damageData);
-			Destroy (other.gameObject);
-        }
-    }
 }

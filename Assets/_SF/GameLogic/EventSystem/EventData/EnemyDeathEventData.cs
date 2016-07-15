@@ -8,7 +8,7 @@ namespace SF.EventSystem
 
 		public EnemyDeathEventData()
 		{
-			EventType = SFEventType.EnemySpawned;
+			EventType = SFEventType.EnemyDeath;
 		}
 	}
 }

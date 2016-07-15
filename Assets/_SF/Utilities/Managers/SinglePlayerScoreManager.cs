@@ -1,24 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 using SF.EventSystem;
+using System.Collections.Generic;
 
 public class SinglePlayerScoreManager
 {
+	private EventRegistrar _eventRegistar;
 	public int Score { get; private set; }
-	public event System.Action<int> OnScoreUpdated;
 
 	public SinglePlayerScoreManager()
 	{
 		Score = 0;
-		RegisterWithEventManager();
+		_eventRegistar = new SinglePlayerScoreManagerEventRegistrar(this);
 	}
 
-	private void RegisterWithEventManager()
-	{
-		SFEventManager.RegisterEventListner(SFEventType.EnemyDeath, new ConcreteSFEventListner<EnemyDeathEventData> { MethodToExecute = HandleEnemyDeath });
-	}
-
-	private void HandleEnemyDeath(EnemyDeathEventData eventData)
+	public void HandleEnemyDeath(EnemyDeathEventData eventData)
 	{
 		UpdateScore(eventData.PointValue);
 	}
@@ -31,7 +27,7 @@ public class SinglePlayerScoreManager
 
 	private void ScoreUpdated()
 	{
-		OnScoreUpdated.SafeInvoke(Score);
+		SFEventManager.FireEvent(new SinglePlayerScoreUpdateEventData { OriginId = SFEventManager.SYSTEM_ORIGIN_ID, EventType = SFEventType.SinglePlayerScoreUpdate, NewPointValue = Score });
 		Debug.logger.Log(Score);
 	}
 }
