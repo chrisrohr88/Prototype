@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using SF.EventSystem;
+using SF.GameLogic.EventSystem.EventData;
+using SF.Utilities;
 
-namespace Weapons.Controllers
+namespace SF.GameLogic.Entities.Logic.Weapons.Controllers
 {
 	public class WeaponController
 	{

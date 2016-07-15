@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DontDestroyOnLoad : MonoBehaviour
+namespace SF.Utilities
 {
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+	public class DontDestroyOnLoad : MonoBehaviour
+	{
+	    private void Awake()
+	    {
+	        DontDestroyOnLoad(this.gameObject);
+	    }
+	}
 }

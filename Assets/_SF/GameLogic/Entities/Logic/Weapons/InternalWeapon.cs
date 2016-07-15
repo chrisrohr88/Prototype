@@ -1,4 +1,4 @@
-﻿namespace Weapons.Internal
+﻿namespace SF.GameLogic.Entities.Logic.Weapons.Internal
 {
 	public interface InternalWeapon
 	{

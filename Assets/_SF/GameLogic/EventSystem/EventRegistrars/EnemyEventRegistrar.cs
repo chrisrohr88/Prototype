@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SF.GameLogic.Entities.Logic.Charaters.Enemies;
+using SF.EventSystem;
+using SF.GameLogic.EventSystem.EventData;
 
-namespace SF.EventSystem
+namespace SF.GameLogic.EventSystem.EventRegistrars
 {
 	public class EnemyEventRegistrar : EventRegistrar
 	{

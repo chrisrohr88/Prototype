@@ -1,13 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Weapons.Behaviors;
-using Weapons.Enums;
-using Weapons.States;
+using SF.GameLogic.Entities.Logic.Weapons.Behaviors;
+using SF.GameLogic.Entities.Logic.Weapons.States;
 using SF.EventSystem;
-using Weapons.TriggerAdapters;
+using SF.GameLogic.Entities.Logic.Weapons.TriggerAdapters;
+using SF.GameLogic.Data.Enums;
+using SF.GameLogic.Data.Profiles;
+using SF.GameLogic.Entities.Logic;
+using SF.GameLogic.Projectiles;
+using SF.GameLogic.EventSystem.EventData;
+using SF.GameLogic.EventSystem.EventRegistrars;
+using SF.Utilities.ModifiableAttributes;
+using SF.Utilities;
 
-namespace Weapons
+namespace SF.GameLogic.Entities.Logic.Weapons
 {
 	public class Weapon : Entity
 	{
@@ -115,7 +122,7 @@ namespace Weapons
 			float chargePercent = (_chargePercent >= 0) ? _chargePercent : 1;
 			// (1 + (AttackPower * SQRT(Level)) / AttackPowerReference) * BaseDamage * Accuracy * SQRT(Level)
 			// TODO: Add Level
-			float damage = chargePercent * (1 + (AttackPower.ModifiedValue * Mathf.Sqrt (1/*level*/)) / Constants.Weapon.ATTACK_POWER_REFERENCE) * BaseDamage.ModifiedValue * Accuracy.ModifiedValue * Mathf.Sqrt (1);
+			float damage = chargePercent * (1 + (AttackPower.ModifiedValue * Mathf.Sqrt (1/*level*/)) / SF.GameLogic.Data.Constants.WeaponConstants.ATTACK_POWER_REFERENCE) * BaseDamage.ModifiedValue * Accuracy.ModifiedValue * Mathf.Sqrt (1);
 	//		Debug.LogError("Damage: " + damage + " ChargedPercent: " + chargePercent);
 			return damage;
 	    }

@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Collections;
-using Weapons.Internal;
-using Weapons.Behaviors.Enums;
+using SF.GameLogic.Entities.Logic.Weapons.Internal;
+using SF.GameLogic.Data.Enums;
+using SF.Utilities.Managers;
 
-namespace Weapons.Behaviors
+namespace SF.GameLogic.Entities.Logic.Weapons.Behaviors
 {
 	public class Burst : WeaponBehavior
 	{

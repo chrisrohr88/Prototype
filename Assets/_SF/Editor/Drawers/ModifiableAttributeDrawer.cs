@@ -1,7 +1,10 @@
 using UnityEngine;
 using System.Reflection;
+using SF.Utilities.ModifiableAttributes;
+using UnityEditor;
+using SF.Editor.Drawers.PropertyDrawers;
 
-namespace UnityEditor.Custom
+namespace SF.Editor.Drawers
 {
 	public class ModifiableAttributeDrawer
 	{

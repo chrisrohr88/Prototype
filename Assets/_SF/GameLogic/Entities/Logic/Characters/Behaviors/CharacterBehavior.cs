@@ -1,17 +1,18 @@
-﻿using UnityEngine;
-using System.Collections;
-using Weapons;
+﻿using SF.GameLogic.Entities.Logic.Charaters.Enemies;
 
-public abstract class CharacterBehavior
+namespace SF.GameLogic.Entities.Logic.Charaters.Behaviors
 {
-	protected Enemy _enemy;
-
-	protected CharacterBehavior(Enemy enemy)
+	public abstract class CharacterBehavior
 	{
-		_enemy = enemy;
-	}
+		protected Enemy _enemy;
 
-	protected abstract void StartBehavior();
-	public abstract void UpdateBehavior();
-	protected abstract void FinishBehavior();
+		protected CharacterBehavior(Enemy enemy)
+		{
+			_enemy = enemy;
+		}
+
+		protected abstract void StartBehavior();
+		public abstract void UpdateBehavior();
+		protected abstract void FinishBehavior();
+	}
 }

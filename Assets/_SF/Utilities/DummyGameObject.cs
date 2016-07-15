@@ -1,24 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 using SF.EventSystem;
+using SF.Utilities.Extensions;
 
-public class DummyGameObject : MonoBehaviour 
+namespace SF.Utilities
 {
-	private event System.Action _onUpdate;
-	public event System.Action OnUpdate
+	public class DummyGameObject : MonoBehaviour 
 	{
-		add
+		private event System.Action _onUpdate;
+		public event System.Action OnUpdate
 		{
-			_onUpdate += value;
+			add
+			{
+				_onUpdate += value;
+			}
+			remove
+			{
+				_onUpdate -= value;
+			}
 		}
-		remove
-		{
-			_onUpdate -= value;
-		}
-	}
 
-	private void Update()
-	{
-		_onUpdate.SafeInvoke();
+		private void Update()
+		{
+			_onUpdate.SafeInvoke();
+		}
 	}
 }

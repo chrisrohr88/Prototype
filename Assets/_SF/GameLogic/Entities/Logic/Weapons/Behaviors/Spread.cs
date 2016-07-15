@@ -1,8 +1,8 @@
 using UnityEngine;
-using Weapons.Internal;
-using Weapons.Behaviors.Enums;
+using SF.GameLogic.Entities.Logic.Weapons.Internal;
+using SF.GameLogic.Data.Enums;
 
-namespace Weapons.Behaviors
+namespace SF.GameLogic.Entities.Logic.Weapons.Behaviors
 {
 	public class Spread : WeaponBehavior
 	{

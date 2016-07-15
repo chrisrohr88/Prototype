@@ -1,4 +1,6 @@
-namespace Weapons.Behaviors
+using SF.Utilities.Extensions;
+
+namespace SF.GameLogic.Entities.Logic.Weapons.Behaviors
 {
 	public class CompoundWeaponBehavior : WeaponBehavior
 	{

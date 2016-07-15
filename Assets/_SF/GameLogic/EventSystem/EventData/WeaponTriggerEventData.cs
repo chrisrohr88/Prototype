@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using SF.EventSystem;
 
-namespace SF.EventSystem
+namespace SF.GameLogic.EventSystem.EventData
 {
 	public class WeaponTriggerEventData : SFEventData 
 	{

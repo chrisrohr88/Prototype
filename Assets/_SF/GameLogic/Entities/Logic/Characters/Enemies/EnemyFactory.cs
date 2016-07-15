@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections;
-using Weapons;
+using SF.GameLogic.Data.Profiles;
+using SF.GameLogic.Entities.Logic.Weapons;
+using SF.Utilities.Managers;
 
-public static class CharacterFactory
+namespace SF.GameLogic.Entities.Logic.Charaters.Enemies
 {
-	public static Enemy CreateEnemyFromProfile(EnemyProfile profile)
+	public static class CharacterFactory
 	{
-		BaseEnemy baseEnemy = (GameObject.Instantiate(Resources.Load(profile.EnemyPrefabPath)) as GameObject).GetComponent<BaseEnemy>();
-		Weapon weapon = WeaponFactory.CreateFromProfile(ProfileManager.GetWeaponProfileByName(profile.WeaponProfileName), baseEnemy.SpawnTransform);
-		return Enemy.Create(profile, weapon, baseEnemy);
+		public static Enemy CreateEnemyFromProfile(EnemyProfile profile)
+		{
+			BaseEnemy baseEnemy = (GameObject.Instantiate(Resources.Load(profile.EnemyPrefabPath)) as GameObject).GetComponent<BaseEnemy>();
+			Weapon weapon = WeaponFactory.CreateFromProfile(ProfileManager.GetWeaponProfileByName(profile.WeaponProfileName), baseEnemy.SpawnTransform);
+			return Enemy.Create(profile, weapon, baseEnemy);
+		}
 	}
 }

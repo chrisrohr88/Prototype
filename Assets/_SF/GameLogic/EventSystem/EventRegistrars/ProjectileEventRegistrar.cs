@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SF.GameLogic.Projectiles;
+using SF.EventSystem;
 
-namespace SF.EventSystem
+namespace SF.GameLogic.EventSystem.EventRegistrars
 {
 	public class ProjectileEventRegistrar : EventRegistrar
 	{

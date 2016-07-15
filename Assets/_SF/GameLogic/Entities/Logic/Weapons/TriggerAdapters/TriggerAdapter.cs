@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using SF.EventSystem;
+using SF.GameLogic.EventSystem.EventData;
 
-namespace Weapons.TriggerAdapters
+namespace SF.GameLogic.Entities.Logic.Weapons.TriggerAdapters
 {
 	public abstract class TriggerAdapter
 	{

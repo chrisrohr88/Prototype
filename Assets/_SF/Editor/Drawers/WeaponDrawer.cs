@@ -2,9 +2,12 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using Weapons;
+using SF.GameLogic.Entities.Logic.Weapons;
+using SF.Utilities.ModifiableAttributes;
+using UnityEditor;
+using SF.Editor.Drawers.PropertyDrawers;
 
-namespace UnityEditor.Custom
+namespace SF.Editor.Drawers
 {
 	public class WeaponDrawer
 	{

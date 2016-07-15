@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using SF.EventSystem;
 
-namespace Weapons.TriggerAdapters
+namespace SF.GameLogic.Entities.Logic.Weapons.TriggerAdapters
 {
 	public class SpreadTriggerAdapter : TriggerAdapter
 	{

@@ -1,43 +1,48 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using UnityEditor.Custom;
 using System.Collections;
 using System.Reflection;
+using SF.GameLogic.Entities.Logic.Charaters.Enemies;
+using SF.Editor.Drawers;
+using SF.Editor.Drawers.PropertyDrawers;
 
-[CustomEditor(typeof(BaseEnemy))]
-[CanEditMultipleObjects]
-public class EnemyInspector : Editor 
+namespace SF.Editor.Inspectors
 {
-	private EnemyDrawer _enemyDrawer;
-
-	public void OnEnable()
+	[CustomEditor(typeof(BaseEnemy))]
+	[CanEditMultipleObjects]
+	public class EnemyInspector : UnityEditor.Editor 
 	{
-		_enemyDrawer = new EnemyDrawer();
-	}
+		private EnemyDrawer _enemyDrawer;
 
-	public override void OnInspectorGUI()
-	{
-		BaseEnemy enemy = (BaseEnemy)target;
-		DrawEnemy(enemy);
-		if(enemy.Enemy != null)
+		public void OnEnable()
 		{
-			DrawEnemyEntity(enemy.Enemy);
-			Repaint();
+			_enemyDrawer = new EnemyDrawer();
 		}
-		else
+
+		public override void OnInspectorGUI()
 		{
-			EditorGUILayout.HelpBox("Enemy is populated at runtime.", MessageType.Info);
+			BaseEnemy enemy = (BaseEnemy)target;
+			DrawEnemy(enemy);
+			if(enemy.Enemy != null)
+			{
+				DrawEnemyEntity(enemy.Enemy);
+				Repaint();
+			}
+			else
+			{
+				EditorGUILayout.HelpBox("Enemy is populated at runtime.", MessageType.Info);
+			}
 		}
-	}
 
-	private void DrawEnemy(BaseEnemy enemy)
-	{
-		FieldInfoDrawer.DrawObject<Transform>(enemy.GetType().GetField("_spawnTransform", BindingFlags.NonPublic | BindingFlags.Instance), enemy, "Spawn Transform", false);
-		FieldInfoDrawer.DrawObject<GameObject>(enemy.GetType().GetField("_deathEffectPrefab", BindingFlags.NonPublic | BindingFlags.Instance), enemy, "Death Effect", false);
-	}
+		private void DrawEnemy(BaseEnemy enemy)
+		{
+			FieldInfoDrawer.DrawObject<Transform>(enemy.GetType().GetField("_spawnTransform", BindingFlags.NonPublic | BindingFlags.Instance), enemy, "Spawn Transform", false);
+			FieldInfoDrawer.DrawObject<GameObject>(enemy.GetType().GetField("_deathEffectPrefab", BindingFlags.NonPublic | BindingFlags.Instance), enemy, "Death Effect", false);
+		}
 
-	private void DrawEnemyEntity(Enemy enemy)
-	{
-		_enemyDrawer.Draw(enemy);
+		private void DrawEnemyEntity(Enemy enemy)
+		{
+			_enemyDrawer.Draw(enemy);
+		}
 	}
 }

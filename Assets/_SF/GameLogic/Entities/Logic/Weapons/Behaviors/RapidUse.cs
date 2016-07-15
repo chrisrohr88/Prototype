@@ -1,6 +1,6 @@
-using Weapons.Internal;
+using SF.GameLogic.Entities.Logic.Weapons.Internal;
 
-namespace Weapons.Behaviors
+namespace SF.GameLogic.Entities.Logic.Weapons.Behaviors
 {
 	public class RapidFire : WeaponBehavior
 	{

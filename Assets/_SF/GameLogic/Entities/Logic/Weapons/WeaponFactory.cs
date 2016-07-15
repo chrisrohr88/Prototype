@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
-using Weapons.Behaviors;
-using Weapons.Enums;
+using SF.GameLogic.Entities.Logic.Weapons.Behaviors;
+using SF.GameLogic.Data.Profiles;
+using SF.GameLogic.Data.Enums;
 
-namespace Weapons
+namespace SF.GameLogic.Entities.Logic.Weapons
 {
 	public static class WeaponFactory
 	{

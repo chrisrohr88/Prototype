@@ -1,19 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SF.GameLogic.Data.Enums;
 
-public enum DamageType
+namespace SF.Utilities
 {
-    None,
-    Holy,
-    Fire,
-    Shadow,
-    Physical
-}
-
-public class DamageData
-{
-    public long AttackerId { get; set; }
-    public long? TargetId { get; set; }
-    public float Damage { get; set; }
-    public DamageType DamageType { get; set; }
+	public class DamageData
+	{
+	    public long AttackerId { get; set; }
+	    public long? TargetId { get; set; }
+	    public float Damage { get; set; }
+	    public DamageType DamageType { get; set; }
+	}
 }

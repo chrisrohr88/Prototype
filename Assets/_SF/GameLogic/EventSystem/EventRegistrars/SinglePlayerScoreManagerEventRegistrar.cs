@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SF.EventSystem;
+using SF.GameLogic.EventSystem.EventData;
+using SF.Utilities.Managers;
 
-namespace SF.EventSystem
+namespace SF.GameLogic.EventSystem.EventRegistrars
 {
 	public class SinglePlayerScoreManagerEventRegistrar : EventRegistrar
 	{

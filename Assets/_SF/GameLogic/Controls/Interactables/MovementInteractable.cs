@@ -1,35 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MovementInteractable : MonoBehaviour, Interactable
+namespace SF.GameLogic.Controls.Interactables
 {
-	[SerializeField] Transform _controlledObject;
-
-	public Transform ControlledObject
+	public class MovementInteractable : MonoBehaviour, Interactable
 	{
-		set
+		[SerializeField] Transform _controlledObject;
+
+		public Transform ControlledObject
 		{
-			_controlledObject = value;
+			set
+			{
+				_controlledObject = value;
+			}
 		}
-	}
 
-	public void OnPress(MyTouch touch)
-	{
-		_controlledObject.position = touch.WorldHitPosition;
-	}
+		public void OnPress(MyTouch touch)
+		{
+			_controlledObject.position = touch.WorldHitPosition;
+		}
 
-	public void OnRelease(MyTouch touch)
-	{
-		_controlledObject.position = touch.WorldHitPosition;
-	}
+		public void OnRelease(MyTouch touch)
+		{
+			_controlledObject.position = touch.WorldHitPosition;
+		}
 
-	public void OnHold(MyTouch touch)
-	{
-		_controlledObject.position = touch.WorldHitPosition;
-	}
+		public void OnHold(MyTouch touch)
+		{
+			_controlledObject.position = touch.WorldHitPosition;
+		}
 
-	public void OnMove(MyTouch touch)
-	{
-		_controlledObject.position = touch.WorldHitPosition;
+		public void OnMove(MyTouch touch)
+		{
+			_controlledObject.position = touch.WorldHitPosition;
+		}
 	}
 }

@@ -1,6 +1,7 @@
 using SFUnitTestCore;
 using UnityEngine;
 using System.Collections;
+using SF.Utilities.ModifiableAttributes;
 
 [TestClass()]
 public class ModifiableAttributeTests : Test

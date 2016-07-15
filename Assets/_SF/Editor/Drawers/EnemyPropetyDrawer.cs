@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
-using UnityEditor.Custom;
 using UnityEditor;
-using Weapons;
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
+using SF.GameLogic.Entities.Logic.Charaters.Enemies;
+using SF.Editor.Drawers.PropertyDrawers;
 
-namespace UnityEditor.Custom
+namespace SF.Editor.Drawers
 {
 	public class EnemyDrawer
 	{

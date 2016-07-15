@@ -1,4 +1,4 @@
-﻿namespace Weapons.Enums
+﻿namespace SF.GameLogic.Data.Enums
 {
 	public enum WeaponType
 	{

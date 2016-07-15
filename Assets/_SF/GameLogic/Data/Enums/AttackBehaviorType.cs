@@ -1,8 +1,7 @@
-using UnityEngine;
-using System.Collections;
-using Weapons;
-
-public enum AttackBehaviorType
+namespace SF.GameLogic.Data.Enums
 {
-	BasicAttack
+	public enum AttackBehaviorType
+	{
+		BasicAttack
+	}
 }
