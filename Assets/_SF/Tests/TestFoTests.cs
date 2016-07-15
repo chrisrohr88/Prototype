@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using System.Collections;
 
 public class TestFoTests : MonoBehaviour
@@ -33,3 +34,4 @@ public class TestFoTests : MonoBehaviour
 		throw new System.Exception("Error!");
 	}
 }
+#endif

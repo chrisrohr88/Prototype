@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using SFUnitTestCore;
 using UnityEngine;
 using System.Collections;
@@ -76,3 +77,4 @@ public class ModifiableAttributeTests : Test
 		}
 	}
 }
+#endif
