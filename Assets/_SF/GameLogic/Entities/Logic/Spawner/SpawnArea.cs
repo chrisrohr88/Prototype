@@ -3,52 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using SF.EventSystem;
 
-public static class EnemyManager
+public class Spawner
 {
-    private const string ENEMY_PATH = "Game/Enemies/";
-	
-	private static List<GameObject> _enemies;
-	private static List<EnemyProfile> _enemyProfiles;
-    private static List<BaseEnemy> _spawnedEnemies;
-    private static List<SpawnArea> _spawnAreas;
-    private static bool _isSpawning = false;
-	private static EventRegistar _eventRegistar;
+	private List<BaseEnemy> _spawnedEnemies;
+	private List<SpawnArea> _spawnAreas;
+	private EventRegistrar _eventRegistar;
+	private bool _isSpawning = false;
 
-    static EnemyManager()
-    {
-		_enemies = new List<GameObject>();
-        _spawnedEnemies = new List<BaseEnemy>();
-		SetupEventRegistar();
-	}
-
-	// TODO : want to make this datadriven & move to Entity
-	private	static List<SFEvent> CreateEventsToRegister()
+	public Spawner()
 	{
-		return new List<SFEvent>
-		{
-			new SFEvent { OriginId = SFEventManager.SYSTEM_ORIGIN_ID, EventType = SFEventType.EnemySpawned }
-		};
+		_spawnedEnemies = new List<BaseEnemy>();
+		_eventRegistar = new SpawnerEventRegistrar(this);
 	}
 
-	private static void SetupEventRegistar()
-	{
-		_eventRegistar = new EventRegistar(CreateEventsToRegister());
-		_eventRegistar.RegisterEvents();
-		SFEventManager.RegisterEventListner(SFEventType.GameOver, new ConcreteSFEventListner<SFEventData> { MethodToExecute = OnGameOver } ); 
-		SFEventManager.RegisterEventListner(SFEventType.LevelStart, new ConcreteSFEventListner<SFEventData> { MethodToExecute = OnLevelStart });
-	}
-
-	private static void OnLevelStart(SFEventData eventData)
+	public void OnLevelStart(SFEventData eventData)
 	{
 		EnableSpawning();
 	}
 
-	private static void OnGameOver(SFEventData eventData)
+	public void OnGameOver(SFEventData eventData)
 	{
 		DisableSpawning();
 	}
 
-	public static void EnableSpawning()
+	public void EnableSpawning()
 	{
 		_spawnAreas = new List<SpawnArea>();
 		SetupSpawnAreas();
@@ -56,38 +34,41 @@ public static class EnemyManager
 		GameManager.Instance.StartCoroutine(BeginSpawning());
 	}
 
-    private static IEnumerator BeginSpawning()
+	private IEnumerator BeginSpawning()
 	{
-        while (_isSpawning)
-        {
-			int rnd = Random.Range(0, _enemies.Count);
-			var enemy = _spawnAreas[0].SpawnEnemy(_enemyProfiles[rnd]);
-            _spawnedEnemies.Add(enemy);
-            yield return new WaitForSeconds(5);
-        }
-    }
+		while (_isSpawning)
+		{
+			var enemy = _spawnAreas[0].SpawnEnemy(EnemyManager.GetRandomEnemyProfile());
+			_spawnedEnemies.Add(enemy);
+			yield return new WaitForSeconds(5);
+		}
+	}
 
-    public static void DisableSpawning()
-    {
-        _isSpawning = false;
-    }
+	public void DisableSpawning()
+	{
+		_isSpawning = false;
+	}
 
-    private static void SetupSpawnAreas()
-    {
-        _spawnAreas.Add(new SpawnArea(new Vector3(165, 5, 0)));
-    }
+	private void SetupSpawnAreas()
+	{
+		_spawnAreas.Add(new SpawnArea(new Vector3(165, 5, 0)));
+	}
+}
 
-    public static void LoadEnemies(List<EnemyProfile> enemyProfiles)
+public static class EnemyManager
+{
+	private static List<EnemyProfile> _enemyProfiles = new List<EnemyProfile>();
+
+	public static void LoadLevelEnemies(List<EnemyProfile> enemyProfiles)
     {
 		_enemyProfiles = enemyProfiles;
-        _enemies = new List<GameObject>();
-		foreach (var profile in enemyProfiles)
-        {
-			Debug.Log(profile);
-            var enemyPrefab = Resources.Load(profile.EnemyPrefabPath) as GameObject;
-            _enemies.Add(enemyPrefab);
-        }
-    }
+	}
+
+	public static EnemyProfile GetRandomEnemyProfile()
+	{
+		int rnd = Random.Range(0, _enemyProfiles.Count);
+		return _enemyProfiles[rnd];
+	}
 }
 
 public class SpawnArea

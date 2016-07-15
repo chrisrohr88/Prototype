@@ -20,24 +20,8 @@ public class Projectile : Entity
 		projectile.Speed = spawnData.Speed;
 		projectileBase.Projectile = projectile;
 		projectile.BaseProjectile = projectileBase.gameObject;
-		projectile.SetupEventRegistar();
+		projectile._eventRegistar = new ProjectileEventRegistrar(projectile);
         return projectile;
-	}
-
-	// TODO : want to make this datadriven & move to Entity
-	private	List<SFEvent> CreateEventsToRegister()
-	{
-		return new List<SFEvent>
-		{
-			new SFEvent { OriginId = EntityId, EventType = SFEventType.ProjectileHit },
-			new SFEvent { OriginId = EntityId, EventType = SFEventType.ProjectileDestroyed }
-		};
-	}
-
-	private void SetupEventRegistar()
-	{
-		_eventRegistar = new EventRegistar(CreateEventsToRegister());
-		_eventRegistar.RegisterEvents();
 	}
 
 	private Projectile() : base()

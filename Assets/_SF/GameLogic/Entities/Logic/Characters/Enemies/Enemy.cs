@@ -32,7 +32,7 @@ public class Enemy : Entity
 	public static Enemy Create(EnemyProfile profile, Weapon weapon, BaseEnemy baseEnemy)
 	{
 		var enemy = new Enemy();
-		enemy.SetupEventRegistar();
+		enemy._eventRegistar = new EnemyEventRegistrar(enemy);
 		enemy.MovementBehavior = CharacterBehaviorFactory.CreateMovementBehaviorFromType(profile.MovementBehaviorType, enemy);
 		enemy.Speed = profile.Speed;
 		enemy.TargetingLayerMask = (LayerMask) profile.LayerMask;
@@ -56,24 +56,6 @@ public class Enemy : Entity
 
 		enemy.WeaponController = new WeaponController(enemy.Weapon);
 		return enemy;
-	}
-
-	// TODO : want to make this datadriven & move to Entity
-	private	List<SFEvent> CreateEventsToRegister()
-	{
-		return new List<SFEvent>
-		{
-			new SFEvent { OriginId = EntityId, EventType = SFEventType.EnemyDeath },
-			new SFEvent { OriginId = EntityId, EventType = SFEventType.EntityHit },
-			new SFEvent { OriginId = EntityId, EventType = SFEventType.EntityAttack }
-		};
-	}
-
-	private void SetupEventRegistar()
-	{
-		_eventRegistar = new EventRegistar(CreateEventsToRegister());
-		_eventRegistar.RegisterEvents();
-		SFEventManager.RegisterEventListner(SFEventType.EntityHit, new ConcreteSFEventListner<EntityHitEventData> { TargetId = this.EntityId, MethodToExecute = TakeDamage });
 	}
 
 	private Enemy() : base()

@@ -12,29 +12,12 @@ public class Player : Entity
 
     public static Player Create(float baseHealth)
     {
-        var player = new Player();
+		var player = new Player();
+		player._eventRegistar = new PlayerEventRegistrar(player);
 		player.Health = HealthComponent.Create(baseHealth);
 		player.Health.Death += player.OnDeath;
         player.PickupWeapon();
-		player.SetupEventRegistar();
         return player;
-	}
-
-	// TODO : want to make this datadriven & move to Entity
-	private	List<SFEvent> CreateEventsToRegister()
-	{
-		return new List<SFEvent>
-		{
-			new SFEvent { OriginId = EntityId, EventType = SFEventType.EntityHit },
-			new SFEvent { OriginId = EntityId, EventType = SFEventType.PlayerDeath }
-		};
-	}
-
-	private void SetupEventRegistar()
-	{
-		_eventRegistar = new EventRegistar(CreateEventsToRegister());
-		_eventRegistar.RegisterEvents();
-		SFEventManager.RegisterEventListner(SFEventType.EntityHit, new ConcreteSFEventListner<EntityHitEventData> { TargetId = EntityId, MethodToExecute = TakeDamage });
 	}
 
     private Player() : base()

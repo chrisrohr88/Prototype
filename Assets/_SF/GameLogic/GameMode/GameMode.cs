@@ -34,8 +34,7 @@ public class GameMode
     private void LoadGameModeDependancies()
 	{
 		ProfileManager.LoadProfiles(null);
-		// TODO: Load Blocker object???
-		EnemyManager.LoadEnemies (new List<EnemyProfile> {ProfileManager.GetEnemyProfile("Skeleton")});
+		EnemyManager.LoadLevelEnemies (new List<EnemyProfile> {ProfileManager.GetEnemyProfile("Skeleton")});
 		ScoreManager = new SinglePlayerScoreManager();
 
 		InstantiateLevelObjects();
@@ -47,6 +46,7 @@ public class GameMode
 		GameManager.Instantiate(Resources.Load("InputManager"));
 		var playerWall = (GameManager.Instantiate(Resources.Load("Game/Field/Barrier")) as GameObject).GetComponent<PlayerWall>();
 		_player = Player.Create(1000);
+		var spawner = new Spawner();
 		playerWall.AssignPlayer(_player);
 		playerWall.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, 100)) + new Vector3(-80, 4, 0);
 		SetupEventRegistar();
@@ -54,8 +54,8 @@ public class GameMode
 
 	private void SetupEventRegistar()
 	{
-		SFEventManager.RegisterEventListner(SFEventType.PlayerDeath, new ConcreteSFEventListner<SFEventData> { MethodToExecute = OnPlayerDeath } ); 
-		SFEventManager.RegisterEventListner(SFEventType.GameOver, new ConcreteSFEventListner<SFEventData> { MethodToExecute = EndLevel } ); 
+		SFEventManager.RegisterEventListener(SFEventType.PlayerDeath, new ConcreteSFEventListener<SFEventData> { MethodToExecute = OnPlayerDeath } ); 
+		SFEventManager.RegisterEventListener(SFEventType.GameOver, new ConcreteSFEventListener<SFEventData> { MethodToExecute = EndLevel } ); 
 	}
 
 	private void OnPlayerDeath(SFEventData eventData)

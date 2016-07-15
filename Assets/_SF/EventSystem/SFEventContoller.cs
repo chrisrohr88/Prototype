@@ -6,8 +6,8 @@ namespace SF.EventSystem
 {
 	public class SFEventContoller
 	{		
-		private Dictionary<long, SFEventListner> _targetedListner = new Dictionary<long, SFEventListner>();
-		private List<SFEventListner> _globalEventListners = new List<SFEventListner>();
+		private Dictionary<long, SFEventListener> _targetedListner = new Dictionary<long, SFEventListener>();
+		private List<SFEventListener> _globalEventListners = new List<SFEventListener>();
 		private Dictionary<long, SFEvent> _events = new Dictionary<long, SFEvent>();
 
 		public void FireEvent<T>(T eventData) where T : SFEventData
@@ -60,7 +60,7 @@ namespace SF.EventSystem
 			}
 		}
 
-		public void RegisterEventListner(SFEventType eventType, SFEventListner eventListner)
+		public void RegisterEventListener(SFEventType eventType, SFEventListener eventListner)
 		{
 			try
 			{
@@ -79,7 +79,7 @@ namespace SF.EventSystem
 			}
 		}
 
-		public void UnregisterEventListner(SFEventType eventType, SFEventListner eventListner)
+		public void UnregisterEventListener(SFEventType eventType, SFEventListener eventListner)
 		{
 			if(eventListner.TargetId.HasValue)
 			{
