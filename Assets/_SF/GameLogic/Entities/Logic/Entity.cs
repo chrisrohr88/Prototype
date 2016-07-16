@@ -7,7 +7,7 @@ using SF.GameLogic.Data.Enums;
 
 namespace SF.GameLogic.Entities.Logic
 {
-	public class Entity
+	public abstract class Entity
 	{
 		private static Id64Generator ID_GENERATOR = new Id64Generator((int)GeneratorIds.Entity);
 

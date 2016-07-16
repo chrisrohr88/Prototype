@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using JsonFx.Json;
 using System.IO;
 using SF.GameLogic.Data.Profiles;
 using SF.Utilities.Extensions;
@@ -49,7 +48,7 @@ namespace SF.Utilities.Managers
 	        foreach(var file in files)
 	        {
 	            var profileString = file.text;
-	            T profile = new JsonReader().Read<T>(profileString) as T;
+				T profile = JsonUtility.FromJson<T>(profileString);
 	            destination.Add(profile.Name, profile);
 	        }
 	    }

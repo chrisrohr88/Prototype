@@ -7,7 +7,7 @@
 	"PointValue": 100,
 	"EnemyPrefabPath": "Game/Enemies/Skeleton",
 	"WeaponProfileName": "Sniper",
-	"MovementBehaiorType": "BasicMovement",
-	"TargetingBehaviorType": "SimpleTargeting",
-	"AttackBehaviorType": "BasicAttack"
+	"MovementBehaiorType": 0,
+	"TargetingBehaviorType": 0,
+	"AttackBehaviorType": 0
 }

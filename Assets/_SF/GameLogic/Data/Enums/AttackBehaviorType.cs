@@ -2,6 +2,6 @@ namespace SF.GameLogic.Data.Enums
 {
 	public enum AttackBehaviorType
 	{
-		BasicAttack
+		BasicAttack = 0
 	}
 }

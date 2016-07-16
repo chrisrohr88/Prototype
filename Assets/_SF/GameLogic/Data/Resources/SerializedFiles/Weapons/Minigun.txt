@@ -4,9 +4,9 @@
 	"RateOfFire": 3500,
 	"AttackPower": 500,
 	"ReloadTime": 4,
-	"AmmoType": "Fire",
+	"AmmoType": 0,
 	"ChargeTime": 1,
 	"Accuracy": 0.75,
 	"MaxAmmo": 50,
-	"FireBehaviorType": "WarmFirst"
+	"FireBehaviorType": 6
 }

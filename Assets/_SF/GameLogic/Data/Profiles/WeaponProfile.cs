@@ -5,20 +5,20 @@ namespace SF.GameLogic.Data.Profiles
 {
 	public class WeaponProfile : BaseProfile
 	{
-		public int BaseDamage { get; set; }
-		public int RateOfFire { get; set; }
-		public int AttackPower { get; set; }
-		public float Accuracy { get; set; }
-		public int BurstCount { get; set; }
-		public float BurstTime { get; set; }
-		public float ChargeTime { get; set; }
-		public float ReloadTime { get; set; }
-		public int MaxAmmo { get; set; }
-		public AmmoType AmmoType { get; set; }
-		public WeaponBehaviorType FireBehaviorType { get; set; }
-		public WeaponBehaviorType TriggerBehaviorType { get; set; }
-		public float DeviationTime { get; set; }
-		public MyVector3 MinimumDeviation { get; set; }
-		public MyVector3 MaximumDeviation { get; set; }
+		public int BaseDamage;
+		public int RateOfFire;
+		public int AttackPower;
+		public float Accuracy;
+		public int BurstCount;
+		public float BurstTime;
+		public float ChargeTime;
+		public float ReloadTime;
+		public int MaxAmmo;
+		public AmmoType AmmoType;
+		public WeaponBehaviorType FireBehaviorType;
+		public WeaponBehaviorType TriggerBehaviorType;
+		public float DeviationTime;
+		public MyVector3 MinimumDeviation;
+		public MyVector3 MaximumDeviation;
 	}
 }

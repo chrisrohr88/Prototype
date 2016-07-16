@@ -2,8 +2,8 @@ namespace SF.GameLogic.Data.Enums
 {
 	public enum MovementBehaviorType
 	{
-		BasicMovement,
-		Blink, 
-		Stagger
+		BasicMovement = 0,
+		Blink = 1, 
+		Stagger = 2
 	}
 }

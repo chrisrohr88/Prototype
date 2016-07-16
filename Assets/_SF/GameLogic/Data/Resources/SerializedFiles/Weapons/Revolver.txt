@@ -4,8 +4,8 @@
 	"RateOfFire": 100,
 	"AttackPower": 500,
 	"ReloadTime": 2.5,
-	"AmmoType": "Fire",
+	"AmmoType": 0,
 	"Accuracy": 0.90,
 	"MaxAmmo": 6,
-	"FireBehaviorType": "SemiAutoUnCapped"
+	"FireBehaviorType": 3
 }

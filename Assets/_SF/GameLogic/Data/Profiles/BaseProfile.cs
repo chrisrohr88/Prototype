@@ -2,6 +2,6 @@
 {
 	public abstract class BaseProfile
 	{
-		public string Name { get; set; }
+		public string Name;
 	}
 }

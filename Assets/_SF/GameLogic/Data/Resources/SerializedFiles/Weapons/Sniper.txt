@@ -4,8 +4,8 @@
 	"RateOfFire": 75,
 	"AttackPower": 250,
 	"ReloadTime": 2.5,
-	"AmmoType": "Fire",
+	"AmmoType": 0,
 	"Accuracy": 1,
 	"MaxAmmo": 4,
-	"FireBehaviorType": "OnRelease"
+	"FireBehaviorType": 4
 }

@@ -4,15 +4,15 @@ namespace SF.GameLogic.Data.Profiles
 {
 	public class EnemyProfile : BaseProfile
 	{
-		public int Level { get; set; }
-		public int LayerMask { get; set; }
-		public int Speed { get; set; }
-		public float BaseHealth { get; set; }
-		public int PointValue { get; set; }
-		public string EnemyPrefabPath { get; set; }
-		public string WeaponProfileName { get; set; }
-		public MovementBehaviorType MovementBehaviorType { get; set; }
-		public TargetingBehaviorType TargetingBehaviorType { get; set; }
-		public AttackBehaviorType AttackBehaviorType { get; set; }
+		public int Level;
+		public int LayerMask;
+		public int Speed;
+		public float BaseHealth;
+		public int PointValue;
+		public string EnemyPrefabPath;
+		public string WeaponProfileName;
+		public MovementBehaviorType MovementBehaviorType;
+		public TargetingBehaviorType TargetingBehaviorType;
+		public AttackBehaviorType AttackBehaviorType;
 	}
 }
