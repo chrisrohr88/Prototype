@@ -12,13 +12,12 @@ namespace SF.GameLogic.Entities.Logic.Spawner
 	{
 		private List<BaseEnemy> _spawnedEnemies;
 		private List<SpawnArea> _spawnAreas;
-		private EventRegistrar _eventRegistar;
 		private bool _isSpawning = false;
 
 		public EntitySpawner()
 		{
 			_spawnedEnemies = new List<BaseEnemy>();
-			_eventRegistar = new SpawnerEventRegistrar(this);
+			new SpawnerEventRegistrar(this);
 		}
 
 		public void OnLevelStart(SFEventData eventData)

@@ -9,13 +9,12 @@ namespace SF.Utilities.Managers
 {
 	public class SinglePlayerScoreManager
 	{
-		private EventRegistrar _eventRegistar;
 		public int Score { get; private set; }
 
 		public SinglePlayerScoreManager()
 		{
 			Score = 0;
-			_eventRegistar = new SinglePlayerScoreManagerEventRegistrar(this);
+			new SinglePlayerScoreManagerEventRegistrar(this);
 		}
 
 		public void HandleEnemyDeath(EnemyDeathEventData eventData)

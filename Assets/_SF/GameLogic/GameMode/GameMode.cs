@@ -48,7 +48,9 @@ namespace SF.GameLogic.GameModes
 			GameManager.Instantiate(Resources.Load("InputManager"));
 			var playerWall = (GameManager.Instantiate(Resources.Load("Game/Field/Barrier")) as GameObject).GetComponent<PlayerWall>();
 			_player = Player.Create(1000);
-			var spawner = new EntitySpawner();
+
+			// TODO: Save these for tracking purposes
+			new EntitySpawner();
 			playerWall.AssignPlayer(_player);
 			playerWall.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height / 2, 100)) + new Vector3(-80, 4, 0);
 			SetupEventRegistar();

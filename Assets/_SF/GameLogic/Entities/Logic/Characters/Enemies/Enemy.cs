@@ -10,19 +10,20 @@ using SF.GameLogic.Entities.Logic.Weapons;
 using SF.GameLogic.Entities.Logic.Components;
 using SF.GameLogic.EventSystem.EventData;
 using SF.GameLogic.EventSystem.EventRegistrars;
+using SF.CustomInspector.Attributes;
 
 namespace SF.GameLogic.Entities.Logic.Charaters.Enemies
 {
 	public class Enemy : Character
 	{
-		public Weapon Weapon { get; set; }
+		[InspectorObject] public Weapon Weapon { get; set; }
 		public BaseEnemy EnemyRenderable { get; set; }
-		public float Speed { get; set; }
-		public CharacterBehavior MovementBehavior { get; set; }
-		public AttackBehavior AttackBehavior { get; set; }
-		public LayerMask TargetingLayerMask { get; private set; }
-		public int PointValue { get; private set; }
-		public WeaponController WeaponController { get; private set; }
+		[InspectorValue] public float Speed { get; set; }
+		[InspectorObject] public CharacterBehavior MovementBehavior { get; set; }
+		[InspectorObject] public AttackBehavior AttackBehavior { get; set; }
+		[InspectorObject] public LayerMask TargetingLayerMask { get; private set; }
+		[InspectorValue] public int PointValue { get; private set; }
+		[InspectorObject] public WeaponController WeaponController { get; private set; }
 
 		public static Enemy Create(EnemyProfile profile, Weapon weapon, BaseEnemy baseEnemy)
 		{

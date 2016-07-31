@@ -10,13 +10,12 @@ namespace SF.GameLogic.UI.Listeners
 	public class ScoreListener : MonoBehaviour
 	{
 		[SerializeField] private Text _text;
-		private EventRegistrar _eventRegistrar;
 
 		public int Score { get; set; }
 
 		private void Start()
 		{ 
-			_eventRegistrar = new SinglePlayerScoreListenerEventRegistrar(this);
+			new SinglePlayerScoreListenerEventRegistrar(this);
 			_text.text = "0";
 		}
 
