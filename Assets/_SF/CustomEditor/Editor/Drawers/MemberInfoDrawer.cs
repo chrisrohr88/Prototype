@@ -13,9 +13,25 @@ namespace SF.CustomInspector.Drawers
 			{
 				DrawFloat(member, member.Label);
 			}
+			else if(member.ValueType == typeof(string))
+			{
+				DrawString(member, member.Label);
+			}
 			else if(member.ValueType == typeof(int))
 			{
 				DrawInt(member, member.Label);
+			}
+			else if(member.ValueType == typeof(long))
+			{
+				DrawLong(member, member.Label);
+			}
+			else if(member.ValueType == typeof(Vector3))
+			{
+				DrawVector3(member, member.Label);
+			}
+			else if(member.ValueType.IsEnum)
+			{
+				DrawEnum(member, member.Label);
 			}
 			else
 			{
@@ -25,12 +41,27 @@ namespace SF.CustomInspector.Drawers
 
 		public static void DrawFloat(MemberInfoWrapper info, string label)
 		{
-			info.SetValue<float>(EditorGUILayout.FloatField(label, float.Parse(info.GetValue().ToString())));
+			info.SetValue(EditorGUILayout.FloatField(label, (float)info.GetValue()));
+		}
+
+		public static void DrawLong(MemberInfoWrapper info, string label)
+		{
+			info.SetValue(EditorGUILayout.LongField(label, (long)info.GetValue()));
+		}
+
+		public static void DrawVaector3(MemberInfoWrapper info, string label)
+		{
+			info.SetValue(EditorGUILayout.Vector3Field(label, (Vector3)info.GetValue()));
+		}
+
+		public static void DrawEnum(MemberInfoWrapper info, string label)
+		{
+			info.SetValue(EditorGUILayout.EnumPopup(label, (System.Enum)System.Enum.Parse(info.GetValue().GetType(), info.GetValue().ToString())));
 		}
 
 		public static void DrawInt(MemberInfoWrapper info, string label)
 		{
-			info.SetValue<int>(EditorGUILayout.IntField(label, int.Parse(info.GetValue().ToString())));
+			info.SetValue<int>(EditorGUILayout.IntField(label, (int)info.GetValue()));
 		}
 		
 		public static void DrawVector3(MemberInfoWrapper info, string label)

@@ -19,11 +19,11 @@ namespace SF.GameLogic.Entities.Logic.Charaters.Enemies
 		[InspectorObject] public Weapon Weapon { get; set; }
 		public BaseEnemy EnemyRenderable { get; set; }
 		[InspectorValue] public float Speed { get; set; }
-		[InspectorObject] public CharacterBehavior MovementBehavior { get; set; }
-		[InspectorObject] public AttackBehavior AttackBehavior { get; set; }
-		[InspectorObject] public LayerMask TargetingLayerMask { get; private set; }
+		public CharacterBehavior MovementBehavior { get; set; }
+		public AttackBehavior AttackBehavior { get; set; }
+		public LayerMask TargetingLayerMask { get; private set; }
 		[InspectorValue] public int PointValue { get; private set; }
-		[InspectorObject] public WeaponController WeaponController { get; private set; }
+		public WeaponController WeaponController { get; private set; }
 
 		public static Enemy Create(EnemyProfile profile, Weapon weapon, BaseEnemy baseEnemy)
 		{

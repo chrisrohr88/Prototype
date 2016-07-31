@@ -26,7 +26,7 @@ namespace SF.CustomInspector.Drawers
 		public GenericDrawer(Object objectToDraw, bool enableFoldout = false, string name = "")
 		{
 			_objectToDraw = objectToDraw;
-			_label = name;
+			_label = string.IsNullOrEmpty(name) ? objectToDraw.name : name;
 			_foldoutEnabled = enableFoldout;
 			CustomInspectorReflector.GatherMembers(_objectToDraw, _valuesToDraw, _objectsToDraw);
 		}

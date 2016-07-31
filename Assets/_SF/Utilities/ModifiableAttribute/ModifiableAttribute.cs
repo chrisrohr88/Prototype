@@ -2,14 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using SF.Utilities.Extensions;
+using SF.CustomInspector.Attributes;
 
 namespace SF.Utilities.ModifiableAttributes
 {
 	public class ModifiableAttribute
 	{
 	    #region Fields, Members, and Properties
-	    [SerializeField] private float _baseValue = 0;
-		[SerializeField] private float _modifiedValue = 0;
+		[InspectorValue] private float _baseValue = 0;
+		[InspectorValue] private float _modifiedValue = 0;
 	    private int _nextKey = 0;
 	    private int _nextPermanentKey = -1;
 	    private Modifier _firstToExpireModifier = null;

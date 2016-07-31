@@ -7,17 +7,17 @@ using SF.CustomInspector.Drawers;
 
 namespace SF.CustomInspector.Inspectors
 {
-	[CustomEditor(typeof(BaseEnemy))]
-	[CanEditMultipleObjects]
-	public class EnemyInspector : UnityEditor.Editor 
+	public abstract class GenericInspector : UnityEditor.Editor 
 	{
 		private GenericDrawer _drawer;
 
-		public void OnEnable()
+		protected abstract string Label { get; }
+
+		private void OnEnable()
 		{
 			if(_drawer == null)
 			{
-				_drawer = new GenericDrawer(target, false);
+				_drawer = new GenericDrawer(target, false, Label);
 			}
 		}
 
@@ -29,6 +29,19 @@ namespace SF.CustomInspector.Inspectors
 		private void DrawObject()
 		{
 			_drawer.Draw();
+		}
+	}
+
+	[CustomEditor(typeof(BaseEnemy))]
+	[CanEditMultipleObjects]
+	public class EnemyInspector : GenericInspector
+	{
+		protected override string Label
+		{ 
+			get 
+			{
+				return "Enemy";
+			}
 		}
 	}
 }

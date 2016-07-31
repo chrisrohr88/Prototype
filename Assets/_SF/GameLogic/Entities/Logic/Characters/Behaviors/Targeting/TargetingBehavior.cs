@@ -1,11 +1,12 @@
 using UnityEngine;
 using SF.GameLogic.Entities.Logic.Charaters.Enemies;
+using SF.CustomInspector.Attributes;
 
 namespace SF.GameLogic.Entities.Logic.Charaters.Behaviors.Targeting
 {
 	public abstract class TargetingBehavior
 	{
-		protected Vector3 _target;
+		[InspectorValue] protected Vector3 _target;
 
 		public Enemy Enemy { get; set; }
 		public bool HasTarget { get; protected set;}

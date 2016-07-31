@@ -7,7 +7,6 @@ namespace SF.GameLogic.Entities.Logic.Weapons.TriggerAdapters
 {
 	public abstract class TriggerAdapter
 	{
-
 		public enum States
 		{
 			Firing,

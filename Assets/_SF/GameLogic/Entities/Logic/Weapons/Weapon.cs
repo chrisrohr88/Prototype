@@ -13,30 +13,31 @@ using SF.GameLogic.EventSystem.EventData;
 using SF.GameLogic.EventSystem.EventRegistrars;
 using SF.Utilities.ModifiableAttributes;
 using SF.Utilities;
+using SF.CustomInspector.Attributes;
 
 namespace SF.GameLogic.Entities.Logic.Weapons
 {
 	public class Weapon : Entity
 	{
-		public string Name { get; private set; }
-		public AmmoType AmmoType { get; private set; }
-		public ModifiableAttribute MaxAmmo { get; private set; }
-		public ModifiableAttribute Accuracy { get; private set; }
-		public ModifiableAttribute BaseDamage { get; private set; }
-		public ModifiableAttribute RateOfFire { get; private set; }
-		public ModifiableAttribute ReloadTime { get; private set; }
-		public ModifiableAttribute AttackPower { get; private set; }
-		public ModifiableAttribute ChargeTime { get; private set; }
-		public ModifiableAttribute BurstTime { get; private set; }
-		public ModifiableAttribute BurstCount { get; private set; }
-		public ModifiableAttribute DeviationTime { get; private set; }
-		public WeaponBehaviorType ActorBehaviorType { get; private set; }
-		public WeaponBehaviorType TriggerBehaviorType { get; private set; }
-		public Vector3 MinDeviation { get; private set; }
-		public Vector3 MaxDeviation { get; private set; }
-		public long PlayerEntityId { get; set; }
+		[InspectorValue] public string Name { get; private set; }
+		[InspectorValue] public AmmoType AmmoType { get; private set; }
+		[InspectorObject] public ModifiableAttribute MaxAmmo { get; private set; }
+		[InspectorObject] public ModifiableAttribute Accuracy { get; private set; }
+		[InspectorObject] public ModifiableAttribute BaseDamage { get; private set; }
+		[InspectorObject] public ModifiableAttribute RateOfFire { get; private set; }
+		[InspectorObject] public ModifiableAttribute ReloadTime { get; private set; }
+		[InspectorObject] public ModifiableAttribute AttackPower { get; private set; }
+		[InspectorObject] public ModifiableAttribute ChargeTime { get; private set; }
+		[InspectorObject] public ModifiableAttribute BurstTime { get; private set; }
+		[InspectorObject] public ModifiableAttribute BurstCount { get; private set; }
+		[InspectorObject] public ModifiableAttribute DeviationTime { get; private set; }
+		[InspectorValue] public WeaponBehaviorType ActorBehaviorType { get; private set; }
+		[InspectorValue] public WeaponBehaviorType TriggerBehaviorType { get; private set; }
+		[InspectorValue] public Vector3 MinDeviation { get; private set; }
+		[InspectorValue] public Vector3 MaxDeviation { get; private set; }
+		[InspectorValue] public long PlayerEntityId { get; set; }
 
-		public Transform FireTransform { get; private set; }
+		[InspectorValue] public Transform FireTransform { get; private set; }
 		public TriggerAdapter TriggerAdapter { get; private set; }
 
 		private InternalWeapon _internalWeapon;

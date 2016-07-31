@@ -1,16 +1,8 @@
-using UnityEngine;
-using UnityEditor;
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using SF.CustomInspector.Attributes;
-using SF.CustomInspector.Drawers;
 using SF.CustomInspector.Utilities;
-
-namespace SF.CustomInspector.Utilities
-{
-	
-}
 
 namespace SF.CustomInspector.Drawers.Helper
 {
@@ -43,7 +35,7 @@ namespace SF.CustomInspector.Drawers.Helper
 				{
 					var attribute = objectAttributes[0];
 					var memberInfoWrapper = new FieldInfoWrapper(field, attribute.Label, objectToReflect);
-					objectList.Add(new KeyValuePair<GenericDrawer, MemberInfoWrapper>(new InspectorObjectDrawer(memberInfoWrapper.GetValue(), attribute.EnableFoldout, attribute.Label), memberInfoWrapper));
+					objectList.Add(new KeyValuePair<GenericDrawer, MemberInfoWrapper>(new InspectorObjectDrawer(memberInfoWrapper.GetValue(), attribute.EnableFoldout, memberInfoWrapper.Label), memberInfoWrapper));
 				}
 			}
 		}
@@ -66,14 +58,9 @@ namespace SF.CustomInspector.Drawers.Helper
 				{
 					var attribute = objectAttributes[0];
 					var memberInfoWrapper = new PropertyInfoWrapper(property, attribute.Label, objectToReflect);
-					objectList.Add(new KeyValuePair<GenericDrawer, MemberInfoWrapper>(new InspectorObjectDrawer(memberInfoWrapper.GetValue(), attribute.EnableFoldout, attribute.Label), memberInfoWrapper));
+					objectList.Add(new KeyValuePair<GenericDrawer, MemberInfoWrapper>(new InspectorObjectDrawer(memberInfoWrapper.GetValue(), attribute.EnableFoldout, memberInfoWrapper.Label), memberInfoWrapper));
 				}
 			}
 		}
 	}
-}
-
-namespace SF.CustomInspector.Drawers
-{
-	
 }
