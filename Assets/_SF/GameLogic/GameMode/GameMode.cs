@@ -8,6 +8,8 @@ using SF.GameLogic.Data.Profiles;
 using SF.GameLogic.Entities.Logic.Charaters.Player;
 using SF.GameLogic.Entities.Logic.Spawner;
 using SF.Utilities.Managers;
+using SF.CustomInspector.Utilities;
+using SF.CustomInspector.Attributes;
 
 namespace SF.GameLogic.GameModes
 {
@@ -16,8 +18,8 @@ namespace SF.GameLogic.GameModes
 		public SinglePlayerScoreManager ScoreManager { get; private set; }
 
 		//TODO Do this better
-	    private FieldInteractable _field;
-		private Player _player;
+	    [InspectorValue] private FieldInteractable _field;
+		[InspectorObject] private Player _player;
 
 	    public Transform FireTransform
 	    {
@@ -26,6 +28,11 @@ namespace SF.GameLogic.GameModes
 	            return _field.FireTransform;
 	        }
 	    }
+
+		public GameMode()
+		{
+			InspectorManager.Add("Game Mode", this);
+		}
 
 		public void StartGame()
 	    {

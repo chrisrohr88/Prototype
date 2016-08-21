@@ -9,6 +9,12 @@ namespace SF.CustomInspector.Drawers
 	{
 		public static void DrawForType(MemberInfoWrapper member)
 		{
+			var enabledStateOfGUI = GUI.enabled;
+			if(member.IsReadOnly)
+			{
+				GUI.enabled = false;
+			}
+
 			if(member.ValueType == typeof(float))
 			{
 				DrawFloat(member, member.Label);
@@ -29,6 +35,10 @@ namespace SF.CustomInspector.Drawers
 			{
 				DrawVector3(member, member.Label);
 			}
+			else if(member.ValueType == typeof(bool))
+			{
+				DrawBool(member, member.Label);
+			}
 			else if(member.ValueType.IsEnum)
 			{
 				DrawEnum(member, member.Label);
@@ -36,6 +46,11 @@ namespace SF.CustomInspector.Drawers
 			else
 			{
 				DrawObject(member, member.Label);
+			}
+
+			if(member.IsReadOnly)
+			{
+				GUI.enabled = enabledStateOfGUI;
 			}
 		}
 
@@ -47,6 +62,11 @@ namespace SF.CustomInspector.Drawers
 		public static void DrawLong(MemberInfoWrapper info, string label)
 		{
 			info.SetValue(EditorGUILayout.LongField(label, (long)info.GetValue()));
+		}
+
+		public static void DrawBool(MemberInfoWrapper info, string label)
+		{
+			info.SetValue(EditorGUILayout.Toggle(label, (bool)info.GetValue()));
 		}
 
 		public static void DrawVaector3(MemberInfoWrapper info, string label)

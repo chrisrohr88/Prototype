@@ -6,10 +6,8 @@ namespace SF.GameLogic.Entities.Logic.Charaters.Enemies
 {
 	public class BaseEnemy : MonoBehaviour
 	{
-		[SerializeField] [InspectorValue(Label = "Death Prefab")] protected GameObject _deathEffectPrefab;
-
-		[SerializeField] [InspectorValue] protected Transform _spawnTransform;[SerializeField] 
-		[InspectorValue] protected float _test = 0;
+		[SerializeField][InspectorValue(Label = "Death Prefab")] protected GameObject _deathEffectPrefab;
+		[SerializeField][InspectorValue] protected Transform _spawnTransform;
 
 		[InspectorObject(EnableFoldout = true, Label = "Enemy")] public Enemy Enemy { get; set; }
 	    

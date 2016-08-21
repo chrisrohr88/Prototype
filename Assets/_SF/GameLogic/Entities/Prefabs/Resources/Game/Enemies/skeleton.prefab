@@ -1222,9 +1222,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d65bad693cd976645a758e301fcbd3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _deathEffectPrefab: {fileID: 100000, guid: c3f22bd959976104cab5a7da1bffde5d, type: 2}
+  _deathEffectPrefab: {fileID: 100000, guid: 8d971ee7af4418342b6f616932f02665, type: 2}
   _spawnTransform: {fileID: 426348}
-  _test: 6.52
+  _test: 8.46
 --- !u!137 &13702532
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

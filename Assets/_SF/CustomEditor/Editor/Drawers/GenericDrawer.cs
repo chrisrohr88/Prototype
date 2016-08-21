@@ -16,6 +16,7 @@ namespace SF.CustomInspector.Drawers
 		protected bool _foldout = true;
 		protected bool _foldoutEnabled = false;
 		protected string _label = "";
+		protected bool _isReadOnly = false;
 		protected List<MemberInfoWrapper> _valuesToDraw = new List<MemberInfoWrapper>();
 		protected List<KeyValuePair<GenericDrawer, MemberInfoWrapper>> _objectsToDraw = new List<KeyValuePair<GenericDrawer, MemberInfoWrapper>>();
 
@@ -23,16 +24,23 @@ namespace SF.CustomInspector.Drawers
 		{
 		}
 
-		public GenericDrawer(Object objectToDraw, bool enableFoldout = false, string name = "")
+		public GenericDrawer(Object objectToDraw, bool enableFoldout = false, string name = "", bool isReadOnly = false)
 		{
 			_objectToDraw = objectToDraw;
 			_label = string.IsNullOrEmpty(name) ? objectToDraw.name : name;
 			_foldoutEnabled = enableFoldout;
+			_isReadOnly = isReadOnly;
 			CustomInspectorReflector.GatherMembers(_objectToDraw, _valuesToDraw, _objectsToDraw);
 		}
 
 		public virtual void Draw()
 		{
+			var enabledStateOfGUI = GUI.enabled;
+			if(_isReadOnly)
+			{
+				GUI.enabled = false;
+			}
+
 			if(_foldoutEnabled)
 			{
 				DrawWithFoldout();
@@ -40,6 +48,13 @@ namespace SF.CustomInspector.Drawers
 			else
 			{
 				DrawWithoutFoldout();
+			}
+			CheckForGUIChanges();
+
+
+			if(_isReadOnly)
+			{
+				GUI.enabled = enabledStateOfGUI;
 			}
 		}
 

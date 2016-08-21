@@ -7,14 +7,24 @@ namespace SF.CustomInspector.Utilities
 		{
 			get 
 			{
-				return _label;
+				return GetValidLabel(_label);
 			}
-			protected set 
+			private set
 			{
-				_label = GetValidLabel(value);
+				_label = value;
 			}
 		}
-		public object ReflectedObject { get; protected set; }
+
+		public object ReflectedObject { get; private set; }
+		public bool IsReadOnly { get; private set; }
+
+		public MemberInfoWrapper(string label, object reflectedObject, bool isReadOnly)
+		{
+			Label = label;
+			ReflectedObject = reflectedObject;
+			IsReadOnly = isReadOnly;
+		}
+
 
 		public abstract System.Type ValueType { get; }
 

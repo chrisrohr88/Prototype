@@ -15,11 +15,13 @@ namespace SF.CustomInspector.Utilities
 			}
 		}
 
-		public PropertyInfoWrapper(PropertyInfo info, string label, object reflectedObject)
+		public PropertyInfoWrapper(
+			PropertyInfo info, 
+			string label, 
+			object reflectedObject, 
+			bool isReadOnly = false) : base(label, reflectedObject, isReadOnly)
 		{
 			Info = info;
-			Label = label;
-			ReflectedObject = reflectedObject;
 		}
 
 		public override object GetValue()

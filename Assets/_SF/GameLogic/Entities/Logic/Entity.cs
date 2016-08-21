@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FlakeGen;
 using SF.EventSystem;
 using SF.GameLogic.Data.Enums;
+using SF.CustomInspector.Attributes;
 
 namespace SF.GameLogic.Entities.Logic
 {
@@ -13,12 +14,11 @@ namespace SF.GameLogic.Entities.Logic
 
 		protected EventRegistrar _eventRegistar;
 
-		public long EntityId { get; private set; }
+		[InspectorValue(IsreadOnly = true)] public long EntityId { get; private set; }
 
 		public Entity()
 		{
 			EntityId = ID_GENERATOR.GenerateId();
-			Debug.Log(EntityId);
 		}
 
 		protected virtual void OnDeath()

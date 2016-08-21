@@ -64,15 +64,15 @@ namespace SF.GameLogic.Entities.Logic.Weapons.TriggerAdapters
 		{
 			switch(eventType)
 			{
-			case WeaponTriggerEvents.Held:
-				SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerHold, OriginId = _weapon.EntityId, TargetId = _weapon.EntityId, TargetPosition = TargetPosition });
-				break;
-			case WeaponTriggerEvents.Pulled:
-				SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerPull, OriginId = _weapon.EntityId, TargetId = _weapon.EntityId, TargetPosition = TargetPosition });
-				break;
-			case WeaponTriggerEvents.Released:
-				SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerRelease, OriginId = _weapon.EntityId, TargetId = _weapon.EntityId, TargetPosition = TargetPosition });				
-				break;
+				case WeaponTriggerEvents.Held:
+					SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerHold, OriginId = _weapon.EntityId, TargetId = _weapon.EntityId, TargetPosition = TargetPosition });
+					break;
+				case WeaponTriggerEvents.Pulled:
+					SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerPull, OriginId = _weapon.EntityId, TargetId = _weapon.EntityId, TargetPosition = TargetPosition });
+					break;
+				case WeaponTriggerEvents.Released:
+					SFEventManager.FireEvent(new WeaponTriggerEventData { EventType = SFEventType.WeaponTriggerRelease, OriginId = _weapon.EntityId, TargetId = _weapon.EntityId, TargetPosition = TargetPosition });				
+					break;
 			}
 		}
 

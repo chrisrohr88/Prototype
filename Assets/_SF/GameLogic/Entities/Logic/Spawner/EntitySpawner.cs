@@ -5,19 +5,23 @@ using UnityEngine;
 using SF.GameLogic.Entities.Logic.Charaters.Enemies;
 using SF.GameLogic.EventSystem.EventRegistrars;
 using SF.Utilities.Managers;
+using SF.CustomInspector.Attributes;
+using SF.CustomInspector.Utilities;
 
 namespace SF.GameLogic.Entities.Logic.Spawner
 {
 	public class EntitySpawner
 	{
 		private List<BaseEnemy> _spawnedEnemies;
-		private List<SpawnArea> _spawnAreas;
-		private bool _isSpawning = false;
+		[InspectorObject] private List<SpawnArea> _spawnAreas;
+		[InspectorValue] private bool _isSpawning = false;
+		[InspectorValue] public int _test = 0;
 
 		public EntitySpawner()
 		{
 			_spawnedEnemies = new List<BaseEnemy>();
 			new SpawnerEventRegistrar(this);
+			InspectorManager.Add("EntitySpawner", this);
 		}
 
 		public void OnLevelStart(SFEventData eventData)
@@ -40,11 +44,19 @@ namespace SF.GameLogic.Entities.Logic.Spawner
 
 		private IEnumerator BeginSpawning()
 		{
-			while (_isSpawning)
+			while (true)
 			{
+				SpawnEntity();
+				yield return new WaitForSeconds(5);
+			}
+		}
+
+		private void SpawnEntity()
+		{
+			if(_isSpawning)
+			{					
 				var enemy = _spawnAreas[0].SpawnEnemy(SpawnManager.GetRandomEnemyProfile());
 				_spawnedEnemies.Add(enemy);
-				yield return new WaitForSeconds(5);
 			}
 		}
 

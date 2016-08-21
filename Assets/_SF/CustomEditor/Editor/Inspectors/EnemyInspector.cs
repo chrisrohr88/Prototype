@@ -4,6 +4,8 @@ using System.Collections;
 using System.Reflection;
 using SF.GameLogic.Entities.Logic.Charaters.Enemies;
 using SF.CustomInspector.Drawers;
+using SF.GameLogic.Entities.Logic.Spawner;
+using SF.CustomInspector.Utilities;
 
 namespace SF.CustomInspector.Inspectors
 {
@@ -41,6 +43,18 @@ namespace SF.CustomInspector.Inspectors
 			get 
 			{
 				return "Enemy";
+			}
+		}
+	}
+
+	[CustomEditor(typeof(MockGameObject))]
+	public class MockGameObjectInspector : GenericInspector
+	{
+		protected override string Label
+		{ 
+			get 
+			{
+				return ((MockGameObject)target).Name;
 			}
 		}
 	}
