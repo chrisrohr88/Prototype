@@ -2,6 +2,9 @@
 {
 	public enum AmmoType
 	{
-		Fire
+		Fire = 1,
+		Water = 2,
+		Earth = 4,
+		Air = 8
 	}
 }

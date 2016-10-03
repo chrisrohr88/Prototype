@@ -4,7 +4,7 @@
 	"RateOfFire": 650,
 	"AttackPower": 100,
 	"ReloadTime": 3,
-	"AmmoType": 0,
+	"AmmoType": 1,
 	"Accuracy": 0.80,
 	"MaxAmmo": 100,
 	"FireBehaviorType": 1

@@ -14,7 +14,7 @@ namespace SF.GameLogic.Entities.Logic
 
 		protected EventRegistrar _eventRegistar;
 
-		[InspectorValue(IsreadOnly = true)] public long EntityId { get; private set; }
+		[InspectorValue(Options = OptionType.ReadOnly)] public long EntityId { get; private set; }
 
 		public Entity()
 		{

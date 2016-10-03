@@ -2,14 +2,15 @@
 using System.Collections;
 using SF.Utilities.Extensions;
 using SF.Utilities.ModifiableAttributes;
+using SF.CustomInspector.Attributes;
 
 namespace SF.GameLogic.Entities.Logic.Components
 {
 	public class HealthComponent
 	{
-		private ModifiableAttribute _maxHealthAttribute = null;
-		private float _currentHealth;
-		private bool _isDead;
+		[InspectorObject] private ModifiableAttribute _maxHealthAttribute = null;
+		[InspectorValue] private float _currentHealth;
+		[InspectorValue(Options = OptionType.ReadOnly)] private bool _isDead;
 
 	    public float TestHealth
 	    {

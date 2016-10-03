@@ -4,7 +4,7 @@
 	"RateOfFire": 3500,
 	"AttackPower": 500,
 	"ReloadTime": 4,
-	"AmmoType": 0,
+	"AmmoType": 1,
 	"ChargeTime": 1,
 	"Accuracy": 0.75,
 	"MaxAmmo": 50,

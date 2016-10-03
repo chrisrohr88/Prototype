@@ -15,7 +15,7 @@ namespace SF.GameLogic.Entities.Logic.Charaters.Player
 {
 	public class Player : Character
 	{
-		[InspectorObject(IsreadOnly = true)] public Weapon Weapon { get; private set; }
+		[InspectorObject] public Weapon Weapon { get; private set; }
 		public int id = 1;
 
 	    public static Player Create(float baseHealth)

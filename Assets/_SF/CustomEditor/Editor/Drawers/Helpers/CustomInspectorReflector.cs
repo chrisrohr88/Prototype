@@ -27,7 +27,7 @@ namespace SF.CustomInspector.Drawers.Helper
 				if(attributes.Length > 0)
 				{
 					var attribute = attributes[0];
-					var fieldInfoWrapper = new FieldInfoWrapper(field, attribute.Label, objectToReflect, attribute.IsreadOnly);
+					var fieldInfoWrapper = new FieldInfoWrapper(field, attribute.Label, objectToReflect, attribute.Options);
 					valueList.Add(fieldInfoWrapper);
 				}
 
@@ -35,8 +35,8 @@ namespace SF.CustomInspector.Drawers.Helper
 				if(objectAttributes.Length > 0)
 				{
 					var attribute = objectAttributes[0];
-					var memberInfoWrapper = new FieldInfoWrapper(field, attribute.Label, objectToReflect, attribute.IsreadOnly);
-					objectList.Add(new KeyValuePair<GenericDrawer, MemberInfoWrapper>(new InspectorObjectDrawer(memberInfoWrapper.GetValue(), attribute.EnableFoldout, memberInfoWrapper.Label, memberInfoWrapper.IsReadOnly), memberInfoWrapper));
+					var memberInfoWrapper = new FieldInfoWrapper(field, attribute.Label, objectToReflect, attribute.Options);
+					objectList.Add(new KeyValuePair<GenericDrawer, MemberInfoWrapper>(new InspectorObjectDrawer(memberInfoWrapper.GetValue(), !attribute.DisableFoldout, memberInfoWrapper.Label, memberInfoWrapper.IsReadOnly), memberInfoWrapper));
 				}
 			}
 		}
@@ -51,7 +51,7 @@ namespace SF.CustomInspector.Drawers.Helper
 				if(attributes.Length > 0)
 				{
 					var attribute = attributes[0];
-					var propertyInfoWrapper = new PropertyInfoWrapper(property, attribute.Label, objectToReflect, attribute.IsreadOnly);
+					var propertyInfoWrapper = new PropertyInfoWrapper(property, attribute.Label, objectToReflect, attribute.Options);
 					valueList.Add(propertyInfoWrapper);
 				}
 
@@ -59,8 +59,8 @@ namespace SF.CustomInspector.Drawers.Helper
 				if(objectAttributes.Length > 0)
 				{
 					var attribute = objectAttributes[0];
-					var memberInfoWrapper = new PropertyInfoWrapper(property, attribute.Label, objectToReflect, attribute.IsreadOnly);
-					objectList.Add(new KeyValuePair<GenericDrawer, MemberInfoWrapper>(new InspectorObjectDrawer(memberInfoWrapper.GetValue(), attribute.EnableFoldout, memberInfoWrapper.Label, memberInfoWrapper.IsReadOnly), memberInfoWrapper));
+					var memberInfoWrapper = new PropertyInfoWrapper(property, attribute.Label, objectToReflect, attribute.Options);
+					objectList.Add(new KeyValuePair<GenericDrawer, MemberInfoWrapper>(new InspectorObjectDrawer(memberInfoWrapper.GetValue(), !attribute.DisableFoldout, memberInfoWrapper.Label, memberInfoWrapper.IsReadOnly), memberInfoWrapper));
 				}
 			}
 		}

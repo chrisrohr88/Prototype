@@ -20,7 +20,7 @@ namespace SF.GameLogic.Entities.Logic.Weapons
 	public class Weapon : Entity
 	{
 		[InspectorValue] public string Name { get; private set; }
-		[InspectorValue] public AmmoType AmmoType { get; private set; }
+		[InspectorValue(Options = OptionType.EnumMask)] public AmmoType AmmoType { get; private set; }
 		[InspectorObject] public ModifiableAttribute MaxAmmo { get; private set; }
 		[InspectorObject] public ModifiableAttribute Accuracy { get; private set; }
 		[InspectorObject] public ModifiableAttribute BaseDamage { get; private set; }

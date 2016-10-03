@@ -2,6 +2,7 @@
 using System.Reflection;
 using UnityEditor;
 using SF.CustomInspector.Utilities;
+using SF.CustomInspector.Attributes;
 
 namespace SF.CustomInspector.Drawers
 {
@@ -41,7 +42,14 @@ namespace SF.CustomInspector.Drawers
 			}
 			else if(member.ValueType.IsEnum)
 			{
-				DrawEnum(member, member.Label);
+				if((member.Options & OptionType.EnumMask) != 0)
+				{
+					DrawEnumMask(member, member.Label);
+				}
+				else
+				{
+					DrawEnum(member, member.Label);
+				}
 			}
 			else
 			{
@@ -77,6 +85,11 @@ namespace SF.CustomInspector.Drawers
 		public static void DrawEnum(MemberInfoWrapper info, string label)
 		{
 			info.SetValue(EditorGUILayout.EnumPopup(label, (System.Enum)System.Enum.Parse(info.GetValue().GetType(), info.GetValue().ToString())));
+		}
+
+		public static void DrawEnumMask(MemberInfoWrapper info, string label)
+		{
+			info.SetValue(EditorGUILayout.EnumMaskField(label, (System.Enum)System.Enum.Parse(info.GetValue().GetType(), info.GetValue().ToString())));
 		}
 
 		public static void DrawInt(MemberInfoWrapper info, string label)

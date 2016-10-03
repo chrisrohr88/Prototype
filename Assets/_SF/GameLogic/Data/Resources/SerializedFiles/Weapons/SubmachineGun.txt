@@ -4,7 +4,7 @@
 	"RateOfFire": 100,
 	"AttackPower": 500,
 	"ReloadTime": 1.5,
-	"AmmoType": 0,
+	"AmmoType": 1,
 	"Accuracy": 0.85,
 	"MaxAmmo": 50,
 	"BurstCount": 5,

@@ -1,8 +1,9 @@
 using System.Reflection;
+using System.Collections.Generic;
+using SF.CustomInspector.Attributes;
 
 namespace SF.CustomInspector.Utilities
 {
-
 	public class PropertyInfoWrapper : MemberInfoWrapper
 	{
 		public PropertyInfo Info { get; private set; }
@@ -18,8 +19,8 @@ namespace SF.CustomInspector.Utilities
 		public PropertyInfoWrapper(
 			PropertyInfo info, 
 			string label, 
-			object reflectedObject, 
-			bool isReadOnly = false) : base(label, reflectedObject, isReadOnly)
+			object reflectedObject,
+			OptionType options = OptionType.None) : base(label, reflectedObject, options)
 		{
 			Info = info;
 		}

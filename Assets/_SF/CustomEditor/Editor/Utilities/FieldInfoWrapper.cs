@@ -1,4 +1,5 @@
 using System.Reflection;
+using SF.CustomInspector.Attributes;
 
 namespace SF.CustomInspector.Utilities
 {
@@ -17,8 +18,8 @@ namespace SF.CustomInspector.Utilities
 		public FieldInfoWrapper(
 			FieldInfo info, 
 			string label, 
-			object reflectedObject, 
-			bool isReadOnly = false) : base(label, reflectedObject, isReadOnly)
+			object reflectedObject,
+			OptionType options = OptionType.None) : base(label, reflectedObject, options)
 		{
 			Info = info;
 		}

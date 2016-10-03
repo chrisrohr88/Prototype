@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using SF.CustomInspector.Attributes;
+
 namespace SF.CustomInspector.Utilities
 {
 	public abstract class MemberInfoWrapper
@@ -16,13 +19,21 @@ namespace SF.CustomInspector.Utilities
 		}
 
 		public object ReflectedObject { get; private set; }
-		public bool IsReadOnly { get; private set; }
+		public bool IsReadOnly
+		{
+			get
+			{
+				return Options.HasFlag(OptionType.ReadOnly);
+			}
+		}
 
-		public MemberInfoWrapper(string label, object reflectedObject, bool isReadOnly)
+		public OptionType Options { get; set; }
+ 
+		public MemberInfoWrapper(string label, object reflectedObject, OptionType options)
 		{
 			Label = label;
 			ReflectedObject = reflectedObject;
-			IsReadOnly = isReadOnly;
+			Options = options;
 		}
 
 

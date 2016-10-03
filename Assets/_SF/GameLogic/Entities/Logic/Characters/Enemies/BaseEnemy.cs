@@ -9,7 +9,7 @@ namespace SF.GameLogic.Entities.Logic.Charaters.Enemies
 		[SerializeField][InspectorValue(Label = "Death Prefab")] protected GameObject _deathEffectPrefab;
 		[SerializeField][InspectorValue] protected Transform _spawnTransform;
 
-		[InspectorObject(EnableFoldout = true, Label = "Enemy")] public Enemy Enemy { get; set; }
+		[InspectorObject(Label = "Enemy")] public Enemy Enemy { get; set; }
 	    
 		public Transform SpawnTransform
 		{
